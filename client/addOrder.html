@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "./index.css">
+</head>
+<body>
+    <div class = "main">
+        <div class = "head">
+            <a href = "#" class = "hItem">клиент</a>
+            <a href = "profileOrder.html" class = "hItem">закази</a>
+            <a href = "" class = "hItem">примерка</a>
+            <a href = "" class = "hItem">баланс клиента</a>
+            <a href = "" class = "hItem">поступивший материал</a>
+            <a href = "" class = "hItem">склад</a>
+            <a href = "" class = "hItem">услуги</a>
+            <a href = "" class = "hItem">расходы</a>
+            <a href = "" class = "hItem">сост ... склад</a>
+        </div>
+        <form class = "orderCont">
+            <div class = "section">
+                <p>номер заказа</p>
+                <input disabled type = "number" name = "numberOrder" id = "numberOrder">
+                <p>дата заказа</p>
+                <input type = "date" name = "date" id = "date">
+                <p>тип заказа</p>
+                <select onchange = "handleChange()" name = "typeOrder" id = "typeOrder">
+                    <option value = "1">шапка</option>
+                    <option value = "2">шарф</option>
+                </select>
+                <p>материал заказчика</p>
+                <textarea name = "customerMaterial" id = "customerMaterial" cols="3" rows="5"></textarea>
+            </div>
+            <div class = "section">
+                <p>сумма заказа</p>
+                <input type = "number" name = "sumOrder" id = "sumOrder">
+                <p>оплачено</p>
+                <input onchange = "handleDebt()" type = "number" name = "paid" id = "paid">
+                <p>долг</p>
+                <input type = "number" name = "debt" id = "debt">
+                <p>статус клиента</p>
+                <select name = "customerStatus" id = "customerStatus">
+                    <option value = "1">важный</option>
+                    <option value = "2">неважный</option>
+                    <option value = "3">vip</option>
+                </select>
+                <p>испольнитель</p>
+                <select name = "executor" id = "executor">
+                    <option value = "1">somebody</option>
+                    <option value = "2">jack</option>
+                    <option value = "3">vip</option>
+                </select>
+                <p>ответственный</p>
+                <h2>s</h2>
+            </div>
+            <div class = "section">
+                <p>заметки</p>
+                <textarea name = "notice" id = "notice" cols="25" rows="5"></textarea>
+                <p>код клиента</p>
+                <select name = "clientCod" id = "clientCod">
+                    <option value = "1">somebody</option>
+                    <option value = "2">jack</option>
+                    <option value = "3">vip</option>
+                </select>
+                <input class = "submit buttonHover" type = "submit" value = "добавить">
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+let typeOrder = document.getElementById('typeOrder')
+let sumOrder = document.getElementById('sumOrder')
+let paid = document.getElementById('paid')
+let debt = document.getElementById('debt')
+const ordersPrice = {
+    sharf: 1000,
+    shapka: 25000
+}
+const handleChange = () => sumOrder.value = ordersPrice.sharf
+
+const handleDebt = () => debt.value = sumOrder.value - paid.value 
+
+</script>
+</html>
