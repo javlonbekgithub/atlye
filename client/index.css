@@ -13,6 +13,8 @@
     --darkGreen: #18722d;
     --lightBlue: #17a2b8;
     --darkBlue: #126c7a;
+    --red: #dc3545;
+    --darkRed: #861f29;
 }
 a {
     display: inline-block;
@@ -66,6 +68,40 @@ label {
     background-color: var(--darkGreen);
     cursor: pointer;
     transition: ease-in-out 0.2s;
+}
+.cancelHover:hover {
+    background-color: var(--darkRed);
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+.title {
+    width: 100%;
+    display: flex;
+    color: #fff;
+    text-shadow: var(--shadow);
+    padding: 1em;
+}
+.sectionCont {
+    display: flex;
+    width: max-content;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: max-content;
+}
+.buttonCont {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.cancel {
+    display: inline-block;
+    margin: 1em;
+    font-size: 1.2em;
+    background-color: var(--red);
+    box-shadow: var(--shadow);
+    padding: 1em 3em;
+    color: #fff;
+    border-radius: 0.3em;
 }
 
 .main {
@@ -143,7 +179,6 @@ label {
         .secondLayer {
             display: flex;
             width: 100%;
-            margin-top: 2em;
             background-color: var(--bgc);
             padding: 1em;
             box-shadow: var(--shadow);
@@ -178,12 +213,16 @@ label {
         width: 100%;
         height: 100%;
         overflow-y: scroll;
+        padding-bottom: 1em;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }                
         .formBox {
-            margin: 5em 0;
             display: flex;
+            flex-direction: column;
+            width: max-content;
+            margin-bottom: 1em;
             justify-content: flex-start;
             align-items: flex-start;
             height: max-content;
@@ -202,6 +241,7 @@ label {
             }
         .orderCont {
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
             justify-content: center;
             background-color: var(--bgc);

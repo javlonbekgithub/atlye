@@ -10,7 +10,7 @@
     <div class = "main">
         <div class = "overflow">
             <div class = "head">
-                <a href = "#" class = "hItem">клиент</a>
+                <a href = "./profile.html" class = "hItem">клиент</a>
                 <a href = "profileOrder.html" class = "hItem">закази</a>
                 <a href = "" class = "hItem">примерка</a>
                 <a href = "" class = "hItem">баланс клиента</a>
@@ -20,56 +20,64 @@
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
+            <div class = "title">
+                <h1>создать клиента</h1>
+            </div>
             <form class = "formBox">
-                <div class = "left">
-                    <p>клиент</p>
-                    <input name = "name" placeholder = "имя" type = "text" id = "client">
-                    <p>адрес</p>
-                    <input name = "addres" placeholder = "адрес" type = "text" id = "addres">
-                    <p>телефон</p>
-                    <input name = "telephone" placeholder = "+123456789" type = "text" id = "telephone">
-                    <p>e-mail</p>
-                    <input name = "e-mail" placeholder = "эл-адрес" type = "email" id = "email">
-                    <p>статус клиента</p>
-                    <select name = "statusClient" id = 'statusClient'>
-                        <option value = "1">новый</option>
-                        <option value = "2">постоянный</option>
-                        <option value = "3">VIP</option>
-                    </select>
-                    <p>дата рождение</p>
-                    <input name = "birthday" type = "date" id = "birthday">
-                    <p>пасспортные данные</p>
-                    <textarea name = "infoPassport" id = "infoPassport" cols="3" rows="5"></textarea>
-                    <p>тип фигури</p>
-                    <select name = "shape" id = 'shape'>
-                        <option value = "1">квадратный</option>
-                        <option value = "2">трапеция</option>
-                    </select>
-                    <p>размер</p>
-                    <select name = "size" id = 'size'>
-                        <option value = "s">s</option>
-                        <option value = "m">m</option>
-                        <option value = "xl">xl</option>
-                    </select>
+                <div class = "sectionCont">
+                    <div class = "left">
+                        <p>клиент</p>
+                        <input name = "name" placeholder = "имя" type = "text" id = "client">
+                        <p>адрес</p>
+                        <input name = "addres" placeholder = "адрес" type = "text" id = "addres">
+                        <p>телефон</p>
+                        <input name = "telephone" placeholder = "+123456789" type = "text" id = "telephone">
+                        <p>e-mail</p>
+                        <input name = "e-mail" placeholder = "эл-адрес" type = "email" id = "email">
+                        <p>статус клиента</p>
+                        <select name = "statusClient" id = 'statusClient'>
+                            <option value = "1">новый</option>
+                            <option value = "2">постоянный</option>
+                            <option value = "3">VIP</option>
+                        </select>
+                        <p>дата рождение</p>
+                        <input name = "birthday" type = "date" id = "birthday">
+                        <p>пасспортные данные</p>
+                        <textarea name = "infoPassport" id = "infoPassport" cols="3" rows="5"></textarea>
+                        <p>тип фигури</p>
+                        <select name = "shape" id = 'shape'>
+                            <option value = "1">квадратный</option>
+                            <option value = "2">трапеция</option>
+                        </select>
+                        <p>размер</p>
+                        <select name = "size" id = 'size'>
+                            <option value = "s">s</option>
+                            <option value = "m">m</option>
+                            <option value = "xl">xl</option>
+                        </select>
+                    </div>
+                    <div class = "right">
+                        <p>заметки</p>
+                        <textarea name = "notes" id = "notes" cols = "3" rows = "5"></textarea>
+                        <p>источник информации</p>
+                        <select name = "source" id = 'source'>
+                            <option value = "1">реклама</option>
+                            <option value = "2">другой</option>
+                        </select>
+                        <p>сотрудники</p>
+                        <select name = "employee" id = 'employee'>
+                            <option value = "1">micheal jackson</option>
+                            <option value = "other">алла пугачёва</option>
+                        </select>
+                        <p>новое поле</p>
+                        <input name = "field" placeholder = "введите поле" type = "text" id = "newLine">
+                        <p>фото клиента</p>
+                        <input name = "photo" type = "file" id = "photo">
+                    </div>
                 </div>
-                <div class = "right">
-                    <p>заметки</p>
-                    <textarea name = "notes" id = "notes" cols = "3" rows = "5"></textarea>
-                    <p>источник информации</p>
-                    <select name = "source" id = 'source'>
-                        <option value = "1">реклама</option>
-                        <option value = "2">другой</option>
-                    </select>
-                    <p>сотрудники</p>
-                    <select name = "employee" id = 'employee'>
-                        <option value = "1">micheal jackson</option>
-                        <option value = "other">алла пугачёва</option>
-                    </select>
-                    <p>новое поле</p>
-                    <input name = "field" placeholder = "введите поле" type = "text" id = "newLine">
-                    <p>фото клиента</p>
-                    <input name = "photo" type = "file" id = "photo">
-                        <input class = "submit buttonHover" type = "submit" value = "создать">
+                <div class = "buttonCont">
+                    <a class = "cancel cancelHover" href = "./profile.html">отмена</a>
+                    <input class = "submit buttonHover" type = "submit" value = "создать">
                 </div>
             </form>
         </div>
