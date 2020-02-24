@@ -7,19 +7,82 @@
     <title>Document</title>
 </head>
 <body>
-    <div class = "main">
-        <div class = "head">
-            <a href = "#" class = "hItem">клиент</a>
-            <a href = "profileOrder.html" class = "hItem">закази</a>
-            <a href = "" class = "hItem">примерка</a>
-            <a href = "" class = "hItem">баланс клиента</a>
-            <a href = "" class = "hItem">поступивший материал</a>
-            <a href = "" class = "hItem">склад</a>
-            <a href = "" class = "hItem">услуги</a>
-            <a href = "" class = "hItem">расходы</a>
-            <a href = "" class = "hItem">сост ... склад</a>
+    <div class = "cont">
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "./profile.html" class = "hItem">клиент</a>
+                <a href = "./profileOrder.html" class = "hItem">закази</a>
+                <a href = "" class = "hItem">примерка</a>
+                <a href = "" class = "hItem">баланс клиента</a>
+                <a href = "" class = "hItem">поступивший материал</a>
+                <a href = "" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>примерка</h1>
+            </div>
+            <div class = "tryOnCont">
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">№</div>
+                        <div class = "tryOnV">1</div>
+                    </div>
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">дата примерки</div>
+                        <div class = "tryOnV">16.02.1616</div>
+                    </div>
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">тип примерки</div>
+                        <div class = "tryOnV">первая примерка</div>
+                    </div>
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">клиент</div>
+                        <div class = "tryOnV">табуреткин</div>
+                    </div>
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">примечание</div>
+                        <div class = "tryOnV">опщфыоыщlkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhаопоаорюю32к"Ю№Ю;К"№КЮА"№А</div>
+                    </div>
+                    <div class = "tryOnItem">
+                        <div class = "tryOnT">код заказа</div>
+                        <div class = "tryOnV">12</div>
+                    </div>
+            </div>
+            <div class = "tryOnCont">
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">2</div>
+                </div>
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">20.02.1616</div>
+                </div>
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">вторая примерка</div>
+                </div>
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">табуреткин</div>
+                </div>
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci fugit voluptate voluptas magnam optio similique. Neque perspiciatis explicabo, ducimus consequuntur eveniet repudiandae deserunt, possimus eum numquam in, optio molestias dolorem.</div>
+                </div>
+                <div class = "tryOnItem">
+                    <div class = "tryOnV">12</div>
+                </div>
+            </div>
         </div>
 
     </div>
 </body>
+<script>
+    
+tryOnCont = document.getElementsByClassName('tryOnCont')
+
+const classColor = () => {
+    for (let i = 0; i < tryOnCont.length; i++ ) {
+        i % 2 !== 0 && tryOnCont[i].classList.add('white')
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', classColor)
+</script>
 </html>

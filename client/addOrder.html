@@ -11,8 +11,8 @@
         <div class = "overflow">
             <div class = "head">
                 <a href = "./profile.html" class = "hItem">клиент</a>
-                <a href = "profileOrder.html" class = "hItem">закази</a>
-                <a href = "" class = "hItem">примерка</a>
+                <a href = "./profileOrder.html" class = "hItem">закази</a>
+                <a href = "./tryOn.html" class = "hItem">примерка</a>
                 <a href = "" class = "hItem">баланс клиента</a>
                 <a href = "" class = "hItem">поступивший материал</a>
                 <a href = "" class = "hItem">склад</a>
@@ -22,6 +22,9 @@
             </div>
             <div class = "title">
                 <h1>создать заказ</h1>
+            </div>
+            <div class = "events">
+
             </div>
             <form class = "orderCont">
                 <div class = "sectionCont">
@@ -76,6 +79,9 @@
                     <input class = "submit buttonHover" type = "submit" value = "добавить">
                 </div>
             </form>
+            <div id = "template">
+                
+            </div>
         </div>
     </div>
 </body>
@@ -84,6 +90,8 @@ let typeOrder = document.getElementById('typeOrder')
 let sumOrder = document.getElementById('sumOrder')
 let paid = document.getElementById('paid')
 let debt = document.getElementById('debt')
+let form = document.getElementsByClassName('orderCont')
+let template = document.getElementById('template')
 const ordersPrice = {
     sharf: 1000,
     shapka: 25000

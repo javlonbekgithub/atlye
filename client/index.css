@@ -20,6 +20,7 @@ a {
     display: inline-block;
     color: initial;
     text-decoration: none;
+    outline: none;
 }
 p {
     width: 100%;
@@ -102,6 +103,21 @@ label {
     padding: 1em 3em;
     color: #fff;
     border-radius: 0.3em;
+}
+.events {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+.center {
+    width: max-content;
+    height: 100%;
+    display: flex;
+    font-size: 2em;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1em;
 }
 
 .main {
@@ -253,4 +269,35 @@ label {
                 flex-direction: column;
                 margin: 0 2em;
             }
-        
+    .tryOnCont {
+        width: 100%;
+        display: flex;
+        background-color: var(--bgc);
+        padding: 1em 0;
+        background-color: #fff;
+    }
+    .white {
+        background-color: #f3eded;
+    }
+        .tryOnItem {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            word-break: break-all;
+        }
+            .tryOnT {
+                display: flex;
+                background-color: #f3eded;
+                font-weight: 600;
+                color: rgb(0, 0, 0);
+                padding: 0.8em;
+            }
+            .tryOnV {
+                display: flex;
+                padding: 0.8em;
+                margin-bottom: 0.5em;
+            }
+
+
+       
+    
