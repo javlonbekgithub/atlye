@@ -122,10 +122,15 @@ label {
     width: max-content;
     height: 100%;
     display: flex;
-    font-size: 2em;
+    font-size: 1.6em;
+    color: #000;
+    transition: ease-out 0.3s;
     align-items: center;
     justify-content: center;
     margin-left: 1em;
+}
+.center:hover {
+    color: var(--lightBlue);
 }
 .active {
     display: flex;
@@ -142,6 +147,10 @@ label {
 .active:hover {
     transition: ease-out 0.3s;
     background-color: var(--darkBlue);
+}
+.selectedItem {
+    color: #fff;
+    background-color: var(--green) !important;
 }
 
 .main {
@@ -253,7 +262,7 @@ label {
         width: 100%;
         height: 100%;
         overflow-y: scroll;
-        padding-bottom: 1em;
+        padding-bottom: 3em;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -296,16 +305,19 @@ label {
     .spreadsheetCont {
         width: 100%;
         display: flex;
-        background-color: var(--bgc);
         padding: 1em 0;
+        cursor: pointer;
         background-color: #fff;
+    }
+    .spreadsheetCont:hover {
+        background-color: #feffb3;
     }
     .spreadsheetContTitle {
         width: 100%;
         display: flex;
-        background-color: var(--bgc);
-        padding: 1em 0;
-        background-color: #fff;
+        margin-top: 1em;
+        padding: 0.5em 0;
+        background-color: #f3eded;
     }
     .white {
         background-color: #f3eded;
@@ -318,7 +330,6 @@ label {
         }
             .spreadsheetT {
                 display: flex;
-                background-color: #f3eded;
                 font-weight: 600;
                 color: rgb(0, 0, 0);
                 padding: 0.8em;

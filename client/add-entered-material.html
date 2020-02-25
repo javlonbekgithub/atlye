@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "./index.css">
+</head>
+<body>
+    <div class = "main">
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "./profile.html" class = "hItem">клиент</a>
+                <a href = "./profile-order.html" class = "hItem">закази</a>
+                <a href = "./try-on.html" class = "hItem">примерка</a>
+                <a href = "./balance.html" class = "hItem">баланс клиента</a>
+                <a href = "./entered-materials.html" class = "hItem">поступивший материал</a>
+                <a href = "" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>добавить поступивший материал</h1>
+            </div>
+            <form class = "orderCont">
+                <div class = "sectionCont">
+                    <div class = "section">
+                        <p>тип операции</p>
+                        <select name = "typeOperation" id = "typeOperation">
+                            <option value = "1">приход</option>
+                            <option value = "2">уход</option>
+                        </select>
+                        <p>дата заказа</p>
+                        <input type = "date" name = "dateOperation" id = "date">
+                        <p>документ</p>
+                        <select name = "document" id = "document">
+                            <option value = "1">номер накладного</option>
+                            <option value = "2">уход</option>
+                        </select>
+                        <p>примечание</p>
+                        <textarea name = "noticeOperation" id = "noticeOperation" cols="25" rows="5"></textarea>
+                    </div>
+                    <div class = "section">
+                        <p>сумма прихода</p>
+                        <input type = "number" name = "sumEnter" id = "sumEnter">
+                        <p>статус</p>
+                        <select name = "paidStatus" id = "paidStatus">
+                            <option value = "1">оплачено</option>
+                            <option value = "2">не оплачено</option>
+                            <option value = "3">vip</option>
+                        </select>
+                        <p>поставщик</p>
+                        <input type = "text" name = "supplier" id = "supplier">
+                    </div>
+                </div>
+                <div class = "buttonCont">
+                    <a class = "cancel cancelHover" href = "./profileOrder.html">назад</a>
+                    <input class = "submit buttonHover" type = "submit" value = "добавить">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+let typeOrder = document.getElementById('typeOrder')
+let sumOrder = document.getElementById('sumOrder')
+let paid = document.getElementById('paid')
+let debt = document.getElementById('debt')
+let form = document.getElementsByClassName('orderCont')
+let template = document.getElementById('template')
+const ordersPrice = {
+    sharf: 1000,
+    shapka: 25000
+}
+const handleChange = () => sumOrder.value = ordersPrice.sharf
+
+const handleDebt = () => debt.value = sumOrder.value - paid.value 
+
+</script>
+</html>
