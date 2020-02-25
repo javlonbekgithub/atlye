@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "./index.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class = "cont">
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "./profile.html" class = "hItem">клиент</a>
+                <a href = "./profile-order.html" class = "hItem">закази</a>
+                <a href = "./try-on.html" class = "hItem">примерка</a>
+                <a href = "" class = "active">баланс клиента</a>
+                <a href = "./entered-materials.html" class = "hItem">поступивший материал</a>
+                <a href = "" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>баланс клиента</h1>
+            </div>
+            <div class = "spreadsheetContTitle">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">№</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">клиент</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">начислено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">долг</div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">1</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">табуреткин</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV cost">94400</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV paid">45000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt"></div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">2</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">чебурашка</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV cost">65400</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV paid">45000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt"></div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">3</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">буратино</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV cost">654</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV paid">45000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt"></div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">4</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">друбби</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV cost">654000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV paid">45000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt"></div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">5</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">антошка</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV cost">2</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV paid">1</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type = "text/javascript">
+    
+spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+paid = document.getElementsByClassName('paid')
+debt = document.getElementsByClassName('debt')
+cost = document.getElementsByClassName('cost')
+
+const startFunc = () => {
+    for (let i = 0; i < spreadsheetCont.length; i++ ) {
+        debt[i].innerHTML = parseInt(cost[i].innerHTML) - parseInt(paid[i].innerHTML)
+        i % 2 !== 0 && spreadsheetCont[i].classList.add('white')
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', startFunc)
+</script>
+</html>

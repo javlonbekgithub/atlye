@@ -4,6 +4,14 @@
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+@media screen and (min-width: 1800px ) {
+    .cont {
+        font-size: 1.6em;
+    }
+    .main {
+        font-size: 1.6em;
+    }
+}
 :root {
     --bgc: rgba(255, 255, 255, 0.74);
     --shadow: 0px 8px 40px -23px rgba(0,0,0,0.75);
@@ -119,6 +127,22 @@ label {
     justify-content: center;
     margin-left: 1em;
 }
+.active {
+    display: flex;
+    text-align: center;
+    font-size: 1.2em;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 1em;
+    width: 100%;
+    background-color: var(--lightBlue);
+    color: #fff;
+}
+.active:hover {
+    transition: ease-out 0.3s;
+    background-color: var(--darkBlue);
+}
 
 .main {
     width: 100%;
@@ -175,6 +199,8 @@ label {
             display: flex;
             width: 100%;
             box-shadow: var(--shadow);
+            background-color: var(--bgc);
+            color: rgb(63, 63, 63);
         }
             .hItem {
                 display: flex;
@@ -182,11 +208,9 @@ label {
                 font-size: 1.2em;
                 align-items: center;
                 justify-content: center;
-                color: rgb(63, 63, 63);
                 cursor: pointer;
                 padding: 1em;
                 width: 100%;
-                background-color: var(--bgc);
             }
             .hItem:hover {
                 transition: ease-out 0.3s;
@@ -269,7 +293,14 @@ label {
                 flex-direction: column;
                 margin: 0 2em;
             }
-    .tryOnCont {
+    .spreadsheetCont {
+        width: 100%;
+        display: flex;
+        background-color: var(--bgc);
+        padding: 1em 0;
+        background-color: #fff;
+    }
+    .spreadsheetContTitle {
         width: 100%;
         display: flex;
         background-color: var(--bgc);
@@ -279,24 +310,25 @@ label {
     .white {
         background-color: #f3eded;
     }
-        .tryOnItem {
+        .spreadsheetItem {
             display: flex;
             flex-direction: column;
             width: 100%;
             word-break: break-all;
         }
-            .tryOnT {
+            .spreadsheetT {
                 display: flex;
                 background-color: #f3eded;
                 font-weight: 600;
                 color: rgb(0, 0, 0);
                 padding: 0.8em;
             }
-            .tryOnV {
+            .spreadsheetV {
                 display: flex;
                 padding: 0.8em;
                 margin-bottom: 0.5em;
             }
+            
 
 
        
