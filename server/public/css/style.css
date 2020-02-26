@@ -152,6 +152,11 @@ label {
     color: #fff;
     background-color: var(--green) !important;
 }
+.incorrect {
+    color: red;
+    outline: red;
+}
+
 
 .main {
     width: 100%;

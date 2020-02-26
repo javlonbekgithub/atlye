@@ -8,9 +8,12 @@
 </head>
 <body>
     <div class = "main">
-        <form class = "formLogin" action = "/enter" method = "post">
-            <label for = "email">пользователь</label>
-            <input type = "text" name = "email">
+        <form class = "formLogin" action = "/login/enter" method = "post">
+            <% if(incorrect){ %>
+                <p style = "color: red;"><%= incorrect%></p>
+            <% } %>
+            <label for = "userName">пользователь</label>
+            <input type = "text" name = "userName">
             <label for = "password">пароль</label>
             <input type = "password" name = "password">
             <input class = "submit buttonHover" type = "submit" value = "вход">

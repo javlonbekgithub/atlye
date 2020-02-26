@@ -5,8 +5,14 @@
   "author": "javlonbek",
   "license": "MIT",
   "dependencies": {
+    "crypto-js": "^4.0.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "express-router": "^0.0.1"
+    "express-router": "^0.0.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.9.2",
+    "morgan": "^1.9.1",
+    "sha256": "^0.2.0",
+    "uuid": "^7.0.1"
   }
 }
