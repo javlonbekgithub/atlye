@@ -1,27 +1,45 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+// const formData = require("express-form-data")
+// const os = require("os")
 const session = require('express-session')
-const { login } = require('./routes/login')
+const { login, sessionId } = require('./routes/login')
+const { profile } = require('./routes/profile')
 const { connect, connection } = require('mongoose')
 
-const uri = 'mongodb://localhost/atelier'
 
+const uri = 'mongodb://localhost/atelier'
 connect(uri , {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false 
 })
 
 const server = express()
-
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(morgan('combined'))
-server.use(session({ secret: 'session' }))
 server.set('view engine', 'ejs')
+// server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({ extended: true }))
+server.use(morgan('combined'))
+server.use('/login', login)
+server.use(session({
+    genid: (req) => {
+        return sessionId
+    },
+    secret: 'session',
+    cookie: { 
+        maxAge: 60000,
+        _expires: 100000
+    },
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: false },
+    maxAge: 3600000
+}))
 server.use(express.static('public'))
 server.get('/', (req, res) => res.render('index'))
-server.use('/login', login)
+server.use('/profile', profile)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 connection.once('open',() => server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`)))

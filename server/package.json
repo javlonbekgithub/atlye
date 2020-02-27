@@ -5,13 +5,18 @@
   "author": "javlonbek",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-form": "^0.2.1",
     "crypto-js": "^4.0.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "express-form-data": "^2.0.11",
+    "express-formidable": "^1.2.0",
     "express-router": "^0.0.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.9.2",
     "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "sha256": "^0.2.0",
     "uuid": "^7.0.1"
   }

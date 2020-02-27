@@ -1,7 +1,8 @@
 const error = {
     messages: {
         incorrectPasswordOrLogin: 'неправильный пароль или логин',
-        fillField: 'заполните поле'
+        fillField: 'заполните поле',
+        expired: 'сессия окончено'
     }
 }
 

@@ -9,6 +9,6 @@ const users = new Schema ({
     }
 })
 
-const User = model('Users',users)
+const User = model('Users', users)
 
 module.exports = { User }
