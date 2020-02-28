@@ -6,6 +6,8 @@ const error = {
     }
 }
 
+let URL = exports.URL = 'http://localhost:3001'
+
 module.exports = {
     error
 }

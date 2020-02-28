@@ -1,7 +1,6 @@
 const { Router } = require ('express')
 const { v4 } = require('uuid')
 const { User } = require('../models/user')
-const { Customer } = require('../models/customer')
 const { error } = require('../helpers')
 const sha256 = require('crypto-js/sha256')
 
@@ -14,10 +13,6 @@ login.get('/', (req, res) => {
     })
 })
 
-// login.get('/profile-page', (req, res) => {
-//     console.log(req.sessionID)
-// })
-
 login.post('/', async (req, res, next) => {
     if(req.body.password) {
         let password = sha256(req.body.password).toString()
@@ -27,11 +22,7 @@ login.post('/', async (req, res, next) => {
                 { "userName": req.body.userName },
                 { $set: { 'sessionId': sessionId } },
             )
-            const customers = await Customer.find()
-            res.render('profile', {
-               userName: dbRes.userName,
-               customers
-            })
+            res.redirect('/profile/')
         next()
         } else {
             res.render('login', {
