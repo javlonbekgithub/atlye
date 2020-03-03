@@ -25,3 +25,6 @@
 //     console.log('hello')
 // }
 // console.timeEnd('arrow')
+
+let t = new Date(1583193600000).toISOString().slice(0, 10)
+console.log(t)

@@ -1,11 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-// const formData = require("express-form-data")
-// const os = require("os")
 const session = require('express-session')
 const { login, sessionId } = require('./routes/login')
 const { profile } = require('./routes/profile')
+const { order } = require('./routes/order')
 const { connect, connection } = require('mongoose')
 
 
@@ -18,7 +17,6 @@ connect(uri , {
 
 const server = express()
 server.set('view engine', 'ejs')
-// server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(morgan('combined'))
 server.use('/login', login)
@@ -39,6 +37,7 @@ server.use(session({
 server.use(express.static('public'))
 server.get('/', (req, res) => res.render('index'))
 server.use('/profile', profile)
+server.use('/order', order)
 
 const PORT = process.env.PORT || 3001
 

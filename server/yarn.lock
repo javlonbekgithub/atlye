@@ -780,6 +780,11 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
+strtotime@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/strtotime/-/strtotime-1.0.0.tgz#113019035d9a402d38f3a8f1df928159df6b6f16"
+  integrity sha1-ETAZA12aQC0486jx35KBWd9rbxY=
+
 toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"

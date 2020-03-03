@@ -39,21 +39,21 @@ profile.get('/create-customer', async (req, res) => {
 profile.post('/add-customer',upload.single('photo'), async (req, res) => {
     const dbRes = await User.findOne({ sessionId: req.sessionID })
     if(dbRes) {
+        let customer = req.body
         if (req.file) {
             let ext = req.file.mimetype.slice(req.file.mimetype.indexOf('/') + 1)
             ext = ext === 'jpeg' ? 'jpg' : ext
             let photoId = Math.random().toString().slice(2, 22)
             let photoName = `${photoId}.${ext}`
-            // let photoUrl = `${URL}/photos/${photoName}`
-            // let photoPath = path.join(__dirname, '../', 'public/photos', photoName)
-            fs.writeFile(__dirname + photoName, req.file.buffer, 'base64', async err => {
-                if(err) res.write('image-isnot-uploaded')
-                req.body.photo = 'http://localhost:3000'
+            let photoUrl = `${URL}photos/${photoName}`
+            let photoPath = `${__dirname}/../public/photos/${photoName}`
+            fs.writeFile(photoPath, req.file.buffer, 'base64', async err => {
+                if(err) 
+                    res.write('image-isnot-uploaded')
             })
-            await Customer.insertMany([req.body])
-            res.redirect('/profile/')
+            customer.photo = photoUrl
         }
-        await Customer.insertMany([req.body])
+        await Customer.insertMany([customer])
         res.redirect('/profile/')
     } else {
         res.render('login', { incorrect: error.messages.expired })
