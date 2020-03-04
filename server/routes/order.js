@@ -1,5 +1,5 @@
 const { Router } = require ('express')
-const { error } = require('../helpers')
+const { error, customerStatus } = require('../helpers')
 const { User } = require('../models/user')
 const { Order } = require('../models/orders')
 const { Customer } = require('../models/customer')
@@ -16,9 +16,9 @@ order.get('/', async (req, res) => {
             path : 'client',
             select : 'name'
         }
-        const dbResFromOrder = await Order.find().populate(options)
+        const orders = await Order.find().populate(options)
         res.render('order', {
-            orders: dbResFromOrder
+            orders
         })
     } else {
         res.render('login', { incorrect: error.messages.expired } )
@@ -37,7 +37,9 @@ order.get('/add', async (req, res) => {
             customer,
             employees,
             kindOrder,
-            order: false
+            customerStatus,
+            order: false,
+            notFill: true
         })
     } else {
         res.render('login', { incorrect: error.messages.expired } )
@@ -60,14 +62,15 @@ order.post('/add', async (req, res) => {
             const customer = await Customer.find()
             const employees = await Employee.find()
             const kindOrder = await KindOrder.find()
-            console.log(order)
             res.render('add-order', { 
             responsible: dbRes.userName,
             numberOrder: dbResFromOrder.length + 1 || 1,
             customer,
             employees,
             kindOrder,
-            order
+            customerStatus,
+            order,
+            notFill: false
         })
         }
         

@@ -5,7 +5,7 @@
             <div class = "head">
                 <a href = "/profile/" class = "active">клиент</a>
                 <a href = "/order/" class = "hItem">закази</a>
-                <a href = "./try-on.html" class = "hItem">примерка</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "./balance.html" class = "hItem">баланс клиента</a>
                 <a href = "./entered-materials.html" class = "hItem">поступивший материал</a>
                 <a href = "" class = "hItem">склад</a>
@@ -85,7 +85,7 @@
                         <div class = "spreadsheetV"><%= item.e_mail %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV debt"><%= item.birthday %></div>
+                        <div class = "spreadsheetV debt"><%= new Date(item.birthday * 1000).toISOString().slice(0, 10) %></div>
                     </div>
                 </div>
             <% }) %>

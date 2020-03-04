@@ -4,7 +4,7 @@
         <div class = "head">
             <a href = "/profile/" class = "hItem">клиент</a>
             <a href = "/order/" class = "active">закази</a>
-            <a href = "/try-on.html" class = "hItem">примерка</a>
+            <a href = "/try-on/" class = "hItem">примерка</a>
             <a href = "/balance.html" class = "hItem">баланс клиента</a>
             <a href = "/entered-materials.html" class = "hItem">поступивший материал</a>
             <a href = "" class = "hItem">склад</a>
@@ -75,7 +75,7 @@
                     <div class = "spreadsheetV"><%= item.client.name %></div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= item.dataOrder %></div>
+                    <div class = "spreadsheetV"><%= new Date(item.dateOrder * 1000).toISOString().slice(0, 10) %></div>
                 </div>
                 <div class = "spreadsheetItem">
                     <div class = "spreadsheetV"><%= item.sumOrder %></div>

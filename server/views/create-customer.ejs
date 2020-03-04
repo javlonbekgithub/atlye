@@ -5,7 +5,7 @@
             <div class = "head">
                 <a href = "/profile/" class = "active">клиент</a>
                 <a href = "/order/" class = "hItem">закази</a>
-                <a href = "/try-on.html" class = "hItem">примерка</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance.html" class = "hItem">баланс клиента</a>
                 <a href = "/entered-materials.html" class = "hItem">поступивший материал</a>
                 <a href = "" class = "hItem">склад</a>
@@ -18,50 +18,80 @@
                 <h1>создать клиента</h1>
             </div>
             <form class = "formBox" action = "/profile/add-customer" method = "post" enctype = "multipart/form-data">
+                <% if(!notFill) { %>
+                    <h2 class = "warning">заполните поля</h2>
+                <% } %>
                 <div class = "sectionCont">
                     <div class = "left">
-                        <p>клиент</p>
-                        <input name = "name" placeholder = "имя" type = "text" id = "client">
+                        <p class = "<%- (customer.name || notFill) ? '' : 'error' %>">клиент</p>
+                        <input value = "<%- (customer.name) ? customer.name : '' %>" name = "name" placeholder = "имя" type = "text" id = "client">
                         <p>адрес</p>
-                        <input name = "addres" placeholder = "адрес" type = "text" id = "addres">
-                        <p>телефон</p>
-                        <input name = "telephone" placeholder = "+123456789" type = "text" id = "telephone">
+                        <input value = "<%- (customer.addres) ? customer.addres : '' %>" name = "addres" placeholder = "адрес" type = "text" id = "addres">
+                        <p class = "<%- (customer.telephone || notFill) ? '' : 'error' %>">телефон</p>
+                        <input value = "<%- (customer.telephone) ? customer.telephone : '' %>" name = "telephone" placeholder = "90 3456789" type = "number" id = "telephone">
                         <p>e-mail</p>
-                        <input name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
-                        <p>статус клиента</p>
+                        <input value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
+                        <p  class = "<%- (customer.statusClient || notFill) ? '' : 'error' %>">статус клиента</p>
                         <select name = "statusClient" id = 'statusClient'>
-                            <option value = "1">новый</option>
-                            <option value = "2">постоянный</option>
-                            <option value = "3">VIP</option>
+                            <option value = "">выбирайте статус клиента</option>
+                            <% clientStatus.forEach(item => {%>
+                                <% if(customer.statusClient == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
                         <p>дата рождение</p>
-                        <input name = "birthday" type = "date" id = "birthday">
+                        <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
                         <p>пасспортные данные</p>
                         <textarea name = "infoPassport" id = "infoPassport" cols="3" rows="5"></textarea>
-                        <p>тип фигури</p>
+                        <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>
                         <select name = "shape" id = 'shape'>
-                            <option value = "1">квадратный</option>
-                            <option value = "2">трапеция</option>
+                            <option value = "">выбирайте тип фигуры</option>
+                            <% typeShape.forEach(item => {%>
+                                <% if(customer.shape == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
-                        <p>размер</p>
+                        <p class = "<%- (customer.size || notFill) ? '' : 'error' %>">размер</p>
                         <select name = "size" id = 'size'>
-                            <option value = "s">s</option>
-                            <option value = "m">m</option>
-                            <option value = "xl">xl</option>
+                            <option value = "">выбирайте размер</option>
+                            <% sizes.forEach( item => {%>
+                                <% if(customer.sizes == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
                     </div>
                     <div class = "right">
                         <p>заметки</p>
                         <textarea name = "notes" id = "notes" cols = "3" rows = "5"></textarea>
-                        <p>источник информации</p>
+                        <p class = "<%- (customer.source || notFill) ? '' : 'error' %>">источник информации</p>
                         <select name = "source" id = 'source'>
-                            <option value = "1">реклама</option>
-                            <option value = "2">другой</option>
+                            <option value = "">выбирайте источник информации</option>
+                            <% sourceInfo.forEach( item => {%>
+                                <% if(customer.source == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
-                        <p>сотрудники</p>
+                        <p class = "<%- (customer.employee || notFill) ? '' : 'error' %>">сотрудники</p>
                         <select name = "employee" id = 'employee'>
-                            <% employees.forEach((item) => { %>
-                                <option value = <%- item._id %>><%= item.name %></option>
+                            <option value = "">выбирайте сотрудника</option>
+                            <% employees.forEach( item => { %>
+                                <% if(customer.employee == item._id) { %>
+                                    <option selected value = <%- item._id %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item._id %>><%= item.name %></option>
+                                <% } %>
                             <% }) %>
                         </select>
                         <p>фото клиента</p>
@@ -69,7 +99,7 @@
                     </div>
                 </div>
                 <div class = "buttonCont">
-                    <a class = "cancel cancelHover" href = "/login/profile-page">отмена</a>
+                    <a class = "cancel cancelHover" href = "/profile/">отмена</a>
                     <input class = "submit buttonHover" type = "submit" value = "создать">
                 </div>
             </form>

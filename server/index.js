@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const { login, sessionId } = require('./routes/login')
 const { profile } = require('./routes/profile')
+const { try_on } = require('./routes/try_on')
 const { order } = require('./routes/order')
 const { connect, connection } = require('mongoose')
 
@@ -38,6 +39,7 @@ server.use(express.static('public'))
 server.get('/', (req, res) => res.render('index'))
 server.use('/profile', profile)
 server.use('/order', order)
+server.use('/try-on', try_on)
 
 const PORT = process.env.PORT || 3001
 

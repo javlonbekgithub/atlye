@@ -5,7 +5,7 @@
             <div class = "head">
                 <a href = "/profile/" class = "hItem">клиент</a>
                 <a href = "/order/" class = "active">закази</a>
-                <a href = "./try-on.html" class = "hItem">примерка</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "./balance.html" class = "hItem">баланс клиента</a>
                 <a href = "./entered-materials.html" class = "hItem">поступивший материал</a>
                 <a href = "" class = "hItem">склад</a>
@@ -17,13 +17,16 @@
                 <h1>создать заказ</h1>
             </div>
             <form class = "orderCont" action = "/order/add" method = "post">
+                <% if(!notFill) { %>
+                    <h2 class = "warning">заполните поля</h2>
+                <% } %>
                 <div class = "sectionCont">
                     <div class = "section">
                         <p>номер заказа</p>
                         <input disabled value = <%- numberOrder %> type = "number" name = "numberOrder" id = "numberOrder">
-                        <p>дата заказа</p>
+                        <p class = "<%- (order.dateOrder || notFill) ? '' : 'error' %>">дата заказа</p>
                             <input value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
-                        <p>тип заказа</p>
+                        <p class = "<%- (order.typeOrder || notFill) ? '' : 'error' %>">тип заказа</p>
                         <select name = "typeOrder" id = "typeOrder">
                             <option value = ''>выбирайте тип заказа</option>
                             <% kindOrder.forEach((item, i) => { %>
@@ -38,19 +41,24 @@
                         <textarea value = "<%- (order.customerMaterial) ? order.customerMaterial : '' %>" name = "customerMaterial" id = "customerMaterial" cols="3" rows="5"></textarea>
                     </div>
                     <div class = "section">
-                        <p>сумма заказа</p>
+                        <p class = "<%- (order.sumOrder || notFill) ? '' : 'error' %>">сумма заказа</p>
                         <input  value = "<%- (order.sumOrder) ? order.sumOrder : '' %>" onchange = "handleDebt()" type = "number" name = "sumOrder" id = "sumOrder">
-                        <p>оплачено</p>
+                        <p class = "<%- (order.paid || notFill) ? '' : 'error' %>">оплачено</p>
                         <input   value = "<%- (order.paid) ? order.paid : '' %>" onchange = "handleDebt()" type = "number" name = "paid" id = "paid">
                         <p>долг</p>
                         <input   value = "<%- (order.debt) ? order.debt : '' %>" type = "number" name = "debt" id = "debt">
-                        <p>статус клиента</p>
+                        <p class = "<%- (order.customerStatus || notFill) ? '' : 'error' %>">статус клиента</p>
                         <select name = "customerStatus" id = "customerStatus">
-                            <option value = 1>важный</option>
-                            <option value = 2>неважный</option>
-                            <option value = 3>vip</option>
+                            <option value = ''>выбирайте статус клиента</option>
+                            <% customerStatus.forEach((item) => { %>
+                                <% if(order.customerStatus == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
-                        <p>исполнитель</p>
+                        <p class = "<%- (order.executor || notFill) ? '' : 'error' %>">исполнитель</p>
                         <select name = "executor" id = "executor">
                             <option value = ''>выбирайте испольнителя</option>
                             <% employees.forEach((item) => { %>
@@ -68,11 +76,15 @@
                     <div class = "section">
                         <p>заметки</p>
                         <textarea name = "notice" id = "notice" cols="25" rows="5"></textarea>
-                        <p>клиент</p>
+                        <p class = "<%- (order.client || notFill) ? '' : 'error' %>">клиент</p>
                         <select name = "client" id = "client">
                             <option value = ''>выбирайте клиента</option>
                             <% customer.forEach((item) => { %>
-                                <option value = <%- item._id %>><%= item.name %></option>
+                                <% if(order.client == item._id) { %>
+                                    <option selected value = <%- item._id %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item._id %>><%= item.name %></option>
+                                <% } %>
                             <% }) %>
                         </select>
                     </div>
