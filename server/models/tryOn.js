@@ -2,13 +2,15 @@ const { Schema, model } = require('mongoose')
 
 const try_on = new Schema ({
     date: Number,
-    type: String,
+    typeTryOn: String,
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Customer'
-    }
+    },
+    notice: String,
+    orderNumber: String
 })
 
-const tryOn = model('try_on', try_on)
+const TryOn = model('try_on', try_on)
 
-module.exports = { tryOn }
+module.exports = { TryOn }
