@@ -1,0 +1,208 @@
+<%- include('head') %>
+<body>
+    <div class = "cont">
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "/profile/" class = "hItem">клиент</a>
+                <a href = "/order/" class = "hItem">закази</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
+                <a href = "/balance/" class = "hItem">баланс клиента</a>
+                <a href = "/entered-materials/" class = "active">поступивший материал</a>
+                <a href = "" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>поступивший материалы</h1>
+            </div>
+            <div class = "secondLayer">
+                <div class = "searchCont">
+                    <input class = "search" type = "text" placeholder = "поиск">
+                </div>
+                <div class = "btn">искать</div>
+                <a href = "./add">
+                    <div class="center">
+                        <i class="far fa-plus-square"></i>
+                    </div>
+                </a>
+                <a href = "/copy?id=" id = "copy">
+                    <div class="center">
+                        <i class="far fa-copy"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-clipboard"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-eye"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-edit"></i>
+                    </div>
+                </a>
+            </div>
+            <div class = "spreadsheetContTitle">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">№</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">тип операции</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">дата прихода</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">документ</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">сумма прихода</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">статус</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">поставщик</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">прим</div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont" data-id = "1">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">1</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">приход</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">16.04.2222</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">номер накладного</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">12000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">superman</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont" data-id = "2">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">2</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">приход</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">16.04.2222</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">номер накладного</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">12000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">superman</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont" data-id = "3">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">3</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">приход</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">16.04.2222</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">номер накладного</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">12000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">superman</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
+                </div>
+            </div>
+            <div class = "spreadsheetCont" data-id="4">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">4</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">приход</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">16.04.2222</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">номер накладного</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV">12000</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">superman</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type = "text/javascript">
+
+spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+copy = document.getElementById('copy')
+
+select = i => {
+    spreadsheetCont[i].classList.add('selectedItem')
+    copy.setAttribute('href',`/copy?id=${spreadsheetCont[i].getAttribute('data-id')}`)
+    for(let j = 0;j < spreadsheetCont.length; j++) {
+        j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+    }
+}
+
+for (let i = 0; i < spreadsheetCont.length; i++ ) {
+    spreadsheetCont[i].addEventListener('click', () => select(i))
+}
+
+const startFunc = () => {
+    for (let i = 0; i < spreadsheetCont.length; i++ ) {
+        i % 2 !== 0 && spreadsheetCont[i].classList.add('white')
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', startFunc)
+</script>
+</html>

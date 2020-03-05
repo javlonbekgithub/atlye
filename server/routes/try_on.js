@@ -15,7 +15,6 @@ try_on.get('/', async (req, res) => {
             select : 'name'
         }
         const try_onFromDb = await TryOn.find().populate(options)
-        console.log(try_onFromDb)
         res.render('try-on', {
             try_onFromDb
         })

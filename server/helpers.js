@@ -75,6 +75,28 @@ const sizes = [
     }
 ]
 
+const typeOperation = [
+    {
+        name: 'приход',
+        value: 1
+    },
+    {
+        name: 'уход',
+        value: 2
+    }
+]
+
+const document = [
+    {
+        name: 'уход',
+        value: 1
+    },
+    {
+        name: 'номер накладного',
+        value: 2
+    }
+]
+
 module.exports = {
     error,
     URL,
@@ -82,5 +104,7 @@ module.exports = {
     customerStatus,
     sourceInfo,
     typeShape,
-    sizes   
+    sizes,
+    typeOperation,
+    document   
 }
