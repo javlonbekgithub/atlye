@@ -5,13 +5,19 @@ const customers = new Schema ({
     addres: String,
     telephone: String,
     e_mail: String,
-    statusClient: String,
+    status: Number,
     birthday: String,
     infoPassport: String,
-    shape: String,
-    size: String,
+    shape: Number,
+    size: Number,
     notes: String,
-    source: String,
+    source: Number,
+    orders: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Order'
+        }
+    ],
     employee: {
         type: Schema.Types.ObjectId, 
         ref: 'Employees'

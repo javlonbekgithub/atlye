@@ -8,7 +8,7 @@ const { User } = require('../models/user')
 const { Employee } = require('../models/employees')
 const { Customer } = require('../models/customer')
 const { URL } = require('../helpers')
-const { error, clientStatus, sourceInfo, typeShape, sizes } = require('../helpers')
+const { error, customerStatus, sourceInfo, typeShape, sizes } = require('../helpers')
 
 const profile = Router()
 
@@ -31,7 +31,7 @@ profile.get('/create-customer', async (req, res) => {
         const employees = await Employee.find()
         res.render('create-customer', {
             employees,
-            clientStatus,
+            customerStatus,
             sourceInfo,
             typeShape,
             sizes,
@@ -46,9 +46,10 @@ profile.get('/create-customer', async (req, res) => {
 profile.post('/add-customer',upload.single('photo'), async (req, res) => {
     const dbRes = await User.findOne({ sessionId: req.sessionID })
     if(dbRes) {
+
         let customer = req.body
-        const { name, telephone, statusClient, shape, size, source, employee }= customer
-        if( name && telephone && statusClient && shape && size && source && employee) {
+        const { name, telephone, status, shape, size, source, employee }= customer
+        if( name && telephone && status && shape && size && source && employee) {
             if (req.file) {
                 let ext = req.file.mimetype.slice(req.file.mimetype.indexOf('/') + 1)
                 ext = ext === 'jpeg' ? 'jpg' : ext
@@ -66,10 +67,11 @@ profile.post('/add-customer',upload.single('photo'), async (req, res) => {
             await Customer.insertMany([customer])
             res.redirect('/profile/')
         } else {
+            
             const employees = await Employee.find()
             res.render('create-customer', {
                 employees,
-                clientStatus,
+                customerStatus,
                 sourceInfo,
                 typeShape,
                 sizes,

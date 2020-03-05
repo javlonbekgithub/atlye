@@ -56,24 +56,30 @@ order.post('/add', async (req, res) => {
             order.dateOrder = strtotime(order.dateOrder)
             order.numberOrder = dbResFromOrder.length + 1 || 1
             order.responsible = dbRes._id
-            // const try_on = [
-            //     {
-            //         date: Date.now() + 60 * 60 * 48,
-            //         typeTryOn: 'первая примерка',
-            //         client: dbRes._id,
-            //         notice: order.notice,
-            //         orderNumber: order.numberOrder
-            //     },
-            //     {
-            //         date: Date.now() + 60 * 60 * 24 * 7,
-            //         typeTryOn: 'первая примерка',
-            //         client: dbRes._id,
-            //         notice: order.notice,
-            //         orderNumber: order.numberOrder
-            //     }
-            // ]
-            // await TryOn.insertMany([try_on])
-            await Order.insertMany([order])
+            order.paid = order.paid || 0
+            order.debt = order.debt || order.sumOrder
+            const try_on = [
+                {
+                    date: Date.now() + 60 * 60 * 48 * 1000,
+                    typeTryOn: 'первая примерка',
+                    client: order.client,
+                    notice: order.notice,
+                    orderNumber: order.numberOrder
+                },
+                {
+                    date: Date.now() + 60 * 60 * 24 * 7 * 1000,
+                    typeTryOn: 'вторая примерка',
+                    client: order.client,
+                    notice: order.notice,
+                    orderNumber: order.numberOrder
+                }
+            ]
+            await TryOn.insertMany(try_on)
+            const addedOrder = await Order.insertMany([order])
+            await Customer.findByIdAndUpdate(
+                order.client,
+                { $push: { orders: addedOrder[0]._id } }
+            )
             res.redirect('/order/')
         } else {
             const dbResFromOrder = await Order.find()

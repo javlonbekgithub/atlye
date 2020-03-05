@@ -6,6 +6,7 @@ const { login, sessionId } = require('./routes/login')
 const { profile } = require('./routes/profile')
 const { try_on } = require('./routes/try_on')
 const { order } = require('./routes/order')
+const { balance } = require('./routes/balance')
 const { connect, connection } = require('mongoose')
 
 
@@ -40,6 +41,7 @@ server.get('/', (req, res) => res.render('index'))
 server.use('/profile', profile)
 server.use('/order', order)
 server.use('/try-on', try_on)
+server.use('/balance', balance)
 
 const PORT = process.env.PORT || 3001
 

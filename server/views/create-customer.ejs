@@ -6,14 +6,13 @@
                 <a href = "/profile/" class = "active">клиент</a>
                 <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
-                <a href = "/balance.html" class = "hItem">баланс клиента</a>
-                <a href = "/entered-materials.html" class = "hItem">поступивший материал</a>
+                <a href = "/balance/" class = "hItem">баланс клиента</a>
+                <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
                 <a href = "" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
-            <!-- <%- include('nav-bar', { active: 'active', notActive: 'hItem' }) %> -->
             <div class = "title">
                 <h1>создать клиента</h1>
             </div>
@@ -31,11 +30,11 @@
                         <input value = "<%- (customer.telephone) ? customer.telephone : '' %>" name = "telephone" placeholder = "90 3456789" type = "number" id = "telephone">
                         <p>e-mail</p>
                         <input value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
-                        <p  class = "<%- (customer.statusClient || notFill) ? '' : 'error' %>">статус клиента</p>
-                        <select name = "statusClient" id = 'statusClient'>
+                        <p  class = "<%- (customer.status || notFill) ? '' : 'error' %>">статус клиента</p>
+                        <select name = "status" id = 'status'>
                             <option value = "">выбирайте статус клиента</option>
-                            <% clientStatus.forEach(item => {%>
-                                <% if(customer.statusClient == item.value) { %>
+                            <% customerStatus.forEach(item => {%>
+                                <% if(customer.status == item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>

@@ -19,7 +19,7 @@ const orderStatus = [
     },
 ]
 
-const clientStatus = [
+const customerStatus = [
     {
         name: 'новый',
         value: 1
@@ -79,7 +79,7 @@ module.exports = {
     error,
     URL,
     orderStatus,
-    clientStatus,
+    customerStatus,
     sourceInfo,
     typeShape,
     sizes   
