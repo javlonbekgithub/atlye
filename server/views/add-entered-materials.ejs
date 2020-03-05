@@ -16,36 +16,54 @@
             <div class = "title">
                 <h1>добавить поступивший материал</h1>
             </div>
-            <form class = "orderCont">
+            <form class = "orderCont" action = "/entered-materials/add" method = "post">
+                <% if(!notFill) { %>
+                    <h2 class = "warning">заполните поля</h2>
+                <% } %>
                 <div class = "sectionCont">
                     <div class = "section">
-                        <p>тип операции</p>
+                        <p class = "<%- (enteredMaterials.typeOperation || notFill) ? '' : 'error' %>">тип операции</p>
                         <select name = "typeOperation" id = "typeOperation">
-                            <option value = "1">приход</option>
-                            <option value = "2">уход</option>
+                            <option value = "">выберите тип операции</option>
+                            <% operation.forEach((item) => { %>
+                                <% if(enteredMaterials.typeOperation == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
-                        <p>дата заказа</p>
+                        <p class = "<%- (enteredMaterials.dateOperation || notFill) ? '' : 'error' %>">дата заказа</p>
                         <input type = "date" name = "dateOperation" id = "date">
-                        <p>документ</p>
+                        <p class = "<%- (enteredMaterials.document || notFill) ? '' : 'error' %>">документ</p>
                         <select name = "document" id = "document">
                             <option value = "">выберите</option>
                             <% document.forEach(item => { %>
-                                <option value = <%- item.value %>><%= item.name %></option>
+                                <% if(enteredMaterials.document == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
                             <% }) %>
                         </select>
                         <p>примечание</p>
                         <textarea name = "noticeOperation" id = "noticeOperation" cols="25" rows="5"></textarea>
                     </div>
                     <div class = "section">
-                        <p>сумма прихода</p>
+                        <p class = "<%- (enteredMaterials.sumEnter || notFill) ? '' : 'error' %>">сумма прихода</p>
                         <input type = "number" name = "sumEnter" id = "sumEnter">
-                        <p>статус</p>
+                        <p class = "<%- (enteredMaterials.paidStatus || notFill) ? '' : 'error' %>">статус</p>
                         <select name = "paidStatus" id = "paidStatus">
-                            <option value = "1">оплачено</option>
-                            <option value = "2">не оплачено</option>
-                            <option value = "3">vip</option>
+                            <option value = "">выберите статус</option>
+                            <% statusPaid.forEach(item => { %>
+                                <% if(enteredMaterials.paidStatus == item.value) { %>
+                                    <option selected value = <%- item.value %>><%= item.name %></option>
+                                <% } else { %>
+                                    <option value = <%- item.value %>><%= item.name %></option>
+                                <% } %>
+                            <% }) %>
                         </select>
-                        <p>поставщик</p>
+                        <p class = "<%- (enteredMaterials.supplier || notFill) ? '' : 'error' %>">поставщик</p>
                         <input type = "text" name = "supplier" id = "supplier">
                     </div>
                 </div>

@@ -75,7 +75,7 @@ const sizes = [
     }
 ]
 
-const typeOperation = [
+const operation = [
     {
         name: 'приход',
         value: 1
@@ -97,6 +97,17 @@ const document = [
     }
 ]
 
+const statusPaid = [
+    {
+        name: 'оплачено',
+        value: 1
+    },
+    {
+        name: 'неоплачено',
+        value: 2
+    }
+]
+
 module.exports = {
     error,
     URL,
@@ -105,6 +116,7 @@ module.exports = {
     sourceInfo,
     typeShape,
     sizes,
-    typeOperation,
-    document   
+    operation,
+    document,
+    statusPaid   
 }
