@@ -73,110 +73,34 @@
                     <div class = "spreadsheetT">прим</div>
                 </div>
             </div>
-            <div class = "spreadsheetCont" data-id = "1">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">1</div>
+            <% entered_materials_db.forEach( (item, i) => { %>
+                <div class = "spreadsheetCont" data-id = <%- i + 1 %>>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= i + 1 %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= operation[item.typeOperation].name %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= new Date(item.dateOperation * 1000).toISOString().slice(0, 10) %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= documentList[item.document].name %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.sumEnter %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV debt"><%= statusPaid[item.paidStatus].name %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV debt"><%= item.supplier %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV debt"><%= item.notice %></div>
+                    </div>
                 </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">приход</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">16.04.2222</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">номер накладного</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">12000</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">оплачено</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">superman</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
-                </div>
-            </div>
-            <div class = "spreadsheetCont" data-id = "2">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">2</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">приход</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">16.04.2222</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">номер накладного</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">12000</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">оплачено</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">superman</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
-                </div>
-            </div>
-            <div class = "spreadsheetCont" data-id = "3">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">3</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">приход</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">16.04.2222</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">номер накладного</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">12000</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">оплачено</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">superman</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
-                </div>
-            </div>
-            <div class = "spreadsheetCont" data-id="4">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">4</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">приход</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">16.04.2222</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">номер накладного</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV">12000</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">оплачено</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">superman</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt">sdfkjjjjjjghhskfhsdkfhsdkfhisdiusdgggggdufyguyfg</div>
-                </div>
-            </div>
+            <% }) %>
         </div>
     </div>
 </body>

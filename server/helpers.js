@@ -86,7 +86,7 @@ const operation = [
     }
 ]
 
-const document = [
+const documentList = [
     {
         name: 'уход',
         value: 1
@@ -117,6 +117,6 @@ module.exports = {
     typeShape,
     sizes,
     operation,
-    document,
+    documentList,
     statusPaid   
 }

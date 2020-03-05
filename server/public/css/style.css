@@ -135,7 +135,7 @@ label {
 .active {
     display: flex;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1em;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -228,7 +228,7 @@ label {
             .hItem {
                 display: flex;
                 text-align: center;
-                font-size: 1.2em;
+                font-size: 1em;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;

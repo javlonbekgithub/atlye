@@ -1,93 +1,95 @@
 <%- include('head'); %>
 <body>
     <div class = "cont">
-        <div class = "head">
-            <a href = "/profile/" class = "hItem">клиент</a>
-            <a href = "/order/" class = "active">закази</a>
-            <a href = "/try-on/" class = "hItem">примерка</a>
-            <a href = "/balance/" class = "hItem">баланс клиента</a>
-            <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
-            <a href = "" class = "hItem">склад</a>
-            <a href = "" class = "hItem">услуги</a>
-            <a href = "" class = "hItem">расходы</a>
-            <a href = "" class = "hItem">сост ... склад</a>
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "/profile/" class = "hItem">клиент</a>
+                <a href = "/order/" class = "active">закази</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
+                <a href = "/balance/" class = "hItem">баланс клиента</a>
+                <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
+                <a href = "" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>закази</h1>
+            </div>
+            <div class = "secondLayer">
+                <div class = "searchCont">
+                    <input class = "search" type = "text" placeholder = "поиск">
+                </div>
+                <div class = "btn">искать</div>
+                <a href = "/order/add">
+                    <div class="center">
+                        <i class="far fa-plus-square"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class="center">
+                        <i class="far fa-copy"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-clipboard"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-eye"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-edit"></i>
+                    </div>
+                </a>
+            </div>
+            <div class = "spreadsheetContTitle">
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">№</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">клиент</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">дата заказа</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">сумма заказа</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">оплачено</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">долг</div>
+                </div>
+            </div>
+            <% orders.forEach((item, i) => { %>
+                <div class = "spreadsheetCont">
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.numberOrder %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.client.name %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= new Date(item.dateOrder * 1000).toISOString().slice(0, 10) %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.sumOrder %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.paid %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV debt"><%= item.debt %></div>
+                    </div>
+                </div>
+            <% }) %>
         </div>
-        <div class = "title">
-            <h1>закази</h1>
-        </div>
-        <div class = "secondLayer">
-            <div class = "searchCont">
-                <input class = "search" type = "text" placeholder = "поиск">
-            </div>
-            <div class = "btn">искать</div>
-            <a href = "/order/add">
-                <div class="center">
-                    <i class="far fa-plus-square"></i>
-                </div>
-            </a>
-            <a href = "">
-                <div class="center">
-                    <i class="far fa-copy"></i>
-                </div>
-            </a>
-            <a href = "">
-                <div class = "center">
-                    <i class="far fa-clipboard"></i>
-                </div>
-            </a>
-            <a href = "">
-                <div class = "center">
-                    <i class="far fa-eye"></i>
-                </div>
-            </a>
-            <a href = "">
-                <div class = "center">
-                    <i class="far fa-edit"></i>
-                </div>
-            </a>
-        </div>
-        <div class = "spreadsheetContTitle">
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">№</div>
-            </div>
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">клиент</div>
-            </div>
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">дата заказа</div>
-            </div>
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">сумма заказа</div>
-            </div>
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">оплачено</div>
-            </div>
-            <div class = "spreadsheetItem">
-                <div class = "spreadsheetT">долг</div>
-            </div>
-        </div>
-        <% orders.forEach((item, i) => { %>
-            <div class = "spreadsheetCont">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= item.numberOrder %></div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= item.client.name %></div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= new Date(item.dateOrder * 1000).toISOString().slice(0, 10) %></div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= item.sumOrder %></div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV"><%= item.paid %></div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetV debt"><%= item.debt %></div>
-                </div>
-            </div>
-        <% }) %>
     </div>
 </body>
 </html>

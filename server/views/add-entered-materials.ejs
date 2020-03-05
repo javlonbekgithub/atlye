@@ -34,11 +34,11 @@
                             <% }) %>
                         </select>
                         <p class = "<%- (enteredMaterials.dateOperation || notFill) ? '' : 'error' %>">дата заказа</p>
-                        <input type = "date" name = "dateOperation" id = "date">
+                        <input value = "<%- (enteredMaterials.dateOperation) ? enteredMaterials.dateOperation : '' %>" type = "date" name = "dateOperation" id = "date">
                         <p class = "<%- (enteredMaterials.document || notFill) ? '' : 'error' %>">документ</p>
                         <select name = "document" id = "document">
                             <option value = "">выберите</option>
-                            <% document.forEach(item => { %>
+                            <% documentList.forEach(item => { %>
                                 <% if(enteredMaterials.document == item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
@@ -51,7 +51,7 @@
                     </div>
                     <div class = "section">
                         <p class = "<%- (enteredMaterials.sumEnter || notFill) ? '' : 'error' %>">сумма прихода</p>
-                        <input type = "number" name = "sumEnter" id = "sumEnter">
+                        <input value = "<%- (enteredMaterials.sumEnter) ? enteredMaterials.sumEnter : '' %>" type = "number" name = "sumEnter" id = "sumEnter">
                         <p class = "<%- (enteredMaterials.paidStatus || notFill) ? '' : 'error' %>">статус</p>
                         <select name = "paidStatus" id = "paidStatus">
                             <option value = "">выберите статус</option>
@@ -64,7 +64,7 @@
                             <% }) %>
                         </select>
                         <p class = "<%- (enteredMaterials.supplier || notFill) ? '' : 'error' %>">поставщик</p>
-                        <input type = "text" name = "supplier" id = "supplier">
+                        <input value = "<%- (enteredMaterials.supplier) ? enteredMaterials.supplier : '' %>" type = "text" name = "supplier" id = "supplier">
                     </div>
                 </div>
                 <div class = "buttonCont">
