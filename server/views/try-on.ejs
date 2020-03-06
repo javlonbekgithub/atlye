@@ -8,7 +8,7 @@
                 <a href = "/try-on/" class = "active">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
                 <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
-                <a href = "" class = "hItem">склад</a>
+                <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
@@ -66,12 +66,12 @@
     
 spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
 
-const classColor = () => {
+const startFunc = () => {
     for (let i = 0; i < spreadsheetCont.length; i++ ) {
         i % 2 !== 0 && spreadsheetCont[i].classList.add('white')
     }
 } 
 
-document.addEventListener('DOMContentLoaded', classColor)
+document.addEventListener('DOMContentLoaded', startFunc)
 </script>
 </html>

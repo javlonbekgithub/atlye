@@ -46,7 +46,6 @@ profile.get('/create-customer', async (req, res) => {
 profile.post('/add-customer',upload.single('photo'), async (req, res) => {
     const dbRes = await User.findOne({ sessionId: req.sessionID })
     if(dbRes) {
-
         let customer = req.body
         const { name, telephone, status, shape, size, source, employee }= customer
         if( name && telephone && status && shape && size && source && employee) {

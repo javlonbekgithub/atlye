@@ -8,7 +8,7 @@
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
                 <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
-                <a href = "" class = "hItem">склад</a>
+                <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
@@ -21,12 +21,12 @@
                     <input class = "search" type = "text" placeholder = "поиск">
                 </div>
                 <div class = "btn">искать</div>
-                <a href = "/profile/create-customer">
+                <a href = "./create-customer">
                     <div class="center">
                         <i class="far fa-plus-square"></i>
                     </div>
                 </a>
-                <a href = "">
+                <a href = "" id = "copy">
                     <div class="center">
                         <i class="far fa-copy"></i>
                     </div>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <% customers.forEach((item, i) => { %>
-                <div class = "spreadsheetCont">
+                <div class = "spreadsheetCont" data-id = <%- i %> >
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%- i+1 %></div>
                     </div>
@@ -92,4 +92,28 @@
         </div>
     </div>
 </body>
+<script>
+spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+copy = document.getElementById('copy')
+
+select = i => {
+    spreadsheetCont[i].classList.add('selectedItem')
+    copy.setAttribute('href',`./copy?id=${spreadsheetCont[i].getAttribute('data-id')}`)
+    for(let j = 0;j < spreadsheetCont.length; j++) {
+        j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+    }
+}
+
+for (let i = 0; i < spreadsheetCont.length; i++ ) {
+    spreadsheetCont[i].addEventListener('click', () => select(i))
+}
+
+const startFunc = () => {
+    for (let i = 0; i < spreadsheetCont.length; i++ ) {
+        i % 2 !== 0 && spreadsheetCont[i].classList.add('white')
+    }
+} 
+
+document.addEventListener('DOMContentLoaded', startFunc)
+</script>
 </html>

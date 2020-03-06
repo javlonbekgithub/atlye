@@ -4,24 +4,24 @@
         <div class = "overflow">
             <div class = "head">
                 <a href = "/profile/" class = "hItem">клиент</a>
-                <a href = "/order/" class = "active">закази</a>
+                <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
                 <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
-                <a href = "/overhead-list/" class = "hItem">склад</a>
+                <a href = "/overhead-list/" class = "active">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
             <div class = "title">
-                <h1>закази</h1>
+                <h1>накладной лист</h1>
             </div>
             <div class = "secondLayer">
                 <div class = "searchCont">
                     <input class = "search" type = "text" placeholder = "поиск">
                 </div>
                 <div class = "btn">искать</div>
-                <a href = "/order/add">
+                <a href = "./add">
                     <div class="center">
                         <i class="far fa-plus-square"></i>
                     </div>
@@ -52,47 +52,65 @@
                     <div class = "spreadsheetT">№</div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">клиент</div>
+                    <div class = "spreadsheetT">код товара</div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">дата заказа</div>
+                    <div class = "spreadsheetT">арт</div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">сумма заказа</div>
+                    <div class = "spreadsheetT">товар</div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">оплачено</div>
+                    <div class = "spreadsheetT">цена</div>
                 </div>
                 <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">долг</div>
+                    <div class = "spreadsheetT">ед.измер</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">кол-во</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">сумма</div>
+                </div>
+                <div class = "spreadsheetItem">
+                    <div class = "spreadsheetT">примечание</div>
                 </div>
             </div>
-            <% orders.forEach((item, i) => { %>
+            <% overheadListFromDb.forEach((item, i) => { %>
                 <div class = "spreadsheetCont" data-id = <%- i %>>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= item.numberOrder %></div>
+                        <div class = "spreadsheetV"><%= i + 1 %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= item.client.name %></div>
+                        <div class = "spreadsheetV"><%= goodsCode[item.codeGoods].name %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= new Date(item.dateOrder * 1000).toISOString().slice(0, 10) %></div>
+                        <div class = "spreadsheetV"><%= item.artikul %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= item.sumOrder %></div>
+                        <div class = "spreadsheetV"><%= item.goods %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= item.paid %></div>
+                        <div class = "spreadsheetV"><%= item.priceForOne %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV debt"><%= item.debt %></div>
+                        <div class = "spreadsheetV"><%= unity[item.unityMeter].name %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.quantityMaterial %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.sumMaterial %></div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetV"><%= item.noticeOverhead %></div>
                     </div>
                 </div>
             <% }) %>
         </div>
     </div>
 </body>
-<script>
+<script type = "text/javascript">
 spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
 copy = document.getElementById('copy')
 

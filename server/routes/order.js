@@ -103,4 +103,26 @@ order.post('/add', async (req, res) => {
     }
 })
 
+order.get('/copy', async (req, res) => {
+    const dbRes = await User.findOne({ sessionId: req.sessionID })
+    if (dbRes) {
+        const dbResFromOrder = await Order.find()
+        const customer = await Customer.find()
+        const employees = await Employee.find()
+        const kindOrder = await KindOrder.find()
+        res.render('add-order', { 
+            responsible: dbRes.userName,
+            numberOrder: dbResFromOrder.length + 1 || 1,
+            customer,
+            employees,
+            kindOrder,
+            customerStatus,
+            order: false,
+            notFill: true
+        })
+    } else {
+        res.render('login', { incorrect: error.messages.expired } )
+    }
+})
+
 module.exports = { order }

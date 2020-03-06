@@ -11,63 +11,63 @@ let URL = 'http://localhost:3001/'
 const orderStatus = [
     {
         name: 'неважный',
-        value: 1
+        value: 0
     },
     {
         name: 'важный',
-        value: 2
+        value: 0
     },
 ]
 
 const customerStatus = [
     {
         name: 'новый',
-        value: 1
+        value: 0
     },
     {
         name: 'постоянный',
-        value: 2
+        value: 1
     },
     {
         name: 'VIP',
-        value: 3
+        value: 2
     }
 ]
 
 const sourceInfo = [
     {
         name: 'реклама',
-        value: 1
+        value: 0
     },
     {
         name: 'другой',
-        value: 2
+        value: 1
     },
 ]
 
 const typeShape = [
     {
         name: 'худая',
-        value: 1
+        value: 0
     },
     {
         name: 'жирная',
-        value: 2
+        value: 1
     }
 ]
 
 const sizes = [
     {
         name: 'm',
-        value: 1
+        value: 0
     },
     {
         name: 's',
-        value: 2
+        value: 1
     },
     {
         name: 'xl',
-        value: 3
+        value: 2
     },
     {
         name: 'xxxxxl',
@@ -78,33 +78,66 @@ const sizes = [
 const operation = [
     {
         name: 'приход',
-        value: 1
+        value: 0
     },
     {
         name: 'уход',
-        value: 2
+        value: 1
     }
 ]
 
 const documentList = [
     {
         name: 'уход',
-        value: 1
+        value: 0
     },
     {
         name: 'номер накладного',
-        value: 2
+        value: 1
     }
 ]
 
 const statusPaid = [
     {
         name: 'оплачено',
-        value: 1
+        value: 0
     },
     {
         name: 'неоплачено',
-        value: 2
+        value: 1
+    }
+]
+
+const goodsCode = [
+    {
+        name: 'something',
+        value: 0
+    },
+    {
+        name: 'уход',
+        value: 1
+    }
+]
+
+const unity = [
+    {
+        name: 'метер',
+        value: 0
+    },
+    {
+        name: 'рулон',
+        value: 1
+    }
+]
+
+const enterCode = [
+    {
+        name: '1',
+        value: 0
+    },
+    {
+        name: '2',
+        value: 1
     }
 ]
 
@@ -118,5 +151,8 @@ module.exports = {
     sizes,
     operation,
     documentList,
-    statusPaid   
+    statusPaid,
+    goodsCode,
+    unity,
+    enterCode   
 }

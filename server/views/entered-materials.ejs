@@ -8,7 +8,7 @@
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
                 <a href = "/entered-materials/" class = "active">поступивший материал</a>
-                <a href = "" class = "hItem">склад</a>
+                <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
@@ -26,7 +26,7 @@
                         <i class="far fa-plus-square"></i>
                     </div>
                 </a>
-                <a href = "/copy?id=" id = "copy">
+                <a href = "" id = "copy">
                     <div class="center">
                         <i class="far fa-copy"></i>
                     </div>
@@ -97,7 +97,7 @@
                         <div class = "spreadsheetV debt"><%= item.supplier %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV debt"><%= item.notice %></div>
+                        <div class = "spreadsheetV debt"><%= item.noticeOperation %></div>
                     </div>
                 </div>
             <% }) %>
