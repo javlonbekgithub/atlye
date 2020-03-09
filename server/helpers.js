@@ -1,3 +1,15 @@
+const { User } = require('./models/user')
+
+const checkSessionId = async (req, res, next) => {
+    const dbRes = await User.findOne({ sessionId: req.sessionID })
+    if(dbRes) {
+        req.currentUser = dbRes
+        next()
+    } else {
+        res.render('login', { incorrect: error.messages.expired })
+    }
+}
+
 const error = {
     messages: {
         incorrectPasswordOrLogin: 'неправильный пароль или логин',
@@ -142,6 +154,7 @@ const enterCode = [
 ]
 
 module.exports = {
+    checkSessionId,
     error,
     URL,
     orderStatus,

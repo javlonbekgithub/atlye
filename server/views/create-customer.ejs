@@ -32,9 +32,9 @@
                         <input value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
                         <p  class = "<%- (customer.status || notFill) ? '' : 'error' %>">статус клиента</p>
                         <select name = "status" id = 'status'>
-                            <option value = "">выбирайте статус клиента</option>
-                            <% customerStatus.forEach(item => {%>
-                                <% if(customer.status == item.value) { %>
+                            <option value = "">выберите статус клиента</option>
+                            <% customerStatus.forEach(item => { %>
+                                <% if(parseInt(customer.status) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -44,12 +44,12 @@
                         <p>дата рождение</p>
                         <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
                         <p>пасспортные данные</p>
-                        <textarea name = "infoPassport" id = "infoPassport" cols="3" rows="5"></textarea>
+                        <textarea name = "infoPassport" id = "infoPassport" cols = "3" rows = "5"><%= (customer.infoPassport) ? customer.infoPassport : '' %></textarea>
                         <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>
                         <select name = "shape" id = 'shape'>
-                            <option value = "">выбирайте тип фигуры</option>
+                            <option value = "">выберите тип фигуры</option>
                             <% typeShape.forEach(item => {%>
-                                <% if(customer.shape == item.value) { %>
+                                <% if(parseInt(customer.shape) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -58,9 +58,9 @@
                         </select>
                         <p class = "<%- (customer.size || notFill) ? '' : 'error' %>">размер</p>
                         <select name = "size" id = 'size'>
-                            <option value = "">выбирайте размер</option>
+                            <option value = "">выберите размер</option>
                             <% sizes.forEach( item => {%>
-                                <% if(customer.sizes == item.value) { %>
+                                <% if(parseInt(customer.size) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -70,12 +70,12 @@
                     </div>
                     <div class = "right">
                         <p>заметки</p>
-                        <textarea name = "notes" id = "notes" cols = "3" rows = "5"></textarea>
+                        <textarea name = "notes" id = "notes" cols = "3" rows = "5"><%= (customer.notes) ? customer.notes : '' %></textarea>
                         <p class = "<%- (customer.source || notFill) ? '' : 'error' %>">источник информации</p>
                         <select name = "source" id = 'source'>
-                            <option value = "">выбирайте источник информации</option>
+                            <option value = "">выберите источник информации</option>
                             <% sourceInfo.forEach( item => {%>
-                                <% if(customer.source == item.value) { %>
+                                <% if(parseInt(customer.source) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -84,7 +84,7 @@
                         </select>
                         <p class = "<%- (customer.employee || notFill) ? '' : 'error' %>">сотрудники</p>
                         <select name = "employee" id = 'employee'>
-                            <option value = "">выбирайте сотрудника</option>
+                            <option value = "">выберите сотрудника</option>
                             <% employees.forEach( item => { %>
                                 <% if(customer.employee == item._id) { %>
                                     <option selected value = <%- item._id %>><%= item.name %></option>

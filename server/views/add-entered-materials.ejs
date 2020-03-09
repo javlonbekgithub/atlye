@@ -26,7 +26,7 @@
                         <select name = "typeOperation" id = "typeOperation">
                             <option value = "">выберите тип операции</option>
                             <% operation.forEach((item) => { %>
-                                <% if(enteredMaterials.typeOperation == item.value) { %>
+                                <% if(parseInt(enteredMaterials.typeOperation) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -39,7 +39,7 @@
                         <select name = "document" id = "document">
                             <option value = "">выберите</option>
                             <% documentList.forEach(item => { %>
-                                <% if(enteredMaterials.document == item.value) { %>
+                                <% if(parseInt(enteredMaterials.document) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -47,7 +47,7 @@
                             <% }) %>
                         </select>
                         <p>примечание</p>
-                        <textarea name = "noticeOperation" id = "noticeOperation" cols="25" rows="5"></textarea>
+                        <textarea name = "noticeOperation" id = "noticeOperation" cols = "25" rows = "5"><%= (enteredMaterials.noticeOperation) ? enteredMaterials.noticeOperation : '' %></textarea>
                     </div>
                     <div class = "section">
                         <p class = "<%- (enteredMaterials.sumEnter || notFill) ? '' : 'error' %>">сумма прихода</p>
@@ -56,7 +56,7 @@
                         <select name = "paidStatus" id = "paidStatus">
                             <option value = "">выберите статус</option>
                             <% statusPaid.forEach(item => { %>
-                                <% if(enteredMaterials.paidStatus == item.value) { %>
+                                <% if(parseInt(enteredMaterials.paidStatus) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>

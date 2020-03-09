@@ -68,7 +68,7 @@
                 </div>
             </div>
             <% customers.forEach((item, i) => { %>
-                <div class = "spreadsheetCont" data-id = <%- i %> >
+                <div class = "spreadsheetCont" data-id = <%- item._id %> >
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%- i+1 %></div>
                     </div>
@@ -98,7 +98,7 @@ copy = document.getElementById('copy')
 
 select = i => {
     spreadsheetCont[i].classList.add('selectedItem')
-    copy.setAttribute('href',`./copy?id=${spreadsheetCont[i].getAttribute('data-id')}`)
+    copy.setAttribute('href',`./copy?${spreadsheetCont[i].getAttribute('data-id')}`)
     for(let j = 0;j < spreadsheetCont.length; j++) {
         j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
     }

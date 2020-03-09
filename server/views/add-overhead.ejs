@@ -26,7 +26,7 @@
                         <select name = "codeGoods" id = "codeGoods">
                             <option value = "">выберите код товара</option>
                             <% goodsCode.forEach((item) => { %>
-                                <% if(overhead.codeGoods == item.value) { %>
+                                <% if(parseInt(overhead.codeGoods) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -40,14 +40,14 @@
                         <p class = "<%- (overhead.priceForOne || notFill) ? '' : 'error' %>">цена за 1пм(кг)</p>
                         <input value = "<%- (overhead.priceForOne) ? overhead.priceForOne : '' %>" type = "number" name = "priceForOne" id = "priceForOne">
                         <p>примечание</p>
-                        <textarea name = "noticeOverhead" id = "noticeOverhead" cols="25" rows="5"></textarea>
+                        <textarea name = "noticeOverhead" id = "noticeOverhead" cols = "25" rows = "5"><%= (overhead.noticeOverhead) ? overhead.noticeOverhead : '' %></textarea>
                     </div>
                     <div class = "section">
                         <p class = "<%- (overhead.unityMeter || notFill) ? '' : 'error' %>">ед.измер</p>
                         <select name = "unityMeter" id = "unityMeter">
                             <option value = "">выберите ед.изм</option>
                             <% unity.forEach((item) => { %>
-                                <% if(overhead.unityMeter == item.value) { %>
+                                <% if(parseInt(overhead.unityMeter) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>
@@ -64,7 +64,7 @@
                         <select name = "enterCodeMaterial" id = "enterCodeMaterial">
                             <option value = "">выберите код поступление</option>
                             <% enterCode.forEach((item) => { %>
-                                <% if(overhead.enterCodeMaterial == item.value) { %>
+                                <% if(parseInt(overhead.enterCodeMaterial) === item.value) { %>
                                     <option selected value = <%- item.value %>><%= item.name %></option>
                                 <% } else { %>
                                     <option value = <%- item.value %>><%= item.name %></option>

@@ -9,8 +9,8 @@ const orders = new Schema ({
     },
     customerMaterial: String,
     sumOrder: Number,
-    paid: Number,
-    debt: Number,
+    paid: Number,//delete
+    debt: Number,//delete
     customerStatus: Number,
     executor: {
         type: Schema.Types.ObjectId, 
