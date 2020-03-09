@@ -18,6 +18,12 @@ const customers = new Schema ({
             ref: 'Order'
         }
     ],
+    payments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Payment'
+        }
+    ],
     employee: {
         type: Schema.Types.ObjectId, 
         ref: 'Employees'

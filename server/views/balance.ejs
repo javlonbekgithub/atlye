@@ -16,6 +16,22 @@
             <div class = "title">
                 <h1>баланс клиента</h1>
             </div>
+            <div class = "secondLayer">
+                <div class = "searchCont">
+                    <input class = "search" type = "text" placeholder = "поиск">
+                </div>
+                <div class = "btn">искать</div>
+                <a href = "" id = "fillIn">
+                    <div class="center">
+                        <i class="far fa-plus-square"></i>
+                    </div>
+                </a>
+                <a href = "">
+                    <div class = "center">
+                        <i class="far fa-eye"></i>
+                    </div>
+                </a>
+            </div>
             <div class = "spreadsheetContTitle">
                 <div class = "spreadsheetItem">
                     <div class = "spreadsheetT">№</div>
@@ -34,7 +50,7 @@
                 </div>
             </div>
             <% customerBalance.forEach((item, i) => { %>
-                <div class = "spreadsheetCont">
+                <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= i + 1 %></div>
                     </div>
@@ -57,10 +73,24 @@
 </body>
 <script type = "text/javascript">
     
-spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
-paid = document.getElementsByClassName('paid')
-debt = document.getElementsByClassName('debt')
-cost = document.getElementsByClassName('cost')
+const spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+const paid = document.getElementsByClassName('paid')
+const debt = document.getElementsByClassName('debt')
+const cost = document.getElementsByClassName('cost')
+const fillIn = document.getElementById('fillIn')
+
+select = i => {
+    spreadsheetCont[i].classList.add('selectedItem')
+    fillIn.setAttribute('href',`./fill-in?${spreadsheetCont[i].getAttribute('data-id')}`)
+    for(let j = 0; j < spreadsheetCont.length; j++) {
+        j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+    }
+}
+
+for (let i = 0; i < spreadsheetCont.length; i++ ) {
+    spreadsheetCont[i].addEventListener('click', () => select(i))
+}
+
 
 
 

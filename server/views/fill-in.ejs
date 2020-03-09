@@ -1,0 +1,39 @@
+<%- include('head') %>
+<body>
+    <div class = "main">
+        <div class = "overflow">
+            <div class = "head">
+                <a href = "/profile/" class = "hItem">клиент</a>
+                <a href = "/order/" class = "hItem">закази</a>
+                <a href = "/try-on/" class = "hItem">примерка</a>
+                <a href = "/balance/" class = "hItem">баланс клиента</a>
+                <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
+                <a href = "/overhead-list/" class = "hItem">склад</a>
+                <a href = "" class = "hItem">услуги</a>
+                <a href = "" class = "hItem">расходы</a>
+                <a href = "" class = "hItem">сост ... склад</a>
+            </div>
+            <div class = "title">
+                <h1>пополнить баланс</h1>
+            </div>
+            <form class = "orderCont" action = "./fill-in" method = "post">
+                <% if(!notFill) { %>
+                    <h2 class = "warning">заполните поля</h2>
+                <% } %>
+                <div class = "sectionCont">
+                    <div class = "section">
+                        <h1><%= customer.name %></h1>
+                        <p class = "<%- (payment.paid || notFill) ? '' : 'error' %>">сумма</p>
+                        <input type = "number" name = "paid">
+                        <input class = "none" disabled value = <%- customer._id %> type = "text" name = "customerId">
+                    </div>
+                </div>
+                <div class = "buttonCont">
+                    <a class = "cancel cancelHover" href = "./">отмена</a>
+                    <input class = "submit buttonHover" type = "submit" value = "пополнить">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

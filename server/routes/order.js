@@ -5,6 +5,7 @@ const { TryOn } = require('../models/tryOn')
 const { Customer } = require('../models/customer')
 const { Employee } = require('../models/employees')
 const { KindOrder } = require('../models/kindOrder')
+const { Payment } = require('../models/payment')
 const strtotime = require('strtotime')
 
 const order = Router()
@@ -44,7 +45,6 @@ order.post('/add', checkSessionId, async (req, res) => {
         order.numberOrder = dbResFromOrder.length + 1 || 1
         order.responsible = req.currentUser._id
         order.paid = order.paid || 0
-        order.debt = order.debt || order.sumOrder
         const try_on = [
             {
                 date: Date.now() + 60 * 60 * 48 * 1000,
@@ -61,11 +61,20 @@ order.post('/add', checkSessionId, async (req, res) => {
                 orderNumber: order.numberOrder
             }
         ]
-        await TryOn.insertMany(try_on)
+        const payment = {
+            datePayment: Date.now() * 1000,
+            paid: order.paid,
+            client: req.currentUser._id
+        }
+        const addedPayment = await Payment.insertMany([payment]) 
         const addedOrder = await Order.insertMany([order])
+        await TryOn.insertMany(try_on)
         await Customer.findByIdAndUpdate(
             order.client,
-            { $push: { orders: addedOrder[0]._id } }
+            { $push: { 
+                orders: addedOrder[0]._id,
+                payments : addedPayment[0]._id 
+            } }
         )
         res.redirect('/order/')
     } else {
@@ -92,7 +101,6 @@ order.get('/copy', checkSessionId, async (req, res) => {
     const employees = await Employee.find()
     const kindOrder = await KindOrder.find()
     const order = await Order.findOne({ '_id': req._parsedUrl.query})
-    console.log(order)
     res.render('add-order', { 
         responsible: req.currentUser.userName,
         numberOrder: dbResFromOrder.length + 1 || 1,

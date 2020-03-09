@@ -85,7 +85,7 @@
                         <div class = "spreadsheetV"><%= item.paid %></div>
                     </div>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV debt"><%= item.debt %></div>
+                        <div class = "spreadsheetV"><%= item.sumOrder - item.paid %></div>
                     </div>
                 </div>
             <% }) %>

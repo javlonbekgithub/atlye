@@ -140,7 +140,7 @@ label {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: 0.5em 1em;
+    padding: 1em;
     background-color: var(--lightBlue);
     color: #fff;
 }
@@ -166,7 +166,9 @@ label {
     color: red;
     padding: 0.5em 0;
 }
-
+.none {
+    display: none;
+}
 .main {
     width: 100%;
     height: 100vh;
@@ -232,7 +234,7 @@ label {
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                padding: 0.5em 1em;
+                padding: 1em;
             }
             .hItem:hover {
                 transition: ease-out 0.3s;
