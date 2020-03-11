@@ -45,7 +45,7 @@ profile.post('/add-customer', checkSessionId, upload.single('photo'), async (req
             let photoPath = `${__dirname}/../public/photos/${photoName}`
             fs.writeFile(photoPath, req.file.buffer, 'base64', async err => {
                 if(err) 
-                    res.write('image-isnot-uploaded')
+                    res.write('image-is-not-uploaded')
             })
             customer.photo = photoUrl
         }
@@ -65,6 +65,7 @@ profile.post('/add-customer', checkSessionId, upload.single('photo'), async (req
         })
     }
 })
+
 
 
 module.exports = { profile }

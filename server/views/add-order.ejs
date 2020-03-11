@@ -25,67 +25,143 @@
                         <p>номер заказа</p>
                         <input disabled value = <%- numberOrder %> type = "number" name = "numberOrder" id = "numberOrder">
                         <p class = "<%- (order.dateOrder || notFill) ? '' : 'error' %>">дата заказа</p>
+                        <% if(disabled) { %>
+                            <input disabled value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
+                        <% } else { %>
                             <input value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
+                        <% } %>
                         <p class = "<%- (order.typeOrder || notFill) ? '' : 'error' %>">тип заказа</p>
-                        <select name = "typeOrder" id = "typeOrder">
-                            <option value = ''>выберите тип заказа</option>
-                            <% kindOrder.forEach((item, i) => { %>
-                                <% if(JSON.stringify(order.typeOrder) == JSON.stringify(item._id)) { %>
-                                    <option selected title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
+                        <% if(disabled) { %>
+                            <select disabled name = "typeOrder" id = "typeOrder">
+                                <option value = ''>выберите тип заказа</option>
+                                <% kindOrder.forEach((item, i) => { %>
+                                    <% if(JSON.stringify(order.typeOrder) == JSON.stringify(item._id)) { %>
+                                        <option selected title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } else { %>
+                            <select name = "typeOrder" id = "typeOrder">
+                                <option value = ''>выберите тип заказа</option>
+                                <% kindOrder.forEach((item, i) => { %>
+                                    <% if(JSON.stringify(order.typeOrder) == JSON.stringify(item._id)) { %>
+                                        <option selected title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option title = <%- item.price %> value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } %>
                         <p>материал заказчика</p>
-                        <textarea name = "customerMaterial" id = "customerMaterial" cols="3" rows="5"><%= (order.customerMaterial) ? order.customerMaterial : '' %></textarea>
+                        <% if(disabled) { %>
+                            <textarea disabled name = "customerMaterial" id = "customerMaterial" cols="3" rows="5"><%= (order.customerMaterial) ? order.customerMaterial : '' %></textarea>
+                        <% } else { %>
+                            <textarea name = "customerMaterial" id = "customerMaterial" cols="3" rows="5"><%= (order.customerMaterial) ? order.customerMaterial : '' %></textarea>
+                        <% } %>
                     </div>
                     <div class = "section">
                         <p class = "<%- (order.sumOrder || notFill) ? '' : 'error' %>">сумма заказа</p>
-                        <input  value = "<%- (order.sumOrder) ? order.sumOrder : '' %>" onchange = "handleDebt()" type = "number" name = "sumOrder" id = "sumOrder">
+                        <% if(disabled) { %>
+                            <input disabled value = "<%- (order.sumOrder) ? order.sumOrder : '' %>" onchange = "handleDebt()" type = "number" name = "sumOrder" id = "sumOrder">
+                        <% } else { %>
+                            <input value = "<%- (order.sumOrder) ? order.sumOrder : '' %>" onchange = "handleDebt()" type = "number" name = "sumOrder" id = "sumOrder">
+                        <% } %>    
                         <p class = "<%- (order.paid || notFill) ? '' : 'error' %>">оплачено</p>
-                        <input   value = "<%- (order.paid) ? order.paid : '' %>" onchange = "handleDebt()" type = "number" name = "paid" id = "paid">
+                        <% if(disabled) { %>
+                            <input disabled value = "<%- (order.paid) ? order.paid : '' %>" onchange = "handleDebt()" type = "number" name = "paid" id = "paid">
+                        <% } else { %>
+                            <input value = "<%- (order.paid) ? order.paid : '' %>" onchange = "handleDebt()" type = "number" name = "paid" id = "paid">
+                        <% } %>
                         <p>долг</p>
-                        <input   value = "<%- (order.debt) ? order.debt : '' %>" type = "number" name = "debt" id = "debt">
+                        <% if(disabled) { %>
+                            <input disabled value = "<%- (order.debt) ? order.debt : '' %>" type = "number" name = "debt" id = "debt">
+                        <% } else { %>
+                            <input value = "<%- (order.debt) ? order.debt : '' %>" type = "number" name = "debt" id = "debt">
+                        <% } %>
                         <p class = "<%- (order.customerStatus || notFill) ? '' : 'error' %>">статус клиента</p>
-                        <select name = "customerStatus" id = "customerStatus">
-                            <option value = ''>выберите статус клиента</option>
-                            <% customerStatus.forEach(item => { %>
-                                <% if(parseInt(order.customerStatus) === item.value) { %>
-                                    <option selected value = <%- item.value %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item.value %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
+                        <% if(disabled) { %>
+                            <select disabled name = "customerStatus" id = "customerStatus">
+                                <option value = ''>выберите статус клиента</option>
+                                <% customerStatus.forEach(item => { %>
+                                    <% if(parseInt(order.customerStatus) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } else { %>
+                            <select name = "customerStatus" id = "customerStatus">
+                                <option value = ''>выберите статус клиента</option>
+                                <% customerStatus.forEach(item => { %>
+                                    <% if(parseInt(order.customerStatus) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } %>    
                         <p class = "<%- (order.executor || notFill) ? '' : 'error' %>">исполнитель</p>
-                        <select name = "executor" id = "executor">
-                            <option value = ''>выберите испольнителя</option>
-                            <% employees.forEach(item => { %>
-                                <% if(JSON.stringify(order.executor) == JSON.stringify(item._id)) { %>
-                                    <option selected value = <%- item._id %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item._id %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
+                        <% if(disabled) { %>
+                            <select disabled name = "executor" id = "executor">
+                                <option value = ''>выберите испольнителя</option>
+                                <% employees.forEach(item => { %>
+                                    <% if(JSON.stringify(order.executor) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } else { %>
+                            <select name = "executor" id = "executor">
+                                <option value = ''>выберите испольнителя</option>
+                                <% employees.forEach(item => { %>
+                                    <% if(JSON.stringify(order.executor) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } %>
                         <p>ответственный</p>
                         <h2><%= responsible %></h2>
                     </div>
                     <div class = "section">
                         <p>заметки</p>
-                        <textarea name = "notice" id = "notice" cols = "25" rows = "5"><%= (order.notice) ? order.notice : '' %></textarea>
+                        <% if(disabled) { %>
+                            <textarea disabled name = "notice" id = "notice" cols = "25" rows = "5"><%= (order.notice) ? order.notice : '' %></textarea>
+                        <% } else { %>
+                            <textarea name = "notice" id = "notice" cols = "25" rows = "5"><%= (order.notice) ? order.notice : '' %></textarea>
+                        <% } %>
                         <p class = "<%- (order.client || notFill) ? '' : 'error' %>">клиент</p>
-                        <select name = "client" id = "client">
-                            <option value = ''>выберите клиента</option>
-                            <% customer.forEach((item) => { %>
-                                <% if(JSON.stringify(order.client) == JSON.stringify(item._id)) { %>
-                                    <option selected value = <%- item._id %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item._id %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
+                        <% if(disabled) { %>
+                            <select disabled name = "client" id = "client">
+                                <option value = ''>выберите клиента</option>
+                                <% customer.forEach((item) => { %>
+                                    <% if(JSON.stringify(order.client) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } else { %>
+                            <select name = "client" id = "client">
+                                <option value = ''>выберите клиента</option>
+                                <% customer.forEach((item) => { %>
+                                    <% if(JSON.stringify(order.client) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        <% } %>    
                     </div>
                 </div>
                 <div class = "buttonCont">

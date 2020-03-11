@@ -32,6 +32,7 @@ order.get('/add', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         customerStatus,
+        disabled: false,
         order: false,
         notFill: true
     })
@@ -89,6 +90,7 @@ order.post('/add', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         customerStatus,
+        disabled: false,
         order,
         notFill: false
     })
@@ -108,6 +110,27 @@ order.get('/copy', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         customerStatus,
+        disabled: false,
+        order,
+        notFill: true
+    })
+})
+
+
+order.get('/show', checkSessionId, async (req, res) => {
+    const dbResFromOrder = await Order.find()
+    const customer = await Customer.find()
+    const employees = await Employee.find()
+    const kindOrder = await KindOrder.find()
+    const order = await Order.findOne({ '_id': req._parsedUrl.query})
+    res.render('add-order', { 
+        responsible: req.currentUser.userName,
+        numberOrder: dbResFromOrder.length + 1 || 1,
+        customer,
+        employees,
+        kindOrder,
+        customerStatus,
+        disabled: true,
         order,
         notFill: true
     })
