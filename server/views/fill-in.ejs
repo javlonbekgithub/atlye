@@ -25,7 +25,7 @@
                         <h1><%= customer.name %></h1>
                         <p class = "<%- (payment.paid || notFill) ? '' : 'error' %>">сумма</p>
                         <input type = "number" name = "paid">
-                        <input class = "none" disabled value = <%- customer._id %> type = "text" name = "customerId">
+                        <input class = "none" type = "text" name = "client" value = <%- customer._id %>>
                     </div>
                 </div>
                 <div class = "buttonCont">

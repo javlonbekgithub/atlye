@@ -1,6 +1,7 @@
 const { Router } = require ('express')
 const { Customer } = require('../models/customer')
 const { checkSessionId } = require('../helpers')
+const { Payment } = require('../models/payment')
 
 
 const balance = Router()
@@ -15,7 +16,6 @@ balance.get('/', checkSessionId, async (req, res) => {
         model: 'Payment'
     }
     let customers = await Customer.find().populate(options).populate(options2)
-    console.log(customers)
     const customerBalance = []
     customers.map((item, i) => {
         customerBalance.push({
@@ -44,8 +44,17 @@ balance.get('/fill-in', checkSessionId, async (req, res) => {
 balance.post('/fill-in', checkSessionId, async (req, res) => {
     const payment = req.body
     if(payment) {
-        const customer = await Customer.findOne({ '_id': req.body.customerId})
+        payment.datePayment = Date.now() * 1000
+        const addedPayment = await Payment.insertMany([payment]) 
+        await Customer.findByIdAndUpdate(
+            payment.client,
+            { $push: { 
+                payments : addedPayment[0]._id 
+            } }
+            )
+        res.redirect('./')
     } else {
+        const customer = await Customer.findOne({ '_id': req.body.customerId})
         res.render('fill-in', { 
             customer,
             payment,
