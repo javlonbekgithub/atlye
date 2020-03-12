@@ -14,9 +14,9 @@
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
             <div class = "title">
-                <h1>создать заказ</h1>
+                <h1><%= titles.h1 %></h1>
             </div>
-            <form class = "orderCont" action = "/order/add" method = "post">
+            <form class = "orderCont" action = <%- titles.action %> method = "post">
                 <% if(!notFill) { %>
                     <h2 class = "warning">заполните поля</h2>
                 <% } %>
@@ -26,7 +26,7 @@
                         <input disabled value = <%- numberOrder %> type = "number" name = "numberOrder" id = "numberOrder">
                         <p class = "<%- (order.dateOrder || notFill) ? '' : 'error' %>">дата заказа</p>
                         <% if(disabled) { %>
-                            <input disabled value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
+                            <input disabled value = "<%- new Date(order.dateOrder * 1000).toISOString().slice(0, 10) %>" type = "date" name = "dateOrder" id = "date">
                         <% } else { %>
                             <input value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
                         <% } %>
@@ -166,7 +166,7 @@
                 </div>
                 <div class = "buttonCont">
                     <a class = "cancel cancelHover" href = "/order/">отмена</a>
-                    <input class = "submit buttonHover" type = "submit" value = "добавить">
+                    <input class = "<%- (disabled)? 'none' : 'submit buttonHover' %>" type = "submit" value = <%- titles.btn %>>
                 </div>
             </form>
         </div>

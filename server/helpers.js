@@ -153,6 +153,24 @@ const enterCode = [
     }
 ]
 
+const titlesAndRoutes = {
+    add: {
+        h1: 'создать заказ',
+        btn:  'добавить',
+        action: '/order/add'
+    },
+    edit: {
+        h1: 'изменить заказ',
+        btn:  'изменить',
+        action: '/order/edit'
+    },
+    show: {
+        h1: 'смотреть заказ',
+        btn:  'изменить',
+        action: '/order/'
+    }
+}
+
 module.exports = {
     checkSessionId,
     error,
@@ -167,5 +185,6 @@ module.exports = {
     statusPaid,
     goodsCode,
     unity,
-    enterCode   
+    enterCode,
+    titlesAndRoutes   
 }
