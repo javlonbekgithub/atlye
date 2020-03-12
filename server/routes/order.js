@@ -67,7 +67,7 @@ order.post('/add', checkSessionId, async (req, res) => {
         const payment = {
             datePayment: Date.now() * 1000,
             paid: order.paid,
-            client: req.currentUser._id
+            client: order.client
         }
         const addedPayment = await Payment.insertMany([payment]) 
         const addedOrder = await Order.insertMany([order])
@@ -166,29 +166,31 @@ order.get('/edit', checkSessionId, async (req, res) => {
 order.post('/edit', checkSessionId, async (req, res) => {
     let order = req.body
     if(order.dateOrder && order.typeOrder && order.executor && order.client && order.customerStatus) {
-    const oldOrder = await Order.findOne({ '_id': req._parsedUrl.query})
-        if(parseInt(order.sumOrder) !== oldOrder.sumOrder)
-            console.log('true')
-        else
-            console.log('fales')
-        // order.dateOrder = strtotime(order.dateOrder)
-        // order.responsible = req.currentUser._id
-        // const payment = {
-        //     datePayment: Date.now() * 1000,
-        //     paid: order.paid,
-        //     client: req.currentUser._id
-        // }
-        // const addedPayment = await Payment.insertMany([payment]) 
-        // const addedOrder = await Order.insertMany([order])
-        // await Customer.findByIdAndUpdate(
-        //     order.client,
-        //     { $push: { 
-        //         orders: addedOrder[0]._id,
-        //         payments : addedPayment[0]._id 
-        //     } }
-        //     )
-        // const currentOrder = await Order.findByIdAndUpdate(req._parsedUrl.query)
-        // res.redirect('/order/')
+        const oldOrder = await Order.findOne({ '_id': req._parsedUrl.query})
+        order.paid = order.paid || 0
+        order.dateOrder = strtotime(order.dateOrder)
+        order.responsible = req.currentUser._id
+        let payment
+        if(parseInt(order.sumOrder) !== oldOrder.sumOrder || parseInt(order.paid) !== oldOrder.paid) {
+            payment = {
+            datePayment: Date.now() * 1000,
+            paid: order.paid,
+            client: order.client
+            } 
+        } else {
+            payment = null
+        }
+        if(payment) {
+            const addedPayment = await Payment.insertMany([payment]) 
+            await Customer.findByIdAndUpdate(
+                order.client,
+                { $push: { 
+                    payments : addedPayment[0]._id 
+                } }
+            )
+        }
+        await Order.findByIdAndUpdate(req._parsedUrl.query , order)
+        res.redirect('/order/')
     } else {
         const customer = await Customer.find()
         const employees = await Employee.find()
