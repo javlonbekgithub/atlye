@@ -6,7 +6,7 @@ const customers = new Schema ({
     telephone: String,
     e_mail: String,
     status: Number,
-    birthday: String,
+    birthday: Number,
     infoPassport: String,
     shape: Number,
     size: Number,

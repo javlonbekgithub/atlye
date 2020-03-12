@@ -36,6 +36,7 @@ balance.get('/fill-in', checkSessionId, async (req, res) => {
     const customer = await Customer.findOne({ '_id': req._parsedUrl.query})
     res.render('fill-in', { 
         customer,
+        action: `./fill-in${req._parsedUrl.search}`,
         payment: false,
         notFill: true 
     })
@@ -43,21 +44,23 @@ balance.get('/fill-in', checkSessionId, async (req, res) => {
 
 balance.post('/fill-in', checkSessionId, async (req, res) => {
     const payment = req.body
-    if(payment) {
+    console.log(payment)
+    if(payment.paid) {
         payment.datePayment = Date.now() * 1000
         const addedPayment = await Payment.insertMany([payment]) 
         await Customer.findByIdAndUpdate(
-            payment.client,
-            { $push: { 
-                payments : addedPayment[0]._id 
-            } }
+            req._parsedUrl.query,
+                { $push: { 
+                    payments : addedPayment[0]._id 
+                } }
             )
         res.redirect('./')
     } else {
-        const customer = await Customer.findOne({ '_id': req.body.customerId})
+        const customer = await Customer.findOne({ '_id': req._parsedUrl.query})
         res.render('fill-in', { 
             customer,
             payment,
+            action: `./fill-in${req._parsedUrl.search}`,
             notFill: false 
         })
     }

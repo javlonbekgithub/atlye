@@ -31,17 +31,12 @@
                         <i class="far fa-copy"></i>
                     </div>
                 </a>
-                <a href = "">
-                    <div class = "center">
-                        <i class="far fa-clipboard"></i>
-                    </div>
-                </a>
-                <a href = "">
+                <a href = "" id = "show">
                     <div class = "center">
                         <i class="far fa-eye"></i>
                     </div>
                 </a>
-                <a href = "">
+                <a href = "" id = "edit">
                     <div class = "center">
                         <i class="far fa-edit"></i>
                     </div>
@@ -93,12 +88,16 @@
     </div>
 </body>
 <script>
-spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
-copy = document.getElementById('copy')
+const spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+const copy = document.getElementById('copy')
+const show = document.getElementById('show')
+const edit = document.getElementById('edit')
 
 select = i => {
     spreadsheetCont[i].classList.add('selectedItem')
     copy.setAttribute('href',`./copy?${spreadsheetCont[i].getAttribute('data-id')}`)
+    show.setAttribute('href',`./show?${spreadsheetCont[i].getAttribute('data-id')}`)
+    edit.setAttribute('href',`./edit?${spreadsheetCont[i].getAttribute('data-id')}`)
     for(let j = 0;j < spreadsheetCont.length; j++) {
         j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
     }

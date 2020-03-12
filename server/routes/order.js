@@ -147,7 +147,7 @@ order.get('/edit', checkSessionId, async (req, res) => {
     const customer = await Customer.find()
     const employees = await Employee.find()
     const kindOrder = await KindOrder.find()
-    const order = await Order.findOne({ '_id': req._parsedUrl.query})
+    let order = await Order.findOne({ '_id': req._parsedUrl.query})
     res.render('add-order', { 
         responsible: req.currentUser.userName,
         numberOrder: order.numberOrder,

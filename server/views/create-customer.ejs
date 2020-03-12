@@ -42,7 +42,11 @@
                             <% }) %>
                         </select>
                         <p>дата рождение</p>
-                        <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
+                        <% if(typeof customer.birthday === 'number') { %>
+                            <input value = <%- new Date(customer.birthday * 1000).toISOString().slice(0, 10) %> name = "birthday" type = "date" id = "birthday">
+                        <% } else { %>    
+                            <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
+                        <% } %>
                         <p>пасспортные данные</p>
                         <textarea name = "infoPassport" id = "infoPassport" cols = "3" rows = "5"><%= (customer.infoPassport) ? customer.infoPassport : '' %></textarea>
                         <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>

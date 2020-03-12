@@ -16,7 +16,7 @@
             <div class = "title">
                 <h1>пополнить баланс</h1>
             </div>
-            <form class = "orderCont" action = "./fill-in" method = "post">
+            <form class = "orderCont" action = <%- action %> method = "post">
                 <% if(!notFill) { %>
                     <h2 class = "warning">заполните поля</h2>
                 <% } %>
@@ -24,8 +24,8 @@
                     <div class = "section">
                         <h1><%= customer.name %></h1>
                         <p class = "<%- (payment.paid || notFill) ? '' : 'error' %>">сумма</p>
-                        <input type = "number" name = "paid">
-                        <input class = "none" type = "text" name = "client" value = <%- customer._id %>>
+                        <input value = "<%- (payment.paid) ? payment.paid : '' %>" type = "number" name = "paid">
+                        <!-- <input class = "none" type = "text" name = "client" value = <%- customer._id %>> -->
                     </div>
                 </div>
                 <div class = "buttonCont">

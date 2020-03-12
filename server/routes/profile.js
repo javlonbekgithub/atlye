@@ -66,6 +66,20 @@ profile.post('/add-customer', checkSessionId, upload.single('photo'), async (req
     }
 })
 
+profile.get('/copy', checkSessionId, async (req, res) => {
+    const employees = await Employee.find()
+    const customer = await Customer.findOne({ '_id': req._parsedUrl.query })
+    console.log(customer)
+    res.render('create-customer', {
+        employees,
+        customerStatus,
+        sourceInfo,
+        typeShape,
+        sizes,
+        customer,
+        notFill: true
+    })
+})
 
 
 module.exports = { profile }

@@ -28,7 +28,11 @@
                         <% if(disabled) { %>
                             <input disabled value = "<%- new Date(order.dateOrder * 1000).toISOString().slice(0, 10) %>" type = "date" name = "dateOrder" id = "date">
                         <% } else { %>
-                            <input value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
+                            <% if(typeof order.dateOrder === 'number') { %>
+                                <input value = "<%- new Date(order.dateOrder * 1000).toISOString().slice(0, 10) %>" type = "date" name = "dateOrder" id = "date">
+                            <% } else { %>
+                                <input value = "<%- (order.dateOrder) ? order.dateOrder : '' %>" type = "date" name = "dateOrder" id = "date">
+                            <% } %>
                         <% } %>
                         <p class = "<%- (order.typeOrder || notFill) ? '' : 'error' %>">тип заказа</p>
                         <% if(disabled) { %>
