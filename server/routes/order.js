@@ -32,6 +32,7 @@ order.get('/add', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         customerStatus,
+        id: '',
         titles: titlesAndRoutes.add,
         disabled: false,
         order: false,
@@ -92,6 +93,7 @@ order.post('/add', checkSessionId, async (req, res) => {
         kindOrder,
         titles: titlesAndRoutes.add,
         customerStatus,
+        id: '',
         disabled: false,
         order,
         notFill: false
@@ -113,6 +115,7 @@ order.get('/copy', checkSessionId, async (req, res) => {
         kindOrder,
         titles: titlesAndRoutes.add,
         customerStatus,
+        id: '',
         disabled: false,
         order,
         notFill: true
@@ -132,6 +135,7 @@ order.get('/show', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         titles: titlesAndRoutes.show,
+        id: '',
         customerStatus, 
         disabled: true,
         order,
@@ -151,7 +155,8 @@ order.get('/edit', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         customerStatus,
-        titles: titlesAndRoutes.edit, 
+        titles: titlesAndRoutes.edit,
+        id: req._parsedUrl.search, 
         disabled: false,
         order,
         notFill: true
@@ -161,7 +166,11 @@ order.get('/edit', checkSessionId, async (req, res) => {
 order.post('/edit', checkSessionId, async (req, res) => {
     let order = req.body
     if(order.dateOrder && order.typeOrder && order.executor && order.client && order.customerStatus) {
-        console.log(order)
+    const oldOrder = await Order.findOne({ '_id': req._parsedUrl.query})
+        if(parseInt(order.sumOrder) !== oldOrder.sumOrder)
+            console.log('true')
+        else
+            console.log('fales')
         // order.dateOrder = strtotime(order.dateOrder)
         // order.responsible = req.currentUser._id
         // const payment = {
@@ -177,7 +186,8 @@ order.post('/edit', checkSessionId, async (req, res) => {
         //         orders: addedOrder[0]._id,
         //         payments : addedPayment[0]._id 
         //     } }
-        // )
+        //     )
+        // const currentOrder = await Order.findByIdAndUpdate(req._parsedUrl.query)
         // res.redirect('/order/')
     } else {
         const customer = await Customer.find()
@@ -190,6 +200,7 @@ order.post('/edit', checkSessionId, async (req, res) => {
         employees,
         kindOrder,
         titles: titlesAndRoutes.edit,
+        id: req._parsedUrl.search,
         customerStatus,
         disabled: false,
         order,

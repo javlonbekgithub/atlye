@@ -16,7 +16,7 @@
             <div class = "title">
                 <h1><%= titles.h1 %></h1>
             </div>
-            <form class = "orderCont" action = <%- titles.action %> method = "post">
+            <form class = "orderCont" action = <%- titles.action + id %> method = "post">
                 <% if(!notFill) { %>
                     <h2 class = "warning">заполните поля</h2>
                 <% } %>
