@@ -173,7 +173,7 @@ order.post('/edit', checkSessionId, async (req, res) => {
         let payment
         if(parseInt(order.sumOrder) !== oldOrder.sumOrder || parseInt(order.paid) !== oldOrder.paid) {
             payment = {
-            datePayment: Date.now() * 1000,
+            datePayment: Date.now(),
             paid: order.paid,
             client: order.client
             } 

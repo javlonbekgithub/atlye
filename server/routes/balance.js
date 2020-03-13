@@ -44,9 +44,9 @@ balance.get('/fill-in', checkSessionId, async (req, res) => {
 
 balance.post('/fill-in', checkSessionId, async (req, res) => {
     const payment = req.body
-    console.log(payment)
     if(payment.paid) {
-        payment.datePayment = Date.now() * 1000
+        payment.datePayment = Date.now()
+        payment.client = req._parsedUrl.query
         const addedPayment = await Payment.insertMany([payment]) 
         await Customer.findByIdAndUpdate(
             req._parsedUrl.query,
@@ -64,6 +64,17 @@ balance.post('/fill-in', checkSessionId, async (req, res) => {
             notFill: false 
         })
     }
+})
+
+balance.get('/show', checkSessionId, async (req, res) => {
+    const options = {
+        path: 'payments',
+        model: 'Payment'
+    }
+    const customer = await Customer.findOne({ '_id': req._parsedUrl.query}).populate(options)
+    res.render('balance-show', { 
+        customer
+    })
 })
 
 module.exports = { balance }

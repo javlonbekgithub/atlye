@@ -169,6 +169,10 @@ label {
 .none {
     display: none;
 }
+.formSearch {
+    display: flex;
+}
+
 .main {
     width: 100%;
     height: 100vh;

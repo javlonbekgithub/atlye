@@ -17,10 +17,12 @@
                 <h1><%= userName %></h1>
             </div>
             <div class = "secondLayer">
-                <div class = "searchCont">
-                    <input class = "search" type = "text" placeholder = "поиск">
-                </div>
-                <div class = "btn">искать</div>
+                <form class = "formSearch" action = "./find" method = "post">
+                    <div class = "searchCont">
+                        <input class = "search" type = "text" placeholder = "поиск">
+                    </div>
+                    <input class = "btn" type = "submit" value = "искать">
+                </form>
                 <a href = "./create-customer">
                     <div class="center">
                         <i class="far fa-plus-square"></i>

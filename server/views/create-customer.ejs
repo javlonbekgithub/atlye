@@ -13,99 +13,204 @@
                 <a href = "" class = "hItem">расходы</a>
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
-            <div class = "title">
-                <h1>создать клиента</h1>
-            </div>
-            <form class = "formBox" action = "/profile/add-customer" method = "post" enctype = "multipart/form-data">
-                <% if(!notFill) { %>
-                    <h2 class = "warning">заполните поля</h2>
-                <% } %>
-                <div class = "sectionCont">
-                    <div class = "left">
-                        <p class = "<%- (customer.name || notFill) ? '' : 'error' %>">клиент</p>
-                        <input value = "<%- (customer.name) ? customer.name : '' %>" name = "name" placeholder = "имя" type = "text" id = "client">
-                        <p>адрес</p>
-                        <input value = "<%- (customer.addres) ? customer.addres : '' %>" name = "addres" placeholder = "адрес" type = "text" id = "addres">
-                        <p class = "<%- (customer.telephone || notFill) ? '' : 'error' %>">телефон</p>
-                        <input value = "<%- (customer.telephone) ? customer.telephone : '' %>" name = "telephone" placeholder = "90 3456789" type = "number" id = "telephone">
-                        <p>e-mail</p>
-                        <input value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
-                        <p  class = "<%- (customer.status || notFill) ? '' : 'error' %>">статус клиента</p>
-                        <select name = "status" id = 'status'>
-                            <option value = "">выберите статус клиента</option>
-                            <% customerStatus.forEach(item => { %>
-                                <% if(parseInt(customer.status) === item.value) { %>
-                                    <option selected value = <%- item.value %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item.value %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
-                        <p>дата рождение</p>
-                        <% if(typeof customer.birthday === 'number') { %>
-                            <input value = <%- new Date(customer.birthday * 1000).toISOString().slice(0, 10) %> name = "birthday" type = "date" id = "birthday">
-                        <% } else { %>    
-                            <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
-                        <% } %>
-                        <p>пасспортные данные</p>
-                        <textarea name = "infoPassport" id = "infoPassport" cols = "3" rows = "5"><%= (customer.infoPassport) ? customer.infoPassport : '' %></textarea>
-                        <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>
-                        <select name = "shape" id = 'shape'>
-                            <option value = "">выберите тип фигуры</option>
-                            <% typeShape.forEach(item => {%>
-                                <% if(parseInt(customer.shape) === item.value) { %>
-                                    <option selected value = <%- item.value %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item.value %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
-                        <p class = "<%- (customer.size || notFill) ? '' : 'error' %>">размер</p>
-                        <select name = "size" id = 'size'>
-                            <option value = "">выберите размер</option>
-                            <% sizes.forEach( item => {%>
-                                <% if(parseInt(customer.size) === item.value) { %>
-                                    <option selected value = <%- item.value %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item.value %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
-                    </div>
-                    <div class = "right">
-                        <p>заметки</p>
-                        <textarea name = "notes" id = "notes" cols = "3" rows = "5"><%= (customer.notes) ? customer.notes : '' %></textarea>
-                        <p class = "<%- (customer.source || notFill) ? '' : 'error' %>">источник информации</p>
-                        <select name = "source" id = 'source'>
-                            <option value = "">выберите источник информации</option>
-                            <% sourceInfo.forEach( item => {%>
-                                <% if(parseInt(customer.source) === item.value) { %>
-                                    <option selected value = <%- item.value %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item.value %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
-                        <p class = "<%- (customer.employee || notFill) ? '' : 'error' %>">сотрудники</p>
-                        <select name = "employee" id = 'employee'>
-                            <option value = "">выберите сотрудника</option>
-                            <% employees.forEach( item => { %>
-                                <% if(customer.employee == item._id) { %>
-                                    <option selected value = <%- item._id %>><%= item.name %></option>
-                                <% } else { %>
-                                    <option value = <%- item._id %>><%= item.name %></option>
-                                <% } %>
-                            <% }) %>
-                        </select>
-                        <p>фото клиента</p>
-                        <input name = "photo" type = "file" id = "photo">
-                    </div>
+            <% if(disabled) { %>
+                <div class = "title">
+                    <h1>просмотр клиента</h1>
                 </div>
-                <div class = "buttonCont">
-                    <a class = "cancel cancelHover" href = "/profile/">отмена</a>
-                    <input class = "submit buttonHover" type = "submit" value = "создать">
+                <form class = "formBox" action = <%- action + id %> method = "post" enctype = "multipart/form-data">
+                    <% if(!notFill && !exists) { %>
+                        <h2 class = "warning">заполните поля</h2>
+                    <% } %>
+                    <% if(exists) { %>
+                        <h2 class = "warning">клиент с таким имением существует</h2>
+                    <% } %>
+                    <div class = "sectionCont">
+                        <div class = "left">
+                            <p class = "<%- (customer.name || notFill) ? '' : 'error' %>">клиент</p>
+                            <input disabled value = "<%- (customer.name) ? customer.name : '' %>" name = "name" placeholder = "имя" type = "text" id = "client">
+                            <p>адрес</p>
+                            <input disabled value = "<%- (customer.addres) ? customer.addres : '' %>" name = "addres" placeholder = "адрес" type = "text" id = "addres">
+                            <p class = "<%- (customer.telephone || notFill) ? '' : 'error' %>">телефон</p>
+                            <input disabled value = "<%- (customer.telephone) ? customer.telephone : '' %>" name = "telephone" placeholder = "90 3456789" type = "number" id = "telephone">
+                            <p>e-mail</p>
+                            <input disabled value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
+                            <p  class = "<%- (customer.status || notFill) ? '' : 'error' %>">статус клиента</p>
+                            <select disabled name = "status" id = 'status'>
+                                <option value = "">выберите статус клиента</option>
+                                <% customerStatus.forEach(item => { %>
+                                    <% if(parseInt(customer.status) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p>дата рождение</p>
+                            <% if(typeof customer.birthday === 'number') { %>
+                                <input disabled value = <%- new Date(customer.birthday * 1000).toISOString().slice(0, 10) %> name = "birthday" type = "date" id = "birthday">
+                            <% } else { %>    
+                                <input disabled value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
+                            <% } %>
+                            <p>пасспортные данные</p>
+                            <textarea disabled name = "infoPassport" id = "infoPassport" cols = "3" rows = "5"><%= (customer.infoPassport) ? customer.infoPassport : '' %></textarea>
+                            <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>
+                            <select disabled name = "shape" id = 'shape'>
+                                <option value = "">выберите тип фигуры</option>
+                                <% typeShape.forEach(item => {%>
+                                    <% if(parseInt(customer.shape) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p class = "<%- (customer.size || notFill) ? '' : 'error' %>">размер</p>
+                            <select disabled name = "size" id = 'size'>
+                                <option value = "">выберите размер</option>
+                                <% sizes.forEach( item => {%>
+                                    <% if(parseInt(customer.size) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class = "right">
+                            <p>заметки</p>
+                            <textarea disabled name = "notes" id = "notes" cols = "3" rows = "5"><%= (customer.notes) ? customer.notes : '' %></textarea>
+                            <p class = "<%- (customer.source || notFill) ? '' : 'error' %>">источник информации</p>
+                            <select disabled name = "source" id = 'source'>
+                                <option value = "">выберите источник информации</option>
+                                <% sourceInfo.forEach( item => {%>
+                                    <% if(parseInt(customer.source) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p class = "<%- (customer.employee || notFill) ? '' : 'error' %>">сотрудники</p>
+                            <select disabled name = "employee" id = 'employee'>
+                                <option value = "">выберите сотрудника</option>
+                                <% employees.forEach( item => { %>
+                                    <% if(JSON.stringify(customer.employee) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p>фото клиента</p>
+                            <input disabled name = "photo" type = "file" id = "photo">
+                        </div>
+                    </div>
+                    <div class = "buttonCont">
+                        <a class = "cancel cancelHover" href = "/profile/">назад</a>
+                    </div>
+                </form>
+            <% } else { %>
+                <div class = "title">
+                    <% if(id) { %>
+                        <h1>изменить данные клиента</h1>
+                    <% } else { %>
+                        <h1>создать клиента</h1>
+                    <% } %>
                 </div>
-            </form>
+                <form class = "formBox" action = <%- action + id %> method = "post" enctype = "multipart/form-data">
+                    <% if(!notFill && !exists) { %>
+                        <h2 class = "warning">заполните поля</h2>
+                    <% } %>
+                    <% if(exists) { %>
+                        <h2 class = "warning">клиент с таким имением существует</h2>
+                    <% } %>
+                    <div class = "sectionCont">
+                        <div class = "left">
+                            <p class = "<%- (customer.name || notFill) ? '' : 'error' %>">клиент</p>
+                            <input value = "<%- (customer.name) ? customer.name : '' %>" name = "name" placeholder = "имя" type = "text" id = "client">
+                            <p>адрес</p>
+                            <input value = "<%- (customer.addres) ? customer.addres : '' %>" name = "addres" placeholder = "адрес" type = "text" id = "addres">
+                            <p class = "<%- (customer.telephone || notFill) ? '' : 'error' %>">телефон</p>
+                            <input value = "<%- (customer.telephone) ? customer.telephone : '' %>" name = "telephone" placeholder = "90 3456789" type = "number" id = "telephone">
+                            <p>e-mail</p>
+                            <input value = "<%- (customer.e_mail) ? customer.e_mail : '' %>" name = "e_mail" placeholder = "эл-адрес" type = "email" id = "email">
+                            <p  class = "<%- (customer.status || notFill) ? '' : 'error' %>">статус клиента</p>
+                            <select name = "status" id = 'status'>
+                                <option value = "">выберите статус клиента</option>
+                                <% customerStatus.forEach(item => { %>
+                                    <% if(parseInt(customer.status) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p>дата рождение</p>
+                            <% if(typeof customer.birthday === 'number') { %>
+                                <input value = <%- new Date(customer.birthday * 1000).toISOString().slice(0, 10) %> name = "birthday" type = "date" id = "birthday">
+                            <% } else { %>    
+                                <input value = "<%- (customer.birthday) ? customer.birthday : '' %>" name = "birthday" type = "date" id = "birthday">
+                            <% } %>
+                            <p>пасспортные данные</p>
+                            <textarea name = "infoPassport" id = "infoPassport" cols = "3" rows = "5"><%= (customer.infoPassport) ? customer.infoPassport : '' %></textarea>
+                            <p class = "<%- (customer.shape || notFill) ? '' : 'error' %>">тип фигуры</p>
+                            <select name = "shape" id = 'shape'>
+                                <option value = "">выберите тип фигуры</option>
+                                <% typeShape.forEach(item => {%>
+                                    <% if(parseInt(customer.shape) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p class = "<%- (customer.size || notFill) ? '' : 'error' %>">размер</p>
+                            <select name = "size" id = 'size'>
+                                <option value = "">выберите размер</option>
+                                <% sizes.forEach( item => {%>
+                                    <% if(parseInt(customer.size) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class = "right">
+                            <p>заметки</p>
+                            <textarea name = "notes" id = "notes" cols = "3" rows = "5"><%= (customer.notes) ? customer.notes : '' %></textarea>
+                            <p class = "<%- (customer.source || notFill) ? '' : 'error' %>">источник информации</p>
+                            <select name = "source" id = 'source'>
+                                <option value = "">выберите источник информации</option>
+                                <% sourceInfo.forEach( item => {%>
+                                    <% if(parseInt(customer.source) === item.value) { %>
+                                        <option selected value = <%- item.value %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item.value %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p class = "<%- (customer.employee || notFill) ? '' : 'error' %>">сотрудники</p>
+                            <select name = "employee" id = 'employee'>
+                                <option value = "">выберите сотрудника</option>
+                                <% employees.forEach( item => { %>
+                                    <% if(JSON.stringify(customer.employee) == JSON.stringify(item._id)) { %>
+                                        <option selected value = <%- item._id %>><%= item.name %></option>
+                                    <% } else { %>
+                                        <option value = <%- item._id %>><%= item.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                            <p>фото клиента</p>
+                            <input name = "photo" type = "file" id = "photo">
+                        </div>
+                    </div>
+                    <div class = "buttonCont">
+                        <a class = "cancel cancelHover" href = "/profile/">отмена</a>
+                        <input class = "submit buttonHover" type = "submit" value = "<%- (id) ? 'изменить' : 'создать' %>">
+                    </div>
+                </form>
+            <% } %>
         </div>
     </div>
 </body>
