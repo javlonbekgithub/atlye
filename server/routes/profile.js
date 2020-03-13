@@ -186,12 +186,11 @@ profile.post('/edit-customer', checkSessionId, upload.single('photo'), async (re
 })
 
 profile.post('/find', checkSessionId, async (req, res) => {
-    console.log(req)
-    // const customers = await Customer.find()
-    // res.render('profile', {
-    //     userName: req.currentUser.userName,
-    //     customers
-    // })
+    const customers = await Customer.find({name: req.body.query})
+    res.render('profile', {
+        userName: req.currentUser.userName,
+        customers
+    })
 })
 
 module.exports = { profile }

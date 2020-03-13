@@ -17,10 +17,12 @@
                 <h1>закази</h1>
             </div>
             <div class = "secondLayer">
-                <div class = "searchCont">
-                    <input class = "search" type = "text" placeholder = "поиск">
-                </div>
-                <div class = "btn">искать</div>
+               <form class = "formSearch" action = "./find" method = "post">
+                    <div class = "searchCont">
+                        <input class = "search" name = "query" type = "text" placeholder = "поиск">
+                    </div>
+                    <input class = "btn" type = "submit" value = "искать">
+               </form>
                 <a href = "/order/add">
                     <div class="center">
                         <i class="far fa-plus-square"></i>

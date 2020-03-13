@@ -26,5 +26,10 @@
 // }
 // console.timeEnd('arrow')
 
-let t = new Date(1583193600000).toISOString().slice(0, 10)
-console.log(t)
+let arr1 = [1, 2 , 3 , 4 ]
+let arr2 = [ 2 , 5 , 4 ]
+
+arr1.map((item) => {
+    arr2.push(item)
+} )
+console.log(arr2)

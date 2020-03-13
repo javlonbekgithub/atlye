@@ -211,4 +211,16 @@ order.post('/edit', checkSessionId, async (req, res) => {
     }
 })
 
+order.post('/find', checkSessionId, async (req, res) => {
+    let options = {
+        path : 'client',
+        select : 'name'
+    }
+    const orders = await Order.find().populate(options)
+    console.log(orders)
+    res.render('order', {
+        orders
+    })
+})
+
 module.exports = { order }
