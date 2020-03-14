@@ -86,13 +86,7 @@
                     </div>
                 </div>
             <% }) %>
-            <div class = "paginationCont">
-                <% if(toggle) { %>
-                    <a class = "pagination" href = <%- prev %>>предыдущий</a>
-                <% } %>
-                <div><%= total %></div>
-                <a class = "pagination" href = <%- next %>>следующий</a>
-            </div>
+            <%- include('pagination') %>
         </div>
     </div>
 </body>
@@ -102,15 +96,15 @@ const copy = document.getElementById('copy')
 const show = document.getElementById('show')
 const edit = document.getElementById('edit')
 
-select = i => {
-    spreadsheetCont[i].classList.add('selectedItem')
-    copy.setAttribute('href',`./copy?${spreadsheetCont[i].getAttribute('data-id')}`)
-    show.setAttribute('href',`./show?${spreadsheetCont[i].getAttribute('data-id')}`)
-    edit.setAttribute('href',`./edit?${spreadsheetCont[i].getAttribute('data-id')}`)
-    for(let j = 0;j < spreadsheetCont.length; j++) {
-        j !== i? spreadsheetCont[j].classList.remove('selectedItem') : null
+const select = i => {
+        spreadsheetCont[i].classList.add('selectedItem')
+        copy.setAttribute('href',`./copy?${spreadsheetCont[i].getAttribute('data-id')}`)
+        show.setAttribute('href',`./show?${spreadsheetCont[i].getAttribute('data-id')}`)
+        edit.setAttribute('href',`./edit?${spreadsheetCont[i].getAttribute('data-id')}`)
+        for(let j = 0;j < spreadsheetCont.length; j++) {
+            j !== i? spreadsheetCont[j].classList.remove('selectedItem') : null
+        }
     }
-}
 
 for (let i = 0; i < spreadsheetCont.length; i++ ) {
     spreadsheetCont[i].addEventListener('click', () => select(i))

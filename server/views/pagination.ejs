@@ -1,0 +1,11 @@
+<% if(pagination) { %>
+    <div class = "paginationCont">
+        <% if(prev >= 0) { %>
+            <a class = "pagination" href = "./?<%- prev %>">предыдущий</a>
+        <% } %>
+        <div><%= ((total > next) ? next : total) + ' / ' + total %></div>
+        <% if(next < total)  { %>
+            <a class = "pagination" href = "./?<%- next %>">следующий</a>
+        <% } %>
+    </div>
+<% } %>

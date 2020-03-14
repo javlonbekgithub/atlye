@@ -18,8 +18,6 @@ order.get('/', checkSessionId, async (req, res) => {
     let skip = parseInt(req._parsedUrl.query) || 0
     let next = 5 + skip
     let prev = next - 10
-    let toggle = false
-    toggle = (next > 5) ? true : toggle 
     const total = await Order.find().count()
     const orders = await Order.find()
         .populate(options)
@@ -27,32 +25,12 @@ order.get('/', checkSessionId, async (req, res) => {
         .limit(5)
     res.render('order', {
         orders,
-        prev: `./?${prev}`,
-        next: `./?${next}`,
-        total: `${(total > next) ? next : total} / ${total}`,
-        toggle
+        pagination: true,
+        prev,
+        next,
+        total,
     })
 })
-
-// order.get('/:page', checkSessionId, async (req, res) => {
-//     let options = {
-//         path : 'client',
-//         select : 'name'
-//     }
-//     console.log(req)
-//     let skip = parseInt(req.params.page) || 0
-//     let next = 5 + skip
-//     let prev = next - skip
-//     const orders = await Order.find()
-//         .populate(options)
-//         .skip(skip)
-//         .limit(5)
-//     res.render('order', {
-//         orders,
-//         prev: `./${prev}`,
-//         next: `./${next}`
-//     })
-// })
 
 order.get('/add', checkSessionId, async (req, res) => {
     const dbResFromOrder = await Order.find()
@@ -251,12 +229,15 @@ order.post('/find', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const orders = await (await Order.find()
-        .populate(options))
-        .filter(item => item.client.name === req.body.query)
-    res.render('order', {
-        orders
-    })
+    const tmp = await Order.find().populate(options).find({'client.name': {$eq: 'ivan' }})
+    console.log(tmp)
+    // const orders = await (await Order.find()
+    //     .populate(options))
+    //     .filter(item => item.client.name === req.body.query)
+    // res.render('order', {
+    //     orders,
+    //     pagination: false
+    // })
 })
 
 module.exports = { order }
