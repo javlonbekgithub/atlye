@@ -65,7 +65,7 @@ order.post('/add', checkSessionId, async (req, res) => {
             }
         ]
         const payment = {
-            datePayment: Date.now() * 1000,
+            datePayment: Date.now(),
             paid: order.paid,
             client: order.client
         }
@@ -216,8 +216,9 @@ order.post('/find', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const orders = await Order.find().populate(options)
-    console.log(orders)
+    const orders = await (await Order.find()
+        .populate(options))
+        .filter(item => item.client.name === req.body.query)
     res.render('order', {
         orders
     })

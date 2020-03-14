@@ -77,4 +77,34 @@ balance.get('/show', checkSessionId, async (req, res) => {
     })
 })
 
+
+balance.post('/find', checkSessionId, async (req, res) => {
+    const options = {
+        path: 'orders',
+        model: 'Order'
+    }
+    const options2 = {
+        path: 'payments',
+        model: 'Payment'
+    }
+    let customers = await (await Customer.find()
+        .populate(options)
+        .populate(options2))
+        .filter(item => item.name === req.body.query)
+    const customerBalance = []
+    customers.map((item, i) => {
+        customerBalance.push({
+            _id: item._id,
+            name: item.name,
+            additional: 0,
+            paid: 0
+        })
+        item.orders.map(order => { customerBalance[i].additional += order.sumOrder })
+        item.payments.map(item => { customerBalance[i].paid += item.paid })
+    })
+    res.render('balance', {
+        customerBalance
+    })
+})
+
 module.exports = { balance }
