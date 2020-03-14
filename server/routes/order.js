@@ -18,8 +18,9 @@ order.get('/', checkSessionId, async (req, res) => {
     let skip = parseInt(req._parsedUrl.query) || 0
     let next = 5 + skip
     let prev = next - 10
+    let toggle = false
+    toggle = (next > 5) ? true : toggle 
     const total = await Order.find().count()
-    console.log(total)
     const orders = await Order.find()
         .populate(options)
         .skip(skip)
@@ -28,7 +29,8 @@ order.get('/', checkSessionId, async (req, res) => {
         orders,
         prev: `./?${prev}`,
         next: `./?${next}`,
-        total: `${(total > next) ? next : total} / ${total}`
+        total: `${(total > next) ? next : total} / ${total}`,
+        toggle
     })
 })
 

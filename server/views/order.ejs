@@ -87,7 +87,9 @@
                 </div>
             <% }) %>
             <div class = "paginationCont">
-                <a class = "<%- (next == 5) ? 'none' : 'pagination'  %>" href = <%- prev %>>предыдущий</a>
+                <% if(toggle) { %>
+                    <a class = "pagination" href = <%- prev %>>предыдущий</a>
+                <% } %>
                 <div><%= total %></div>
                 <a class = "pagination" href = <%- next %>>следующий</a>
             </div>
