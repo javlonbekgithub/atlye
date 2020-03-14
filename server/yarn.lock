@@ -450,6 +450,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+mongodb-ejs-pagination@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/mongodb-ejs-pagination/-/mongodb-ejs-pagination-1.0.3.tgz#c5139341ef85c77feefa50c6c2eed50201c1c2ce"
+  integrity sha512-Jsdhn/BaePjN16Tap9XqbF2wC8liQZGwvxdcvcNiEIauHz+Icz9CTIsQnO4z80rO7FTHnbyrfTr2jyvAIolLzQ==
+
 mongodb@3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.5.3.tgz#f2c7ce9b5fc9a13da116ff1b6e816f6256010a86"

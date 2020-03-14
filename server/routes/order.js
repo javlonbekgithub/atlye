@@ -15,11 +15,31 @@ order.get('/', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const orders = await Order.find().populate(options)
+    const orders = await Order.find()
+        .populate(options)
+        .skip(0)
+        .limit(5)
     res.render('order', {
         orders
     })
 })
+
+order.get('/:page', checkSessionId, async (req, res) => {
+    let options = {
+        path : 'client',
+        select : 'name'
+    }
+    console.log(parseInt(req.params.page))
+    let skip = parseInt(req.params.page) || 0
+    const orders = await Order.find()
+        .populate(options)
+        .skip(skip)
+        .limit(5)
+    res.render('order', {
+        orders
+    })
+})
+
 order.get('/add', checkSessionId, async (req, res) => {
     const dbResFromOrder = await Order.find()
     const customer = await Customer.find()
