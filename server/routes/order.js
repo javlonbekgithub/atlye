@@ -15,30 +15,42 @@ order.get('/', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const orders = await Order.find()
-        .populate(options)
-        .skip(0)
-        .limit(5)
-    res.render('order', {
-        orders
-    })
-})
-
-order.get('/:page', checkSessionId, async (req, res) => {
-    let options = {
-        path : 'client',
-        select : 'name'
-    }
-    console.log(parseInt(req.params.page))
-    let skip = parseInt(req.params.page) || 0
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let next = 5 + skip
+    let prev = next - 10
+    const total = await Order.find().count()
+    console.log(total)
     const orders = await Order.find()
         .populate(options)
         .skip(skip)
         .limit(5)
     res.render('order', {
-        orders
+        orders,
+        prev: `./?${prev}`,
+        next: `./?${next}`,
+        total: `${(total > next) ? next : total} / ${total}`
     })
 })
+
+// order.get('/:page', checkSessionId, async (req, res) => {
+//     let options = {
+//         path : 'client',
+//         select : 'name'
+//     }
+//     console.log(req)
+//     let skip = parseInt(req.params.page) || 0
+//     let next = 5 + skip
+//     let prev = next - skip
+//     const orders = await Order.find()
+//         .populate(options)
+//         .skip(skip)
+//         .limit(5)
+//     res.render('order', {
+//         orders,
+//         prev: `./${prev}`,
+//         next: `./${next}`
+//     })
+// })
 
 order.get('/add', checkSessionId, async (req, res) => {
     const dbResFromOrder = await Order.find()
@@ -126,6 +138,7 @@ order.get('/copy', checkSessionId, async (req, res) => {
     const customer = await Customer.find()
     const employees = await Employee.find()
     const kindOrder = await KindOrder.find()
+    console.log(req)
     const order = await Order.findOne({ '_id': req._parsedUrl.query})
     res.render('add-order', { 
         responsible: req.currentUser.userName,

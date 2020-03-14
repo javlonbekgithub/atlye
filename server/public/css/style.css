@@ -174,6 +174,29 @@ label {
     display: flex;
 }
 
+.pagination {
+    height: 100%;
+    border-radius: 0.3em;
+    display: flex;
+    align-items: center;
+    background-color: var(--lightBlue);
+    margin: 1em;
+    color: #fff;
+    padding: 0.2em 1em;
+    cursor: pointer;
+}
+.pagination:hover {
+    background-color: var(--darkBlue);
+    transition: ease-out 0.3s;
+}
+.paginationCont {
+    width: 100%;
+    margin: 1em 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .main {
     width: 100%;
     height: 100vh;

@@ -86,9 +86,10 @@
                     </div>
                 </div>
             <% }) %>
-            <div class = "buttonCont">
-                <a class = "btn" href = "./2">next</a>
-                <a class = "btn" href = "./3">prev</a>
+            <div class = "paginationCont">
+                <a class = "<%- (next == 5) ? 'none' : 'pagination'  %>" href = <%- prev %>>предыдущий</a>
+                <div><%= total %></div>
+                <a class = "pagination" href = <%- next %>>следующий</a>
             </div>
         </div>
     </div>
