@@ -6,7 +6,8 @@ const users = new Schema ({
     sessionId: {
         type: String,
         default: ''
-    }
+    },
+    query: Array
 })
 
 const User = model('Users', users)

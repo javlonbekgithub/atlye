@@ -3,7 +3,13 @@ const { User } = require('./models/user')
 const checkSessionId = async (req, res, next) => {
     const dbRes = await User.findOne({ sessionId: req.sessionID })
     if(dbRes) {
-        req.currentUser = dbRes
+        if(!req._parsedUrl.query) {
+            req.currentUser = await User.findByIdAndUpdate(
+                dbRes._id, 
+                { $set: { query: [] }} )
+        } else {
+            req.currentUser = dbRes
+        }
         next()
     } else {
         res.render('login', { incorrect: error.messages.expired })
@@ -186,5 +192,5 @@ module.exports = {
     goodsCode,
     unity,
     enterCode,
-    titlesAndRoutes   
+    titlesAndRoutes,
 }

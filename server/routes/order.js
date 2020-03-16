@@ -6,6 +6,7 @@ const { Customer } = require('../models/customer')
 const { Employee } = require('../models/employees')
 const { KindOrder } = require('../models/kindOrder')
 const { Payment } = require('../models/payment')
+const { User } = require('../models/user')
 const strtotime = require('strtotime')
 
 const order = Router()
@@ -15,14 +16,23 @@ order.get('/', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
+    
     let skip = parseInt(req._parsedUrl.query) || 0
     let next = 5 + skip
     let prev = next - 10
-    const total = await Order.find().count()
-    const orders = await Order.find()
-        .populate(options)
-        .skip(skip)
-        .limit(5)
+    let total
+    let orders
+    const globalOrders = req.currentUser.query
+    if(globalOrders.length < 1) {
+        total = await Order.find().count()
+        orders = await Order.find()
+            .populate(options)
+            .skip(skip)
+            .limit(5)
+    } else {
+        total = globalOrders.length
+        orders = globalOrders.slice(skip, next)
+    }
     res.render('order', {
         orders,
         pagination: true,
@@ -229,15 +239,24 @@ order.post('/find', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const tmp = await Order.find().populate(options).find({'client.name': {$eq: 'ivan' }})
-    console.log(tmp)
-    // const orders = await (await Order.find()
-    //     .populate(options))
-    //     .filter(item => item.client.name === req.body.query)
-    // res.render('order', {
-    //     orders,
-    //     pagination: false
-    // })
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let next = 5 + skip
+    let prev = next - 10
+    const ordersFromDb = await (await Order.find()
+        .populate(options))
+        .filter(item => item.client.name === req.body.query)
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: ordersFromDb }} )
+    const total = ordersFromDb.length
+    const orders = ordersFromDb.slice(skip, next)
+    res.render('order', {
+        orders,
+        pagination: true,
+        total,
+        prev,
+        next,
+    })
 })
 
 module.exports = { order }

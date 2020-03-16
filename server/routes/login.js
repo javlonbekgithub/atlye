@@ -20,7 +20,7 @@ login.post('/', async (req, res, next) => {
         if(dbRes && dbRes.password === password ){
             await User.findOneAndUpdate(
                 { "userName": req.body.userName },
-                { $set: { 'sessionId': sessionId } },
+                { $set: { 'sessionId': sessionId, query: [] } },
             )
             res.redirect('/profile/')
         next()
