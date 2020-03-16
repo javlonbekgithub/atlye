@@ -6,16 +6,37 @@ const upload = multer({ storage: multer.memoryStorage() })
 const { Router } = require ('express')
 const { Employee } = require('../models/employees')
 const { Customer } = require('../models/customer')
+const { User } = require('../models/user')
 const { URL } = require('../helpers')
 const { checkSessionId, customerStatus, sourceInfo, typeShape, sizes } = require('../helpers')
 
 const profile = Router()
 
 profile.get('/', checkSessionId, async (req, res) => {
-    const customers = await Customer.find()
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    let total
+    let customers
+    const selectedCustomers = req.currentUser.query
+    
+    if(selectedCustomers.length < 1) {
+        total = await Customer.find().count()
+        customers = await Customer.find()
+        .skip(skip)
+        .limit(limit)
+    } else {
+        total = selectedCustomers.length
+        orders = selectedCustomers.slice(skip, next)
+    }
     res.render('profile', {
         userName: req.currentUser.userName,
-        customers
+        customers,
+        prev,
+        next,
+        total,
+        limit
     })
 })
 
@@ -186,10 +207,22 @@ profile.post('/edit-customer', checkSessionId, upload.single('photo'), async (re
 })
 
 profile.post('/find', checkSessionId, async (req, res) => {
-    const customers = await Customer.find({name: req.body.query})
+    // let skip = parseInt(req._parsedUrl.query) || 0
+    // let limit = 5
+    // let next = limit + skip
+    // let prev = next - limit * 2
+    // const total = await Customer.find().count()
+    const customers = await Customer
+        .find({name: req.body.query})
+        // .skip(skip)
+        // .limit(limit)
+    // await User.findByIdAndUpdate(
+    //     req.currentUser._id, 
+    //     { $set: { query: customers }} )
     res.render('profile', {
         userName: req.currentUser.userName,
-        customers
+        customers,
+        total: false
     })
 })
 

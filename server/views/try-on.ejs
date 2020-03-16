@@ -39,7 +39,7 @@
             <% try_onFromDb.forEach((item, i) => { %>
                 <div class = "spreadsheetCont">
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%- i+1 %></div>
+                        <div class = "spreadsheetV"><%- i + 1 + next - limit %></div>
                     </div>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV debt"><%= new Date(item.date).toISOString().slice(0, 10) %></div>
@@ -58,6 +58,7 @@
                     </div>
                 </div>
             <% }) %>
+            <%- include('pagination') %>
         </div>
 
     </div>

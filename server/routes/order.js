@@ -16,29 +16,34 @@ order.get('/', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    
     let skip = parseInt(req._parsedUrl.query) || 0
-    let next = 5 + skip
-    let prev = next - 10
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
     let total
     let orders
     const globalOrders = req.currentUser.query
+    
     if(globalOrders.length < 1) {
         total = await Order.find().count()
         orders = await Order.find()
-            .populate(options)
-            .skip(skip)
-            .limit(5)
+        .populate(options)
+        .skip(skip)
+        .limit(limit)
     } else {
+        let tmp = await Customer.findOne({'_id': globalOrders[0].client})
+        for(let i = 0; i < globalOrders.length; i++){
+            globalOrders[i].client.name = tmp.name
+        }
         total = globalOrders.length
         orders = globalOrders.slice(skip, next)
     }
     res.render('order', {
         orders,
-        pagination: true,
         prev,
         next,
         total,
+        limit
     })
 })
 
@@ -240,8 +245,9 @@ order.post('/find', checkSessionId, async (req, res) => {
         select : 'name'
     }
     let skip = parseInt(req._parsedUrl.query) || 0
-    let next = 5 + skip
-    let prev = next - 10
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
     const ordersFromDb = await (await Order.find()
         .populate(options))
         .filter(item => item.client.name === req.body.query)
@@ -252,10 +258,10 @@ order.post('/find', checkSessionId, async (req, res) => {
     const orders = ordersFromDb.slice(skip, next)
     res.render('order', {
         orders,
-        pagination: true,
         total,
         prev,
         next,
+        limit
     })
 })
 

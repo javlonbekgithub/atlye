@@ -11,9 +11,21 @@ try_on.get('/', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    const try_onFromDb = await TryOn.find().populate(options)
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const total = await TryOn.find().count()
+    let try_onFromDb = await TryOn.find()
+        .populate(options)
+        .skip(skip)
+        .limit(limit)
     res.render('try-on', {
-        try_onFromDb
+        try_onFromDb,
+        prev,
+        next,
+        total,
+        limit
     })
 })
 

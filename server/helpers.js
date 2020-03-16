@@ -7,6 +7,7 @@ const checkSessionId = async (req, res, next) => {
             req.currentUser = await User.findByIdAndUpdate(
                 dbRes._id, 
                 { $set: { query: [] }} )
+            req.currentUser.query = []
         } else {
             req.currentUser = dbRes
         }
