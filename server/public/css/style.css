@@ -200,6 +200,25 @@ label {
     justify-content: center;
     align-items: center;
 }
+.btnCont {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0.5em 0;
+    justify-content: center;
+}
+#more {
+    padding: 1em 3em;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 0.3em;
+    background-color: var(--lightBlue);
+    transition: ease-in 0.3s;
+}
+#more:hover {
+    transition: ease-in 0.3s;
+    background-color: var(--darkBlue);
+}
 
 .main {
     width: 100%;
@@ -349,6 +368,7 @@ label {
             background-color: var(--bgc);
             padding: 1em;
             border-radius: 0.2em;
+            margin-top: 1.5em;
         }
             .section {
                 display: flex;

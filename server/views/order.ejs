@@ -67,7 +67,7 @@
             <% orders.forEach((item, i) => { %>
                 <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= item.numberOrder %></div>
+                        <div class = "spreadsheetV"><%= i + 1 + next - limit %></div>
                     </div>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= item.client.name %></div>

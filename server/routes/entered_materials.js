@@ -27,21 +27,22 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
 })
 
 entered_materials.post('/add', checkSessionId, async (req, res) => {
-const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier } = req.body
-    const enteredMaterials = req.body
-    if( typeOperation && dateOperation && document && sumEnter && paidStatus && supplier ) {
-        enteredMaterials.dateOperation = strtotime(enteredMaterials.dateOperation)
-        await Entered_Materials.insertMany([enteredMaterials])
-        res.redirect('./')
-    } else {
-        res.render('add-entered-materials', {
-            operation,
-            documentList,
-            statusPaid,
-            enteredMaterials,
-            notFill: false
-        })
-    }
+    console.log(req.body)
+// const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier } = req.body
+//     const enteredMaterials = req.body
+//     if( typeOperation && dateOperation && document && sumEnter && paidStatus && supplier ) {
+//         enteredMaterials.dateOperation = strtotime(enteredMaterials.dateOperation)
+//         await Entered_Materials.insertMany([enteredMaterials])
+//         res.redirect('./')
+//     } else {
+//         res.render('add-entered-materials', {
+//             operation,
+//             documentList,
+//             statusPaid,
+//             enteredMaterials,
+//             notFill: false
+//         })
+    // }
 })
 
 module.exports = { entered_materials }
