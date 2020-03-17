@@ -15,7 +15,16 @@ balance.get('/', checkSessionId, async (req, res) => {
         path: 'payments',
         model: 'Payment'
     }
-    let customers = await Customer.find().populate(options).populate(options2)
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const total = await Customer.find().count()
+    const customers = await Customer.find()
+        .populate(options)
+        .populate(options2)
+        .skip(skip)
+        .limit(limit)
     const customerBalance = []
     customers.map((item, i) => {
         customerBalance.push({
@@ -28,7 +37,11 @@ balance.get('/', checkSessionId, async (req, res) => {
         item.payments.map(item => { customerBalance[i].paid += item.paid })
     })
     res.render('balance', {
-        customerBalance
+        customerBalance,
+        prev,
+        next,
+        total,
+        limit
     })
 })
 
@@ -103,7 +116,8 @@ balance.post('/find', checkSessionId, async (req, res) => {
         item.payments.map(item => { customerBalance[i].paid += item.paid })
     })
     res.render('balance', {
-        customerBalance
+        customerBalance,
+        total: false
     })
 })
 

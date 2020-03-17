@@ -54,7 +54,7 @@
             <% customerBalance.forEach((item, i) => { %>
                 <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= i + 1 %></div>
+                        <div class = "spreadsheetV"><%= total ? (i + 1 + next - limit) : i + 1 %></div>
                     </div>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= item.name %></div>
@@ -70,6 +70,7 @@
                     </div>
                 </div>
             <% }) %>
+            <%- include('pagination') %>
         </div>
     </div>
 </body>

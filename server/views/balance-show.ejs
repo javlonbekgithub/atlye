@@ -16,34 +16,36 @@
             <div class = "title">
                 <h1><%= customer.name %></h1>
             </div>
-            <div class = "spreadsheetContTitle">
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">№</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">дата платежа</div>
-                </div>
-                <div class = "spreadsheetItem">
-                    <div class = "spreadsheetT">сумма платежа</div>
-                </div>
-            </div>
-            <% if(customer.payments) { %>
-                <% customer.payments.forEach((item, i) => { %>
-                    <div class = "spreadsheetCont">
-                        <div class = "spreadsheetItem">
-                            <div class = "spreadsheetV"><%- i+1 %></div>
-                        </div>
-                        <div class = "spreadsheetItem">
-                            <div class = "spreadsheetV debt"><%= new Date(item.datePayment).toISOString().slice(0, 10) %></div>
-                        </div>
-                        <div class = "spreadsheetItem">
-                            <div class = "spreadsheetV"><%= item.paid %></div>
-                        </div>
+            <div class = "narrowCont">
+                <div class = "spreadsheetContTitle">
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetT">№</div>
                     </div>
-                <% }) %>
-            <% } else { %>
-                <h1 class = "warning">нет ни одного платежа</h1>
-            <% } %>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetT">дата платежа</div>
+                    </div>
+                    <div class = "spreadsheetItem">
+                        <div class = "spreadsheetT">сумма платежа</div>
+                    </div>
+                </div>
+                <% if(customer.payments) { %>
+                    <% customer.payments.forEach((item, i) => { %>
+                        <div class = "spreadsheetCont">
+                            <div class = "spreadsheetItem">
+                                <div class = "spreadsheetV"><%- i+1 %></div>
+                            </div>
+                            <div class = "spreadsheetItem">
+                                <div class = "spreadsheetV debt"><%= new Date(item.datePayment).toISOString().slice(0, 10) %></div>
+                            </div>
+                            <div class = "spreadsheetItem">
+                                <div class = "spreadsheetV"><%= item.paid %></div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <h1 class = "warning">нет ни одного платежа</h1>
+                <% } %>
+            </div>
         </div>
     </div>
 </body>

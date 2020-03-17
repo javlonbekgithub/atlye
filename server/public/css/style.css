@@ -15,10 +15,10 @@
 }
 :root {
     --bgc: rgba(255, 255, 255, 0.74);
-    --shadow: 0px 8px 40px -23px rgba(0,0,0,0.75);
+    --shadow: 0px 8px 40px -23px rgba(0, 0, 0, 0.274);
     --hover: rgb(206, 205, 205);
-    --mainBgc: #b9b7b7;
-    --green: #28a745;
+    --mainBgc: #e9e6e6;
+    --green: #28a746;
     --darkGreen: #18722d;
     --lightBlue: #17a2b8;
     --darkBlue: #126c7a;
@@ -50,6 +50,10 @@ input:focus {
     transition: ease-in-out 0.3s;
     background-color: rgb(136, 136, 136);
     color: rgb(255, 255, 255);
+}
+input:focus::placeholder {
+    color: #fff;
+    transition: ease-in 0.5s;
 }
 textarea {
     display: inline-block;
@@ -88,7 +92,7 @@ label {
 .title {
     width: 100%;
     display: flex;
-    color: #fff;
+    color: rgb(0, 0, 0);
     text-shadow: var(--shadow);
     padding: 1em;
 }
@@ -206,6 +210,12 @@ label {
     align-items: center;
     justify-content: center;
 }
+    .narrowCont {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10em;
+    }
     .box {
         display: flex;
         background-color: var(--bgc);
@@ -353,17 +363,20 @@ label {
         background-color: #fff;
     }
     .spreadsheetCont:hover {
-        background-color: #feffb3;
+        background-color: #feffbf;
+        /* background-color: #feffb3; */
     }
     .spreadsheetContTitle {
         width: 100%;
         display: flex;
         margin-top: 1em;
         padding: 0.5em 0;
-        background-color: #f3eded;
+        background-color: #f5f5f5;
     }
     .white {
-        background-color: #f3eded;
+        /* background-color: #f5f5f5; */
+        border-top: 0.5px solid rgba(0, 0, 0, 0.205);
+        border-bottom: 0.5px solid rgba(0, 0, 0, 0.205);
     }
         .spreadsheetItem {
             display: flex;
@@ -381,7 +394,7 @@ label {
                 padding: 0.8em;
                 margin-bottom: 0.5em;
             }
-            
+    
 
 
        
