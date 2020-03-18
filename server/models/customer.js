@@ -12,18 +12,14 @@ const customers = new Schema ({
     size: Number,
     notes: String,
     source: Number,
-    orders: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Order'
-        }
-    ],
-    payments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Payment'
-        }
-    ],
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
+    payments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Payment'
+    }],
     employee: {
         type: Schema.Types.ObjectId, 
         ref: 'Employees'

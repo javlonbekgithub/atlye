@@ -1,5 +1,6 @@
 const { Router } = require ('express')
 const { User } = require('../models/user')
+const { Overhead_List } = require( '../models/overheadList')
 const { Entered_Materials } = require( '../models/entered_material')
 const { checkSessionId, operation, documentList, statusPaid } = require('../helpers')
 const strtotime = require('strtotime')
@@ -37,7 +38,6 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
 })
 
 entered_materials.post('/add', checkSessionId, async (req, res) => {
-    console.log(req.body)
     const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier, noticeOperation } = req.body
     const enteredMaterials = req.body
     const volume = []
@@ -50,7 +50,8 @@ entered_materials.post('/add', checkSessionId, async (req, res) => {
             noticeOperation: undefined,
             sumEnter: undefined,
             paidStatus: undefined,
-            supplier: undefined
+            supplier: undefined,
+            overhead: req._parsedUrl.query
         })
         if(item !== '' && dateOperation[i] !== '' && document[i] !== '' && sumEnter[i] !== '' && paidStatus[i] !== '' && supplier[i] !== '')  {
             toggle = true
@@ -65,16 +66,22 @@ entered_materials.post('/add', checkSessionId, async (req, res) => {
             toggle = false
         }
     })
-    if( toggle ) {
-        await Entered_Materials.insertMany(volume)
-        res.redirect('./')
+    if(toggle) {
+        const materialsDb = await Entered_Materials.insertMany(volume)
+        await Overhead_List.findByIdAndUpdate(
+            req._parsedUrl.query,
+            { $push: { 
+                materials: materialsDb.map(item => (item._id)),
+            } }
+        )
+        res.redirect('/overhead-list/')
     } else {
         res.render('add-entered-materials', {
             operation,
             documentList,
             statusPaid,
             array: document,
-            _id: '',
+            _id: req._parsedUrl.query,
             enteredMaterials,
             notFill: false
         })

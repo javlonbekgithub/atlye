@@ -30,12 +30,13 @@ overhead_list.post('/add', checkSessionId, async (req, res) => {
     const { codeGoods, artikul, goods, priceForOne, unityMeter, quantityMaterial, colorMaterial, sumMaterial, enterCodeMaterial } = overhead
     if(codeGoods && artikul && goods && priceForOne && unityMeter && quantityMaterial && colorMaterial && sumMaterial && enterCodeMaterial ) {
         const insertedOverhead = await Overhead_List.insertMany([overhead])
+        console.log(insertedOverhead)
         res.render('add-entered-materials', {
             operation,
             documentList,
             statusPaid,
             array: [1],
-            _id: insertedOverhead._id,
+            _id: insertedOverhead[0]._id,
             notFill: true,
             enteredMaterials: {
                 typeOperation: [],

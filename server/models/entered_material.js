@@ -7,7 +7,11 @@ const entered_material = new Schema ({
     noticeOperation: String,
     sumEnter: Number,
     paidStatus: Number,
-    supplier: String
+    supplier: String,
+    overhead: {
+        type: Schema.Types.ObjectId,
+        ref: 'overhead_lists'
+    }
 })
 
 const Entered_Materials = model('entered_materials', entered_material)

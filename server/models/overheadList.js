@@ -10,7 +10,11 @@ const overhead_list = new Schema ({
     quantityMaterial: Number,
     colorMaterial: String,
     sumMaterial: Number,
-    enterCodeMaterial: Number
+    enterCodeMaterial: Number,
+    materials: [{
+        type: Schema.Types.ObjectId,
+        ref: 'entered_materials'
+    }],
 })
 
 const Overhead_List = model('overhead_lists', overhead_list)
