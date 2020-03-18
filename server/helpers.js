@@ -186,6 +186,16 @@ const titlesAndRoutes = {
         btn:  'изменить',
         action: './edit'
     },
+    addMaterial: {
+        h1: 'добавить поступивший материал',
+        btn:  'добавить',
+        action: '/entered-materials/add'
+    },
+    editMaterial: {
+        h1: 'изменить поступивший материал',
+        btn:  'изменить',
+        action: '/entered-materials/edit'
+    },
 }
 
 module.exports = {

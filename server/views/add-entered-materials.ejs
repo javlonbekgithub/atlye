@@ -14,9 +14,9 @@
                 <a href = "" class = "hItem">сост ... склад</a>
             </div>
             <div class = "title">
-                <h1>добавить поступивший материал</h1>
+                <h1><%= titles.h1 %></h1>
             </div>
-            <form action = "/entered-materials/add?<%= _id %>" method = "post">
+            <form action = "<%= titles.action %>?<%= _id %>" method = "post">
                 <div id = "form">
                     <% array.forEach((item, i) => { %>
                         <div class = "orderCont">
@@ -78,8 +78,8 @@
                     <div id = "more">еще</div>
                 </div>
                 <div class = "buttonCont">
-                    <a class = "cancel cancelHover" href = "./">назад</a>
-                    <input class = "submit buttonHover" type = "submit" value = "добавить">
+                    <a class = "cancel cancelHover" href = "/overhead-list/show?<%= _id %>">назад</a>
+                    <input class = "submit buttonHover" type = "submit" value = <%- titles.btn %>>
                 </div>
             </form>
         </div>

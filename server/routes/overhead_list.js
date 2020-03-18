@@ -1,5 +1,6 @@
 const { Router } = require ('express')
 const { Overhead_List } = require( '../models/overheadList')
+const { Entered_Materials } = require( '../models/entered_material')
 const { checkSessionId, goodsCode, unity, enterCode, operation, documentList, statusPaid, titlesAndRoutes } = require('../helpers')
 
 const overhead_list = Router()
@@ -30,22 +31,41 @@ overhead_list.post('/add', checkSessionId, async (req, res) => {
     const { codeGoods, artikul, goods, priceForOne, unityMeter, quantityMaterial, colorMaterial, sumMaterial, enterCodeMaterial } = overhead
     if(codeGoods && artikul && goods && priceForOne && unityMeter && quantityMaterial && colorMaterial && sumMaterial && enterCodeMaterial ) {
         const insertedOverhead = await Overhead_List.insertMany([overhead])
+        let array = [1]
+        const enteredMaterials = {
+            typeOperation: [],
+            dateOperation: [],
+            document: [],
+            sumEnter: [],
+            paidStatus: [],
+            supplier: [],
+            noticeOperation: [],
+        }
+        const options = {
+            path: 'materials',
+            model: 'entered_materials'
+        }
+        const oldOverheadDb = await Overhead_List.findById(req._parsedUrl.query).populate(options)
+        if(oldOverheadDb) {
+            oldOverheadDb.materials.map(item => {
+                enteredMaterials.typeOperation.push(item.typeOperation)
+                enteredMaterials.dateOperation.push(new Date(item.dateOperation * 1000).toISOString().slice(0, 10))
+                enteredMaterials.document.push(item.document)
+                enteredMaterials.noticeOperation.push(item.noticeOperation)
+                enteredMaterials.sumEnter.push(item.sumEnter)
+                enteredMaterials.paidStatus.push(item.paidStatus)
+                enteredMaterials.supplier.push(item.supplier)
+            })
+            array = enteredMaterials.document
+        }
         res.render('add-entered-materials', {
             operation,
             documentList,
             statusPaid,
-            array: [1],
+            array,
             _id: insertedOverhead[0]._id,
             notFill: true,
-            enteredMaterials: {
-                typeOperation: [],
-                dateOperation: [],
-                document: [],
-                sumEnter: [],
-                paidStatus: [],
-                supplier: [],
-                noticeOperation: [],
-            }
+            enteredMaterials
         })
     } else {
         res.render('add-overhead', {
@@ -67,7 +87,7 @@ overhead_list.get('/copy', checkSessionId, async (req, res) => {
         unity,
         enterCode,
         titles: titlesAndRoutes.addOverhead,
-        _id: '',
+        _id: req._parsedUrl.search,
         overhead,
         notFill: true
     })
@@ -90,8 +110,7 @@ overhead_list.post('/edit', checkSessionId, async (req, res) => {
     const overhead = req.body
     const { codeGoods, artikul, goods, priceForOne, unityMeter, quantityMaterial, colorMaterial, sumMaterial, enterCodeMaterial } = overhead
     if(codeGoods && artikul && goods && priceForOne && unityMeter && quantityMaterial && colorMaterial && sumMaterial && enterCodeMaterial ) {
-        const rres = await Overhead_List.findByIdAndUpdate(req._parsedUrl.query , overhead)
-        console.log(rres)
+        await Overhead_List.findByIdAndUpdate(req._parsedUrl.query , overhead)
         res.redirect('./')
     } else {
         res.render('add-overhead', {
@@ -104,6 +123,17 @@ overhead_list.post('/edit', checkSessionId, async (req, res) => {
             notFill: false
         })
     }
+})
+
+overhead_list.get('/show', checkSessionId, async (req, res) => {
+    const entered_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
+    res.render('entered-materials', {
+        entered_materials_db,
+        operation,
+        documentList,
+        statusPaid,
+        _id: req._parsedUrl.search
+    })
 })
 
 module.exports = { overhead_list }

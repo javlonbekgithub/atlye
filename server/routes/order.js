@@ -133,7 +133,6 @@ order.get('/copy', checkSessionId, async (req, res) => {
     const customer = await Customer.find()
     const employees = await Employee.find()
     const kindOrder = await KindOrder.find()
-    console.log(req)
     const order = await Order.findOne({ '_id': req._parsedUrl.query})
     res.render('add-order', { 
         responsible: req.currentUser.userName,

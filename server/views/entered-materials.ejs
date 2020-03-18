@@ -21,7 +21,7 @@
                     <input class = "search" type = "text" placeholder = "поиск">
                 </div>
                 <div class = "btn">искать</div>
-                <a href = "./add">
+                <a href = "/entered-materials/add<%= _id %>">
                     <div class="center">
                         <i class="far fa-plus-square"></i>
                     </div>
@@ -31,17 +31,7 @@
                         <i class="far fa-copy"></i>
                     </div>
                 </a>
-                <a href = "">
-                    <div class = "center">
-                        <i class="far fa-clipboard"></i>
-                    </div>
-                </a>
-                <a href = "">
-                    <div class = "center">
-                        <i class="far fa-eye"></i>
-                    </div>
-                </a>
-                <a href = "">
+                <a href = "" id = "edit">
                     <div class = "center">
                         <i class="far fa-edit"></i>
                     </div>
@@ -73,8 +63,8 @@
                     <div class = "spreadsheetT">прим</div>
                 </div>
             </div>
-            <% entered_materials_db.forEach( (item, i) => { %>
-                <div class = "spreadsheetCont" data-id = <%- i + 1 %>>
+            <% entered_materials_db.forEach((item, i) => { %>
+                <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= i + 1 %></div>
                     </div>
@@ -104,18 +94,19 @@
         </div>
     </div>
 </body>
-<script type = "text/javascript">
+<script>
+const spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+const copy = document.getElementById('copy')
+const edit = document.getElementById('edit')
 
-spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
-copy = document.getElementById('copy')
-
-select = i => {
-    spreadsheetCont[i].classList.add('selectedItem')
-    copy.setAttribute('href',`/copy?id=${spreadsheetCont[i].getAttribute('data-id')}`)
-    for(let j = 0;j < spreadsheetCont.length; j++) {
-        j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+const select = i => {
+        spreadsheetCont[i].classList.add('selectedItem')
+        copy.setAttribute('href',`/entered-materials/copy?${spreadsheetCont[i].getAttribute('data-id')}`)
+        edit.setAttribute('href',`/entered-materials/edit?${spreadsheetCont[i].getAttribute('data-id')}`)
+        for(let j = 0;j < spreadsheetCont.length; j++) {
+            j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+        }
     }
-}
 
 for (let i = 0; i < spreadsheetCont.length; i++ ) {
     spreadsheetCont[i].addEventListener('click', () => select(i))
