@@ -38,17 +38,37 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
 
 entered_materials.post('/add', checkSessionId, async (req, res) => {
     console.log(req.body)
-    const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier } = req.body
+    const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier, noticeOperation } = req.body
     const enteredMaterials = req.body
-    console.log('1: ', typeOperation[0] === true)
-    console.log('2: ', typeOperation.length > 1 )
-    if( 1 < 0 ) {
-        console.log('trrrrruue')
-        enteredMaterials.dateOperation = strtotime(enteredMaterials.dateOperation)
-        await Entered_Materials.insertMany([enteredMaterials])
+    const volume = []
+    let toggle = false
+    typeOperation.map((item, i) => {
+        volume.push({
+            typeOperation: undefined,
+            dateOperation: undefined,
+            document: undefined,
+            noticeOperation: undefined,
+            sumEnter: undefined,
+            paidStatus: undefined,
+            supplier: undefined
+        })
+        if(item !== '' && dateOperation[i] !== '' && document[i] !== '' && sumEnter[i] !== '' && paidStatus[i] !== '' && supplier[i] !== '')  {
+            toggle = true
+            volume[i].typeOperation = item
+            volume[i].dateOperation = strtotime(dateOperation[i])
+            volume[i].document = document[i]
+            volume[i].noticeOperation = noticeOperation[i]
+            volume[i].sumEnter = sumEnter[i]
+            volume[i].paidStatus = paidStatus[i]
+            volume[i].supplier = supplier[i]
+        } else {
+            toggle = false
+        }
+    })
+    if( toggle ) {
+        await Entered_Materials.insertMany(volume)
         res.redirect('./')
     } else {
-        console.log('fa-eye-slash')
         res.render('add-entered-materials', {
             operation,
             documentList,
