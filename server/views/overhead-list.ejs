@@ -33,15 +33,10 @@
                 </a>
                 <a href = "">
                     <div class = "center">
-                        <i class="far fa-clipboard"></i>
-                    </div>
-                </a>
-                <a href = "">
-                    <div class = "center">
                         <i class="far fa-eye"></i>
                     </div>
                 </a>
-                <a href = "">
+                <a href = "" id = "edit">
                     <div class = "center">
                         <i class="far fa-edit"></i>
                     </div>
@@ -77,7 +72,7 @@
                 </div>
             </div>
             <% overheadListFromDb.forEach((item, i) => { %>
-                <div class = "spreadsheetCont" data-id = <%- i %>>
+                <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= i + 1 %></div>
                     </div>
@@ -111,16 +106,17 @@
     </div>
 </body>
 <script type = "text/javascript">
-spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
-copy = document.getElementById('copy')
-
-select = i => {
-    spreadsheetCont[i].classList.add('selectedItem')
-    copy.setAttribute('href',`./copy?id=${spreadsheetCont[i].getAttribute('data-id')}`)
-    for(let j = 0;j < spreadsheetCont.length; j++) {
-        j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+const spreadsheetCont = document.getElementsByClassName('spreadsheetCont')
+const copy = document.getElementById('copy')
+const edit = document.getElementById('edit')
+const select = i => {
+        spreadsheetCont[i].classList.add('selectedItem')
+        copy.setAttribute('href',`./copy?${spreadsheetCont[i].getAttribute('data-id')}`)
+        edit.setAttribute('href',`./edit?${spreadsheetCont[i].getAttribute('data-id')}`)
+        for(let j = 0;j < spreadsheetCont.length; j++) {
+            j !== i? spreadsheetCont[j].classList.remove('selectedItem'):null
+        }
     }
-}
 
 for (let i = 0; i < spreadsheetCont.length; i++ ) {
     spreadsheetCont[i].addEventListener('click', () => select(i))

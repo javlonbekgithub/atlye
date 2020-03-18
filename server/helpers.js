@@ -175,7 +175,17 @@ const titlesAndRoutes = {
         h1: 'смотреть заказ',
         btn:  'изменить',
         action: '/order/'
-    }
+    },
+    addOverhead: {
+        h1: 'создать накладной',
+        btn:  'добавить',
+        action: './add'
+    },
+    editOverhead: {
+        h1: 'изменить накладной',
+        btn:  'изменить',
+        action: './edit'
+    },
 }
 
 module.exports = {
