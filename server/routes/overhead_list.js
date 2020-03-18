@@ -34,9 +34,18 @@ overhead_list.post('/add', checkSessionId, async (req, res) => {
             operation,
             documentList,
             statusPaid,
+            array: [1],
             _id: insertedOverhead._id,
             notFill: true,
-            enteredMaterials: false
+            enteredMaterials: {
+                typeOperation: [],
+                dateOperation: [],
+                document: [],
+                sumEnter: [],
+                paidStatus: [],
+                supplier: [],
+                noticeOperation: [],
+            }
         })
     } else {
         res.render('add-overhead', {

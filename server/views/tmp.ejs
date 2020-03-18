@@ -1,0 +1,58 @@
+
+
+
+
+                        <!-- 
+<div class = "orderCont">
+    <% if(!notFill) { %>
+        <h2 class = "warning">заполните поля</h2>
+    <% } %>
+    <h2 class = "counter"><%= i + 1 %></h2>
+    <div class = "sectionCont">
+        <div class = "section">
+            <p class = "<%- (enteredMaterials.typeOperation[i] || notFill) ? '' : 'error' %>">тип операции</p>
+            <select name = "typeOperation[i]" class = "typeOperation">
+                <option value = "">выберите тип операции</option>
+                <% operation.forEach((item) => { %>
+                    <% if(parseInt(enteredMaterials.typeOperation[i]) === item.value) { %>
+                        <option selected value = <%- item.value %>><%= item.name %></option>
+                    <% } else { %>
+                        <option value = <%- item.value %>><%= item.name %></option>
+                    <% } %>
+                <% }) %>
+            </select>
+            <p class = "<%- (enteredMaterials.dateOperation[i] || notFill) ? '' : 'error' %>">дата заказа</p>
+            <input value = "<%- (enteredMaterials.dateOperation[i]) ? enteredMaterials.dateOperation[i] : '' %>" type = "date" name = "dateOperation[i]" class = "date">
+            <p class = "<%- (enteredMaterials.document[i] || notFill) ? '' : 'error' %>">документ</p>
+            <select name = "document[i]" class = "documents">
+                <option value = "">выберите</option>
+                <% documentList.forEach(item => { %>
+                    <% if(parseInt(enteredMaterials.document[i]) === item.value) { %>
+                        <option selected value = <%- item.value %>><%= item.name %></option>
+                    <% } else { %>
+                        <option value = <%- item.value %>><%= item.name %></option>
+                    <% } %>
+                <% }) %>
+            </select>
+            <p>примечание</p>
+            <textarea name = "noticeOperation[i]" class = "noticeOperation" cols = "25" rows = "5"><%= (enteredMaterials.noticeOperation[i]) ? enteredMaterials.noticeOperation[i] : '' %></textarea>
+        </div>
+        <div class = "section">
+            <p class = "<%- (enteredMaterials.sumEnter[i] || notFill) ? '' : 'error' %>">сумма прихода</p>
+            <input value = "<%- (enteredMaterials.sumEnter[i]) ? enteredMaterials.sumEnter[i] : '' %>" type = "number" name = "sumEnter[i]" class = "sumEnter">
+            <p class = "<%- (enteredMaterials.classStatus[i] || notFill) ? '' : 'error' %>">статус</p>
+            <select name = "paidStatus[i]" class = "paidStatus">
+                <option value = "">выберите статус</option>
+                <% statusPaid.forEach(item => { %>
+                    <% if(parseInt(enteredMaterials.paidStatus[i]) === item.value) { %>
+                        <option selected value = <%- item.value %>><%= item.name %></option>
+                    <% } else { %>
+                        <option value = <%- item.value %>><%= item.name %></option>
+                    <% } %>
+                <% }) %>
+            </select>
+            <p class = "<%- (enteredMaterials.supplier[i] || notFill) ? '' : 'error' %>">поставщик</p>
+            <input value = "<%- (enteredMaterials.supplier[i]) ? enteredMaterials.supplier[i] : '' %>" type = "text" name = "supplier[i]" class = "supplier">
+        </div>
+    </div>
+</div> -->

@@ -21,28 +21,40 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
         operation,
         documentList,
         statusPaid,
-        document: [1,2,3],
-        _id:'asdaaaaaaa',
+        array: [1],
+        _id: '',
         notFill: true,
-        enteredMaterials: false
+        enteredMaterials: {
+            typeOperation: [],
+            dateOperation: [],
+            document: [],
+            sumEnter: [],
+            paidStatus: [],
+            supplier: [],
+            noticeOperation: [],
+        }
     })
 })
 
 entered_materials.post('/add', checkSessionId, async (req, res) => {
     console.log(req.body)
-    console.log(req.body.sumEnter === true)
-const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier } = req.body
+    const { typeOperation, dateOperation, document, sumEnter, paidStatus, supplier } = req.body
     const enteredMaterials = req.body
-    if( typeOperation && dateOperation && document && sumEnter && paidStatus && supplier ) {
+    console.log('1: ', typeOperation[0] === true)
+    console.log('2: ', typeOperation.length > 1 )
+    if( 1 < 0 ) {
+        console.log('trrrrruue')
         enteredMaterials.dateOperation = strtotime(enteredMaterials.dateOperation)
         await Entered_Materials.insertMany([enteredMaterials])
         res.redirect('./')
     } else {
+        console.log('fa-eye-slash')
         res.render('add-entered-materials', {
             operation,
             documentList,
             statusPaid,
-            document: req.body.sumEnter,
+            array: document,
+            _id: '',
             enteredMaterials,
             notFill: false
         })
