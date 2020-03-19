@@ -7,7 +7,7 @@
                 <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
-                <a href = "/entered-materials/" class = "active">поступивший материал</a>
+                <!-- <a href = "/entered-materials/" class = "active">поступивший материал</a> -->
                 <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
@@ -66,7 +66,7 @@
             <% entered_materials_db.forEach((item, i) => { %>
                 <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= i + 1 %></div>
+                        <div class = "spreadsheetV"><%= i + 1 + next - limit %></div>
                     </div>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= operation[item.typeOperation].name %></div>
@@ -91,6 +91,17 @@
                     </div>
                 </div>
             <% }) %>
+            <% if(total) { %>
+                <div class = "paginationCont">
+                    <% if(prev >= 0) { %>
+                        <a class = "pagination" href = "/entered-materials?<%- prev %>">предыдущий</a>
+                    <% } %>
+                    <div><%= (next / limit) + ' / ' + (Math.ceil(total / limit)) %></div>
+                    <% if(next < total)  { %>
+                        <a class = "pagination" href = "/entered-materials?<%- next %>">следующий</a>
+                    <% } %>
+                </div>
+            <% } %>    
         </div>
     </div>
 </body>

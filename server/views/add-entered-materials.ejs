@@ -7,7 +7,7 @@
                 <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
-                <a href = "/entered-materials/" class = "hItem">поступивший материал</a>
+                <!-- <a href = "/entered-materials/" class = "hItem">поступивший материал</!--> -->
                 <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
@@ -18,12 +18,14 @@
             </div>
             <form action = "<%= titles.action %>?<%= _id %>" method = "post">
                 <div id = "form">
+                    <% if(!notFill) { %>
+                        <h2 class = "warning">заполните поля</h2>
+                    <% } %>
                     <% array.forEach((item, i) => { %>
                         <div class = "orderCont">
-                            <% if(!notFill) { %>
-                                <h2 class = "warning">заполните поля</h2>
+                            <% if(titles.btn !== 'изменить') { %>
+                                <h2 class = "counter"><%= i + 1 %></h2>
                             <% } %>
-                            <h2 class = "counter"><%= i + 1 %></h2>
                             <div class = "sectionCont">
                                 <div class = "section">
                                     <p class = "<%- (enteredMaterials.typeOperation[i] || notFill) ? '' : 'error' %>">тип операции</p>
@@ -74,11 +76,13 @@
                         </div>
                     <% }) %>
                 </div>
-                <div class = "btnCont">
-                    <div id = "more">еще</div>
-                </div>
+                <% if(titles.btn !== 'изменить') { %>
+                    <div class = "btnCont">
+                        <div id = "more">еще</div>
+                    </div>
+                <% } %>
                 <div class = "buttonCont">
-                    <a class = "cancel cancelHover" href = "/overhead-list/show?<%= _id %>">назад</a>
+                    <a class = "cancel cancelHover" href = "/overhead-list/show?<%= back %>">назад</a>
                     <input class = "submit buttonHover" type = "submit" value = <%- titles.btn %>>
                 </div>
             </form>

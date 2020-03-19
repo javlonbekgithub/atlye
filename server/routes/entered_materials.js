@@ -7,13 +7,23 @@ const strtotime = require('strtotime')
 const entered_materials = Router()
 
 entered_materials.get('/', checkSessionId, async (req, res) => {
-    const entered_materials_db = await Entered_Materials.find()
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const e_materials_db = req.currentUser.query
+    let total = e_materials_db.length
+    const entered_materials_db = e_materials_db.slice(skip, next)
     res.render('entered-materials', {
         entered_materials_db,
         operation,
         documentList,
         statusPaid,
-        _id: ''
+        _id: entered_materials_db[0].overhead,
+        prev,
+        next,
+        total,
+        limit
     })
 })
 
@@ -24,6 +34,7 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: req._parsedUrl.query,
+        back: req._parsedUrl.query,
         notFill: true,
         titles: titlesAndRoutes.addMaterial,
         enteredMaterials: {
@@ -75,7 +86,7 @@ entered_materials.post('/add', checkSessionId, async (req, res) => {
                 materials: materialsDb.map(item => (item._id)),
             } }
         )
-        res.redirect('/overhead-list/')
+        res.redirect(`/overhead-list/show?${req._parsedUrl.query}`)
     } else {
         res.render('add-entered-materials', {
             operation,
@@ -83,6 +94,7 @@ entered_materials.post('/add', checkSessionId, async (req, res) => {
             statusPaid,
             array: document,
             _id: req._parsedUrl.query,
+            back: req._parsedUrl.query,
             titles: titlesAndRoutes.addMaterial,
             enteredMaterials,
             notFill: false
@@ -107,6 +119,7 @@ entered_materials.get('/copy', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: originalMaterialDb.overhead,
+        back: originalMaterialDb.overhead,
         titles: titlesAndRoutes.addMaterial,
         notFill: true,
         enteredMaterials
@@ -130,6 +143,7 @@ entered_materials.get('/edit', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: req._parsedUrl.query,
+        back: originalMaterialDb.overhead,
         titles: titlesAndRoutes.editMaterial,
         notFill: true,
         enteredMaterials

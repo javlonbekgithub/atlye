@@ -1,4 +1,5 @@
 const { Router } = require ('express')
+const { User } = require('../models/user')
 const { Overhead_List } = require( '../models/overheadList')
 const { Entered_Materials } = require( '../models/entered_material')
 const { checkSessionId, goodsCode, unity, enterCode, operation, documentList, statusPaid, titlesAndRoutes } = require('../helpers')
@@ -126,13 +127,26 @@ overhead_list.post('/edit', checkSessionId, async (req, res) => {
 })
 
 overhead_list.get('/show', checkSessionId, async (req, res) => {
-    const entered_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
+    const total = await Entered_Materials.find({overhead: req._parsedUrl.query}).count()
+    let skip = 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const e_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: e_materials_db }} )
+    const entered_materials_db = e_materials_db.slice(skip, next)
     res.render('entered-materials', {
         entered_materials_db,
         operation,
         documentList,
         statusPaid,
-        _id: req._parsedUrl.search
+        _id: req._parsedUrl.search,
+        total,
+        prev,
+        next,
+        limit
     })
 })
 
