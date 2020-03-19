@@ -163,7 +163,7 @@ overhead_list.get('/show', checkSessionId, async (req, res) => {
         operation,
         documentList,
         statusPaid,
-        _id: req._parsedUrl.search,
+        _id: req._parsedUrl.query,
         total,
         prev,
         next,

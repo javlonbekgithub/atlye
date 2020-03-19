@@ -7,7 +7,6 @@
                 <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
-                <!-- <a href = "/entered-materials/" class = "active">поступивший материал</a> -->
                 <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
@@ -17,23 +16,23 @@
                 <h1>поступивший материалы</h1>
             </div>
             <div class = "secondLayer">
-                <form class = "formSearch" action = "/entered-materials/find<%= _id %>" method = "post">
+                <form class = "formSearch" action = "/entered-materials/find?<%= _id %>" method = "post">
                     <div class = "searchCont">
                         <input class = "search" name = "query" type = "text" placeholder = "поиск">
                     </div>
                     <input class = "btn" type = "submit" value = "искать">
                 </form>
-                <a href = "/entered-materials/add<%= _id %>">
+                <a href = "/entered-materials/add?<%= _id %>">
                     <div class="center">
                         <i class="far fa-plus-square"></i>
                     </div>
                 </a>
-                <a href = "" id = "copy">
+                <a href = "./" id = "copy">
                     <div class="center">
                         <i class="far fa-copy"></i>
                     </div>
                 </a>
-                <a href = "" id = "edit">
+                <a href = "./" id = "edit">
                     <div class = "center">
                         <i class="far fa-edit"></i>
                     </div>
