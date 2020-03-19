@@ -7,7 +7,6 @@
                 <a href = "/order/" class = "hItem">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
-                <!-- <a href = "/entered-materials/" class = "hItem">поступивший материал</!--> -->
                 <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
@@ -21,7 +20,7 @@
                     <% if(!notFill) { %>
                         <h2 class = "warning">заполните поля</h2>
                     <% } %>
-                    <% array.forEach((item, i) => { %>
+                    <% (array.length == 0 ? [1] : array).forEach((item, i) => { %>
                         <div class = "orderCont">
                             <% if(titles.btn !== 'изменить') { %>
                                 <h2 class = "counter"><%= i + 1 %></h2>
@@ -82,7 +81,7 @@
                     </div>
                 <% } %>
                 <div class = "buttonCont">
-                    <a class = "cancel cancelHover" href = "/overhead-list/show?<%= back %>">назад</a>
+                    <a class = "cancel cancelHover" href = <%- back %>>назад</a>
                     <input class = "submit buttonHover" type = "submit" value = <%- titles.btn %>>
                 </div>
             </form>

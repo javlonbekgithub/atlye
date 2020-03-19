@@ -17,10 +17,12 @@
                 <h1>накладной лист</h1>
             </div>
             <div class = "secondLayer">
-                <div class = "searchCont">
-                    <input class = "search" type = "text" placeholder = "поиск">
-                </div>
-                <div class = "btn">искать</div>
+                <form class = "formSearch" action = "./find" method = "post">
+                    <div class = "searchCont">
+                        <input class = "search" name = "query" type = "text" placeholder = "поиск">
+                    </div>
+                    <input class = "btn" type = "submit" value = "искать">
+               </form>
                 <a href = "./add">
                     <div class="center">
                         <i class="far fa-plus-square"></i>
@@ -74,7 +76,7 @@
             <% overheadListFromDb.forEach((item, i) => { %>
                 <div class = "spreadsheetCont" data-id = <%- item._id %>>
                     <div class = "spreadsheetItem">
-                        <div class = "spreadsheetV"><%= i + 1 %></div>
+                        <div class = "spreadsheetV"><%= i + 1 + next - limit %></div>
                     </div>
                     <div class = "spreadsheetItem">
                         <div class = "spreadsheetV"><%= goodsCode[item.codeGoods].name %></div>
@@ -102,6 +104,7 @@
                     </div>
                 </div>
             <% }) %>
+            <%- include('pagination') %>
         </div>
     </div>
 </body>

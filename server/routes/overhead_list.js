@@ -7,11 +7,30 @@ const { checkSessionId, goodsCode, unity, enterCode, operation, documentList, st
 const overhead_list = Router()
 
 overhead_list.get('/', checkSessionId, async (req, res) => {
-    const overheadListFromDb = await Overhead_List.find()
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    let total 
+    let overheadListFromDb
+    const globalOverhead = req.currentUser.query
+    if(globalOverhead.length < 1) {
+        total = await Overhead_List.find().count()
+        overheadListFromDb = await Overhead_List.find()
+            .skip(skip)
+            .limit(limit)
+    } else {
+        total = globalOverhead.length
+        overheadListFromDb = globalOverhead.slice(skip, next)
+    }
     res.render('overhead-list', {
         overheadListFromDb,
         goodsCode,
-        unity
+        unity,
+        prev,
+        next,
+        total,
+        limit
     })
 })
 
@@ -64,7 +83,9 @@ overhead_list.post('/add', checkSessionId, async (req, res) => {
             documentList,
             statusPaid,
             array,
+            titles: titlesAndRoutes.addMaterial,
             _id: insertedOverhead[0]._id,
+            back: `/overhead-list/edit?${insertedOverhead[0]._id}`,
             notFill: true,
             enteredMaterials
         })
@@ -146,6 +167,28 @@ overhead_list.get('/show', checkSessionId, async (req, res) => {
         total,
         prev,
         next,
+        limit
+    })
+})
+
+overhead_list.post('/find', checkSessionId, async (req, res) => {
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const total = await Overhead_List.find({goods: req.body.query}).count()
+    const overheadListQuery = await Overhead_List.find({goods: req.body.query})
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: overheadListQuery }} )
+    const overheadListFromDb = overheadListQuery.slice(skip, next)
+    res.render('overhead-list', {
+        overheadListFromDb,
+        goodsCode,
+        unity,
+        prev,
+        next,
+        total,
         limit
     })
 })

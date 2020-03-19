@@ -1,4 +1,5 @@
 const { Router } = require ('express')
+const { User } = require('../models/user')
 const { Overhead_List } = require( '../models/overheadList')
 const { Entered_Materials } = require( '../models/entered_material')
 const { checkSessionId, operation, documentList, statusPaid, titlesAndRoutes } = require('../helpers')
@@ -34,7 +35,7 @@ entered_materials.get('/add', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: req._parsedUrl.query,
-        back: req._parsedUrl.query,
+        back: `/overhead-list/show?${req._parsedUrl.query}`,
         notFill: true,
         titles: titlesAndRoutes.addMaterial,
         enteredMaterials: {
@@ -94,7 +95,7 @@ entered_materials.post('/add', checkSessionId, async (req, res) => {
             statusPaid,
             array: document,
             _id: req._parsedUrl.query,
-            back: req._parsedUrl.query,
+            back: `/overhead-list/show?${req._parsedUrl.query}`,
             titles: titlesAndRoutes.addMaterial,
             enteredMaterials,
             notFill: false
@@ -119,7 +120,7 @@ entered_materials.get('/copy', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: originalMaterialDb.overhead,
-        back: originalMaterialDb.overhead,
+        back: `/overhead-list/show?${originalMaterialDb.overhead}`,
         titles: titlesAndRoutes.addMaterial,
         notFill: true,
         enteredMaterials
@@ -143,7 +144,7 @@ entered_materials.get('/edit', checkSessionId, async (req, res) => {
         statusPaid,
         array: [1],
         _id: req._parsedUrl.query,
-        back: originalMaterialDb.overhead,
+        back: `/overhead-list/show?${originalMaterialDb.overhead}`,
         titles: titlesAndRoutes.editMaterial,
         notFill: true,
         enteredMaterials
@@ -187,12 +188,37 @@ entered_materials.post('/edit', checkSessionId, async (req, res) => {
             documentList,
             statusPaid,
             array: document,
-            _id: req._parsedUrl.query,
+            _id: `/overhead-list/show?${req._parsedUrl.query}`,
             titles: titlesAndRoutes.editMaterial,
             enteredMaterials,
             notFill: false
         })
     }
+})
+
+entered_materials.post('/find', checkSessionId, async (req, res) => {
+    let skip = 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    const e_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
+    const entered_materials_db = []
+    entered_materials_db.push(e_materials_db[parseInt(req.body.query)])
+    let total = e_materials_db.length 
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: entered_materials_db }} )
+    res.render('entered-materials', {
+        entered_materials_db,
+        operation,
+        documentList,
+        statusPaid,
+        _id: entered_materials_db[0].overhead,
+        prev,
+        next,
+        total: false,
+        limit
+    })
 })
 
 module.exports = { entered_materials }
