@@ -20,7 +20,6 @@ profile.get('/', checkSessionId, async (req, res) => {
     let total
     let customers
     const selectedCustomers = req.currentUser.query
-    
     if(selectedCustomers.length < 1) {
         total = await Customer.find().count()
         customers = await Customer.find()
@@ -28,7 +27,7 @@ profile.get('/', checkSessionId, async (req, res) => {
         .limit(limit)
     } else {
         total = selectedCustomers.length
-        orders = selectedCustomers.slice(skip, next)
+        customers = selectedCustomers.slice(skip, next)
     }
     res.render('profile', {
         userName: req.currentUser.userName,
@@ -207,22 +206,25 @@ profile.post('/edit-customer', checkSessionId, upload.single('photo'), async (re
 })
 
 profile.post('/find', checkSessionId, async (req, res) => {
-    // let skip = parseInt(req._parsedUrl.query) || 0
-    // let limit = 5
-    // let next = limit + skip
-    // let prev = next - limit * 2
-    // const total = await Customer.find().count()
-    const customers = await Customer
-        .find({name: req.body.query})
-        // .skip(skip)
-        // .limit(limit)
-    // await User.findByIdAndUpdate(
-    //     req.currentUser._id, 
-    //     { $set: { query: customers }} )
+    let skip = parseInt(req._parsedUrl.query) || 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
+    let total 
+    const filteredCustomers = await (await Customer.find())
+        .filter(item => item.name.includes(req.body.query) )
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: filteredCustomers }} )
+    total = filteredCustomers.length
+    const customers = filteredCustomers.slice(skip, next)
     res.render('profile', {
         userName: req.currentUser.userName,
         customers,
-        total: false
+        total,
+        prev,
+        next,
+        limit
     })
 })
 

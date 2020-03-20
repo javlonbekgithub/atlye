@@ -7,7 +7,6 @@
                 <a href = "/order/" class = "active">закази</a>
                 <a href = "/try-on/" class = "hItem">примерка</a>
                 <a href = "/balance/" class = "hItem">баланс клиента</a>
-                <!-- <a href = "/entered-materials/" class = "hItem">поступивший материал</a> -->
                 <a href = "/overhead-list/" class = "hItem">склад</a>
                 <a href = "" class = "hItem">услуги</a>
                 <a href = "" class = "hItem">расходы</a>
@@ -143,7 +142,7 @@
                             <textarea name = "notice" id = "notice" cols = "25" rows = "5"><%= (order.notice) ? order.notice : '' %></textarea>
                         <% } %>
                         <p class = "<%- (order.client || notFill) ? '' : 'error' %>">клиент</p>
-                        <% if(disabled) { %>
+                        <% if(disabled || edit) { %>
                             <select disabled name = "client" id = "client">
                                 <option value = ''>выберите клиента</option>
                                 <% customer.forEach((item) => { %>
@@ -187,7 +186,6 @@ let template = document.getElementById('template')
 const handleChange = ({target}) => {
     sumOrder.value = parseInt(target.selectedOptions[0].title)
 }
-console.log()
 typeOrder.addEventListener('change', handleChange)
 
 const handleDebt = () => debt.value = sumOrder.value - paid.value 

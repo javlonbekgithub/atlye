@@ -8,17 +8,29 @@ connect(uri , {
     useUnifiedTopology: true
 })
 
-const user1 = {
+const users = [
+    {
         userName: 'test',
         password: 'password'
+    },
+    {
+        userName: 'test2',
+        password: 'password2'
+    },
+    {
+        userName: 'test3',
+        password: 'password3'
     }
+]
 
+users.map(item => {
 connection.once('open', async () => {
-    let dbRes = await User.findOne({ userName: user1.userName })
-    if(!dbRes) {
-        user1.password = sha256(user1.password).toString()
-        await User.insertMany([user1])
-        console.log('successful')
-    } else 
-        console.log('user-exists')
+        let dbRes = await User.findOne({ userName: item.userName })
+        if(!dbRes) {
+            item.password = sha256(item.password).toString()
+            await User.insertMany([item])
+            console.log('successful', item.userName)
+        } else 
+            console.log('user-exists', item.userName)
+    } )
 }) 

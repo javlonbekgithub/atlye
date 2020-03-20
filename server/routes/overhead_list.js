@@ -182,6 +182,7 @@ overhead_list.post('/find', checkSessionId, async (req, res) => {
         req.currentUser._id, 
         { $set: { query: overheadListQuery }} )
     const overheadListFromDb = overheadListQuery.slice(skip, next)
+    console.log(overheadListFromDb)
     res.render('overhead-list', {
         overheadListFromDb,
         goodsCode,

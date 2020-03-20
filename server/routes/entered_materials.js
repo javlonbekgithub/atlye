@@ -202,8 +202,8 @@ entered_materials.post('/find', checkSessionId, async (req, res) => {
     let next = limit + skip
     let prev = next - limit * 2
     const e_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
-    const entered_materials_db = []
-    entered_materials_db.push(e_materials_db[parseInt(req.body.query)])
+    let entered_materials_db = []
+    req.body.query && entered_materials_db.push(e_materials_db[parseInt(req.body.query)])
     let total = e_materials_db.length 
     await User.findByIdAndUpdate(
         req.currentUser._id, 
@@ -213,7 +213,7 @@ entered_materials.post('/find', checkSessionId, async (req, res) => {
         operation,
         documentList,
         statusPaid,
-        _id: entered_materials_db[0].overhead,
+        _id: req._parsedUrl.query,
         prev,
         next,
         total: false,

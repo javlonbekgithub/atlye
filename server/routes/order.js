@@ -62,6 +62,7 @@ order.get('/add', checkSessionId, async (req, res) => {
         id: '',
         titles: titlesAndRoutes.add,
         disabled: false,
+        edit: false,
         order: false,
         notFill: true
     })
@@ -122,6 +123,7 @@ order.post('/add', checkSessionId, async (req, res) => {
         customerStatus,
         id: '',
         disabled: false,
+        edit: false,
         order,
         notFill: false
     })
@@ -144,6 +146,7 @@ order.get('/copy', checkSessionId, async (req, res) => {
         customerStatus,
         id: '',
         disabled: false,
+        edit: false,
         order,
         notFill: true
     })
@@ -165,6 +168,7 @@ order.get('/show', checkSessionId, async (req, res) => {
         id: '',
         customerStatus, 
         disabled: true,
+        edit: true,
         order,
         notFill: true
     })
@@ -185,6 +189,7 @@ order.get('/edit', checkSessionId, async (req, res) => {
         titles: titlesAndRoutes.edit,
         id: req._parsedUrl.search, 
         disabled: false,
+        edit: true,
         order,
         notFill: true
     })
@@ -192,25 +197,28 @@ order.get('/edit', checkSessionId, async (req, res) => {
 
 order.post('/edit', checkSessionId, async (req, res) => {
     let order = req.body
-    if(order.dateOrder && order.typeOrder && order.executor && order.client && order.customerStatus) {
+    console.log(order)
+    if(order.dateOrder && order.typeOrder && order.executor && order.customerStatus) {
         const oldOrder = await Order.findOne({ '_id': req._parsedUrl.query})
         order.paid = order.paid || 0
         order.dateOrder = strtotime(order.dateOrder)
         order.responsible = req.currentUser._id
         let payment
         if(parseInt(order.sumOrder) !== oldOrder.sumOrder || parseInt(order.paid) !== oldOrder.paid) {
+            console.log('payment')
             payment = {
             datePayment: Date.now(),
-            paid: order.paid,
-            client: order.client
-            } 
+            paid: order.paid - oldOrder.paid,
+            client: oldOrder.client
+            }
+            console.log(payment) 
         } else {
             payment = null
         }
         if(payment) {
             const addedPayment = await Payment.insertMany([payment]) 
             await Customer.findByIdAndUpdate(
-                order.client,
+                oldOrder.client,
                 { $push: { 
                     payments : addedPayment[0]._id 
                 } }
@@ -232,6 +240,7 @@ order.post('/edit', checkSessionId, async (req, res) => {
         id: req._parsedUrl.search,
         customerStatus,
         disabled: false,
+        edit: true,
         order,
         notFill: false
     })
@@ -249,7 +258,7 @@ order.post('/find', checkSessionId, async (req, res) => {
     let prev = next - limit * 2
     const ordersFromDb = await (await Order.find()
         .populate(options))
-        .filter(item => item.client.name === req.body.query)
+        .filter(item => item.client.name.includes(req.body.query) )
     await User.findByIdAndUpdate(
         req.currentUser._id, 
         { $set: { query: ordersFromDb }} )
