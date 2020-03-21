@@ -53,7 +53,7 @@ try_on.post('/find', checkSessionId, async (req, res) => {
     let prev = next - limit * 2
     const tryOnsFromDb = await (await TryOn.find()
         .populate(options))
-        .filter(item => item.client.name === req.body.query)
+        .filter(item => item.client.name.startsWith(req.body.query))
     await User.findByIdAndUpdate(
         req.currentUser._id, 
         { $set: { query: tryOnsFromDb }} )

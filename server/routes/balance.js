@@ -2,7 +2,7 @@ const { Router } = require ('express')
 const { Customer } = require('../models/customer')
 const { checkSessionId } = require('../helpers')
 const { Payment } = require('../models/payment')
-
+const { User } = require('../models/user')
 
 const balance = Router()
 
@@ -19,23 +19,30 @@ balance.get('/', checkSessionId, async (req, res) => {
     let limit = 5
     let next = limit + skip
     let prev = next - limit * 2
-    const total = await Customer.find().count()
-    const customers = await Customer.find()
-        .populate(options)
-        .populate(options2)
-        .skip(skip)
-        .limit(limit)
-    const customerBalance = []
-    customers.map((item, i) => {
-        customerBalance.push({
-            _id: item._id,
-            name: item.name,
-            additional: 0,
-            paid: 0
+    let total
+    let customerBalance = []
+    const filteredBalances = req.currentUser.query
+    if(filteredBalances.length < 1) {
+        total = await Customer.find().count()
+        const customers = await Customer.find()
+            .populate(options)
+            .populate(options2)
+            .skip(skip)
+            .limit(limit)
+        customers.map((item, i) => {
+            customerBalance.push({
+                _id: item._id,
+                name: item.name,
+                additional: 0,
+                paid: 0
+            })
+            item.orders.map(order => { customerBalance[i].additional += order.sumOrder })
+            item.payments.map(item => { customerBalance[i].paid += item.paid })
         })
-        item.orders.map(order => { customerBalance[i].additional += order.sumOrder })
-        item.payments.map(item => { customerBalance[i].paid += item.paid })
-    })
+    } else {
+        total = filteredBalances.length
+        customerBalance = filteredBalances.slice(skip, next)
+    }
     res.render('balance', {
         customerBalance,
         prev,
@@ -100,24 +107,36 @@ balance.post('/find', checkSessionId, async (req, res) => {
         path: 'payments',
         model: 'Payment'
     }
+    let skip = 0
+    let limit = 5
+    let next = limit + skip
+    let prev = next - limit * 2
     let customers = await (await Customer.find()
         .populate(options)
         .populate(options2))
-        .filter(item => item.name === req.body.query)
-    const customerBalance = []
+        .filter(item => item.name.startsWith(req.body.query))
+    const customerBalanceQuery = []
     customers.map((item, i) => {
-        customerBalance.push({
+        customerBalanceQuery.push({
             _id: item._id,
             name: item.name,
             additional: 0,
             paid: 0
         })
-        item.orders.map(order => { customerBalance[i].additional += order.sumOrder })
-        item.payments.map(item => { customerBalance[i].paid += item.paid })
+        item.orders.map(order => { customerBalanceQuery[i].additional += order.sumOrder })
+        item.payments.map(item => { customerBalanceQuery[i].paid += item.paid })
     })
+    await User.findByIdAndUpdate(
+        req.currentUser._id, 
+        { $set: { query: customerBalanceQuery }} )
+    const total = customerBalanceQuery.length
+    const customerBalance = customerBalanceQuery.slice(skip, next)
     res.render('balance', {
         customerBalance,
-        total: false
+        total,
+        prev,
+        next,
+        limit
     })
 })
 

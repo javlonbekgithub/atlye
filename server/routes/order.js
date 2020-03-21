@@ -252,13 +252,13 @@ order.post('/find', checkSessionId, async (req, res) => {
         path : 'client',
         select : 'name'
     }
-    let skip = parseInt(req._parsedUrl.query) || 0
+    let skip = 0
     let limit = 5
     let next = limit + skip
     let prev = next - limit * 2
     const ordersFromDb = await (await Order.find()
         .populate(options))
-        .filter(item => item.client.name.includes(req.body.query) )
+        .filter(item => item.client.name.startsWith(req.body.query))
     await User.findByIdAndUpdate(
         req.currentUser._id, 
         { $set: { query: ordersFromDb }} )

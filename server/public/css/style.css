@@ -16,8 +16,8 @@
 :root {
     --bgc: rgba(255, 255, 255, 0.74);
     --shadow: 0px 8px 40px -23px rgba(0, 0, 0, 0.274);
-    --hover: rgb(206, 205, 205);
-    --mainBgc: #e9e6e6;
+    --hover: rgb(179, 178, 178);
+    --mainBgc: #f8f5f5;
     --green: #28a746;
     --darkGreen: #18722d;
     --lightBlue: #17a2b8;
@@ -60,7 +60,7 @@ textarea {
     padding: 0.6em;
     border-radius: 0.2em;
     border: none;
-    box-shadow: 0px 3px 36px -17px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 25px -17px rgba(0,0,0,0.75);
     outline: none;
     font-size: 1em;
 }
@@ -146,13 +146,13 @@ label {
     justify-content: center;
     cursor: pointer;
     padding: 1em;
-    background-color: var(--lightBlue);
-    color: #fff;
+    /* background-color: var(--lightBlue); */
+    color: rgb(160, 158, 158);
 }
-.active:hover {
+/* .active:hover {
     transition: ease-out 0.3s;
     background-color: var(--darkBlue);
-}
+} */
 .selectedItem {
     color: #fff;
     background-color: var(--green) !important;
@@ -295,7 +295,8 @@ label {
             }
             .hItem:hover {
                 transition: ease-out 0.3s;
-                background-color: var(--hover);
+                /* background-color: var(--hover); */
+                color: var(--hover);
             }
         .secondLayer {
             display: flex;
@@ -348,6 +349,7 @@ label {
             align-items: flex-start;
             height: max-content;
             background-color: var(--bgc);
+            box-shadow: var(--shadow);
             padding: 1em;
             border-radius: 0.2em;
         }

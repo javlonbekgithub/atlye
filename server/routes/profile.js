@@ -212,7 +212,7 @@ profile.post('/find', checkSessionId, async (req, res) => {
     let prev = next - limit * 2
     let total 
     const filteredCustomers = await (await Customer.find())
-        .filter(item => item.name.includes(req.body.query) )
+        .filter(item => item.name.startsWith(req.body.query))
     await User.findByIdAndUpdate(
         req.currentUser._id, 
         { $set: { query: filteredCustomers }} )

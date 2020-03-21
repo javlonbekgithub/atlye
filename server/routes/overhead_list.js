@@ -172,7 +172,7 @@ overhead_list.get('/show', checkSessionId, async (req, res) => {
 })
 
 overhead_list.post('/find', checkSessionId, async (req, res) => {
-    let skip = parseInt(req._parsedUrl.query) || 0
+    let skip = 0
     let limit = 5
     let next = limit + skip
     let prev = next - limit * 2
@@ -182,7 +182,6 @@ overhead_list.post('/find', checkSessionId, async (req, res) => {
         req.currentUser._id, 
         { $set: { query: overheadListQuery }} )
     const overheadListFromDb = overheadListQuery.slice(skip, next)
-    console.log(overheadListFromDb)
     res.render('overhead-list', {
         overheadListFromDb,
         goodsCode,

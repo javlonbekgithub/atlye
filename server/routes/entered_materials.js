@@ -204,7 +204,7 @@ entered_materials.post('/find', checkSessionId, async (req, res) => {
     const e_materials_db = await Entered_Materials.find({overhead: req._parsedUrl.query})
     let entered_materials_db = []
     req.body.query && entered_materials_db.push(e_materials_db[parseInt(req.body.query)])
-    let total = e_materials_db.length 
+    // let total = e_materials_db.length 
     await User.findByIdAndUpdate(
         req.currentUser._id, 
         { $set: { query: entered_materials_db }} )
